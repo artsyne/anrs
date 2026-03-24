@@ -30,7 +30,7 @@ Traditional AI coding often suffers from "Context Drift" and "Instruction Decay.
 
 **Vendor Agnostic** — Through its adapter layer, AHES bridges different AI ecosystems (Cursor, Claude, OpenAI, open-source models) without vendor lock-in.
 
-**Multi-Layer Verification** — A triple-layer gate—static checks (L1), functional tests (L2), and stability audits (L3)—ensures production-grade reliability.
+**Multi-Layer Verification** — A quadruple-layer gate—security checks, static checks (L1), functional tests (L2), and stability audits (L3)—ensures production-grade reliability.
 
 **Closed-Loop Evolution** — Systematic capture and analysis of failure cases creates a feedback loop for self-correction.
 
@@ -181,8 +181,9 @@ The following diagram shows how a task flows through the AHES pipeline:
 │   └── contracts/         # Schema definitions
 │
 ├── harness/               # Evaluation system
-│   ├── evaluators/        # L1/L2/L3 evaluators
+│   ├── evaluators/        # Security + L1/L2/L3 evaluators
 │   ├── metrics/           # Quality metrics
+│   ├── README.md          # Harness architecture
 │   └── quality_gate.py    # Evaluation entry point
 │
 ├── examples/              # Quick start examples
@@ -229,7 +230,7 @@ Point your AI tool to `ai/ENTRY.md` as the entry point.
 
 **Skills** — `ai/skills/index.json` — Registered action templates with input/output schemas and constraints.
 
-**Harness** — `harness/quality_gate.py` — Multi-layer evaluation gate (L1: static, L2: tests, L3: stability).
+**Harness** — `harness/quality_gate.py` — Multi-layer evaluation gate (Security → L1: static → L2: tests → L3: stability).
 
 ---
 
