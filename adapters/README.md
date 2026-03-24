@@ -13,34 +13,60 @@ Vendor-specific configurations for integrating AHES with different AI platforms.
 
 ## Available Adapters
 
-| Adapter | Platform | Files |
-|---------|----------|-------|
-| [claude/](claude/) | Claude (Anthropic) | system-prompt.txt |
-| [cursor/](cursor/) | Cursor IDE | .cursorrules |
-| [openai/](openai/) | OpenAI Agents | system-prompt.txt, agent-config.json |
-| [opencode/](opencode/) | OpenCode CLI/TUI | opencode.json, agents/*.md |
+| Adapter | Platform | Modes | Files |
+|---------|----------|-------|-------|
+| [claude/](claude/) | Claude (Anthropic) | build, plan | system-prompt.txt, projects/*.md |
+| [cursor/](cursor/) | Cursor IDE | build, plan | .cursorrules, modes/* |
+| [openai/](openai/) | OpenAI API/Assistants | build, plan, review | system-prompt.txt, assistants/*.json |
+| [opencode/](opencode/) | OpenCode CLI/TUI | build, plan, review | opencode.json, agents/*.md |
+
+## Quick Comparison
+
+| Mode | Capability | Use When |
+|------|------------|----------|
+| **build** | Read, Write, Execute | Implementing features, fixing bugs |
+| **plan** | Read only | Analyzing code, creating plans |
+| **review** | Read only | Code review, quality checks |
 
 ## Usage
 
 ### Claude
 
-Copy `claude/system-prompt.txt` content to your Claude project's system prompt.
+```bash
+# Quick start (build mode)
+cat adapters/claude/system-prompt.txt  # Copy to Claude system prompt
+
+# For Claude Projects
+# Copy adapters/claude/projects/ahes-build.md or ahes-plan.md
+```
+
+See [claude/README.md](claude/README.md) for API and Projects setup.
 
 ### Cursor
 
-Copy `cursor/.cursorrules` to your project root as `.cursorrules`.
-
 ```bash
-cp adapters/cursor/.cursorrules /your-project/.cursorrules
+# Quick start (build mode)
+cp adapters/cursor/.cursorrules your-project/.cursorrules
+
+# Switch to plan mode
+cp adapters/cursor/modes/cursorrules-plan your-project/.cursorrules
 ```
+
+See [cursor/README.md](cursor/README.md) for Composer tips.
 
 ### OpenAI
 
-Use `openai/agent-config.json` for OpenAI Agents configuration, or copy `system-prompt.txt` for custom setups.
+```bash
+# Chat Completions API
+cat adapters/openai/system-prompt.txt  # Use as system message
+
+# Assistants API (recommended)
+# Use adapters/openai/assistants/ahes-{build,plan,review}.json
+```
+
+See [openai/README.md](openai/README.md) for code examples.
 
 ### OpenCode
-
-Copy the entire `opencode/` directory to your project:
 
 ```bash
 mkdir -p .opencode/agents
@@ -48,7 +74,7 @@ cp adapters/opencode/opencode.json .opencode/
 cp adapters/opencode/agents/*.md .opencode/agents/
 ```
 
-See [opencode/README.md](opencode/README.md) for detailed instructions.
+See [opencode/README.md](opencode/README.md) for detailed setup.
 
 ## Adding New Adapters
 
