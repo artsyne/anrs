@@ -25,32 +25,48 @@ FAIL → reflection → SCRATCHPAD → new plan → RETRY (step 4)
 
 ## Step Details
 
-### 1. Read State
+### Prepare Phase
+
+#### 1. Read State
 ```json
 {"current_task": "task-001", "status": "running", "execution": {"retry_count": 0}}
 ```
 
-### 2. Locate Task
+#### 2. Locate Task
 ```markdown
 # Task: task-001
 ## Objective: Implement user authentication
 ## Requirements: Add login endpoint, JWT validation, tests
 ```
 
-### 3. Select Skill
+#### 3. Select Skill
 ```json
 {"selected_skill": "test-driven-dev", "reason": "Task requires new feature with tests"}
 ```
 
-### 4-5. Execute & Harness
-- Read SKILL.md, follow all checklist items
-- Run `./scripts/run_harness.sh` (L1 → L2 → L3)
+### Execute Phase
 
-### 6-8. Success Path
-`atomic-commit` → `update-state` → `cleanup-scratchpad`
+#### 4. Execute Skill
+- Read SKILL.md, follow all checklist items
+- OR use `dispatch-subagent` for parallel independent tasks
+
+#### 5. Run Harness
+- Run `./scripts/run_harness.sh` (Security → L1 → L2 → L3)
+- Fail at any level → Stop cascade, enter Failure Path
+
+### Finalize Phase (on PASS)
+
+#### 6. Atomic Commit
+Commit code + state changes together
+
+#### 7. Update State
+Set status to `idle`, clear `current_task`
+
+#### 8. Cleanup Scratchpad
+Clear temporary data from `ai/state/scratchpad/`
 
 ### Failure Path
-`reflection` → SCRATCHPAD (error + analysis) → new plan → RETRY
+`reflection` → SCRATCHPAD (error + analysis) → new plan → RETRY (step 4)
 
 ## Retry Policy
 
