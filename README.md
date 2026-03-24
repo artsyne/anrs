@@ -226,9 +226,9 @@ Point your AI tool to `ai/ENTRY.md` as the entry point.
 
 **State (SSOT)** — `ai/state/state.json` — Single Source of Truth for task state. AI reads this before any action.
 
-**Orchestrator** — `ai/orchestrator/ORCHESTRATOR.md` — Defines the execution protocol (Read → Plan → Execute → Verify loop).
+**Orchestrator** — `ai/orchestrator/ORCHESTRATOR.md` — Defines the execution protocol (Read → Plan → Execute → Verify loop). Supports sequential and parallel (subagent) execution modes.
 
-**Skills** — `ai/skills/index.json` — Registered action templates with input/output schemas and constraints.
+**Skills** — `ai/skills/index.json` — 15 registered action templates with input/output schemas and constraints.
 
 **Harness** — `harness/quality_gate.py` — Multi-layer evaluation gate (Security → L1: static → L2: tests → L3: stability).
 
