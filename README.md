@@ -12,7 +12,7 @@
 
 AHES (AI Harness Engineering Standard) is a vendor-neutral, transactional framework that defines a rigorous execution protocol and multi-layer evaluation harness for AI-driven software engineering.
 
-Traditional AI coding often suffers from "Context Drift" and "Instruction Decay." AHES addresses this by introducing a **System of Record (SSOT)** for AI agents:
+Traditional AI coding often suffers from "Context Drift" and "Instruction Decay." AHES addresses this by introducing a System of Record (SSOT) for AI agents:
 
 - **State-Aware** — AI always knows "where it is" via a machine-readable `state.json`
 - **Skill-Bound** — AI is restricted to a whitelist of registered Skills, preventing undefined operations

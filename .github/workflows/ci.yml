@@ -18,7 +18,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
@@ -50,8 +50,8 @@ jobs:
       - name: Check Markdown links
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
-          use-quiet-mode: 'yes'
-          config-file: '.github/mlc_config.json'
+          use-quiet-mode: "yes"
+          config-file: ".github/mlc_config.json"
         continue-on-error: true
 
   shell-check:
@@ -65,5 +65,5 @@ jobs:
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
         with:
-          scandir: './scripts'
+          scandir: "./scripts"
         continue-on-error: true
