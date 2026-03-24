@@ -32,13 +32,12 @@
     
     "current_task": {
       "type": ["string", "null"],
-      "pattern": "^task-\\d{3,}$",
-      "description": "ID of the currently active task (e.g., task-001). Null if idle."
+      "description": "ID of the currently active task (e.g., task-001, todo-001). Null if idle."
     },
     
     "status": {
       "type": "string",
-      "enum": ["idle", "running", "blocked", "completed", "failed"],
+      "enum": ["idle", "pending", "running", "blocked", "completed", "failed"],
       "description": "Current execution status"
     },
     
@@ -52,7 +51,6 @@
         },
         "last_result": {
           "type": ["string", "null"],
-          "enum": ["success", "failure", null],
           "description": "Result of the last skill execution"
         },
         "retry_count": {
@@ -60,6 +58,13 @@
           "minimum": 0,
           "maximum": 10,
           "description": "Number of retries for current task"
+        },
+        "max_retries": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "default": 3,
+          "description": "Maximum retry attempts"
         },
         "next_action": {
           "type": ["string", "null"],

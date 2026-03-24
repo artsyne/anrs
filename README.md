@@ -18,6 +18,8 @@ Traditional AI coding often suffers from "Context Drift" and "Instruction Decay.
 - **Skill-Bound** — AI is restricted to a whitelist of registered Skills, preventing undefined operations
 - **Harness-Governed** — No code is considered complete until it passes the mandatory multi-stage evaluation
 
+> **Note**: AHES is a **specification framework**, not a production-ready tool. The harness evaluators are protocol skeletons demonstrating the expected interfaces. The example code is intentionally incomplete — it serves as a scenario for AI agents to practice following the AHES protocol.
+
 ---
 
 ## Core

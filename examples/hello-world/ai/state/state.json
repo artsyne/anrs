@@ -1,5 +1,14 @@
 {
+  "version": "0.1.0",
+  "last_updated": "2026-03-24T00:00:00Z",
   "current_task": "hello-001",
   "status": "pending",
-  "task_description": "Add a greet(name) function that returns 'Hello, {name}!'"
+  "execution": {
+    "last_skill": null,
+    "last_result": null,
+    "retry_count": 0,
+    "max_retries": 3,
+    "next_action": null
+  },
+  "history": []
 }
