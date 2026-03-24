@@ -42,6 +42,7 @@ IF FAIL: reflection → SCRATCHPAD → new plan → RETRY
 | `ai/orchestrator/ORCHESTRATOR.md` | Detailed protocol (sequential + parallel modes) |
 | `ai/rules/global.md` | Global constraints |
 | `ai/skills/index.json` | Skill registry (15 skills) |
+| `plans/README.md` | Plan lifecycle (backlog → active → completed) |
 | `harness/quality_gate.py` | Evaluation entry (Security → L1 → L2 → L3) |
 | `docs/references/` | Architecture graph, dependency map, API contracts |
 

@@ -198,7 +198,9 @@ The following diagram shows how a task flows through the AHES pipeline:
 │
 ├── plans/                 # Task management
 │   ├── active/            # Current tasks
-│   └── completed/         # Archived tasks
+│   ├── completed/         # Archived tasks
+│   ├── backlog/           # Future work & tech debt
+│   └── templates/         # Plan templates
 │
 ├── evals/                 # Evolution system
 │   ├── benchmarks/        # Performance benchmarks
