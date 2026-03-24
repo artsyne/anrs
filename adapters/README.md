@@ -18,6 +18,7 @@ Vendor-specific configurations for integrating AHES with different AI platforms.
 | [claude/](claude/) | Claude (Anthropic) | system-prompt.txt |
 | [cursor/](cursor/) | Cursor IDE | .cursorrules |
 | [openai/](openai/) | OpenAI Agents | system-prompt.txt, agent-config.json |
+| [opencode/](opencode/) | OpenCode CLI/TUI | opencode.json, agents/*.md |
 
 ## Usage
 
@@ -36,6 +37,18 @@ cp adapters/cursor/.cursorrules /your-project/.cursorrules
 ### OpenAI
 
 Use `openai/agent-config.json` for OpenAI Agents configuration, or copy `system-prompt.txt` for custom setups.
+
+### OpenCode
+
+Copy the entire `opencode/` directory to your project:
+
+```bash
+mkdir -p .opencode/agents
+cp adapters/opencode/opencode.json .opencode/
+cp adapters/opencode/agents/*.md .opencode/agents/
+```
+
+See [opencode/README.md](opencode/README.md) for detailed instructions.
 
 ## Adding New Adapters
 
