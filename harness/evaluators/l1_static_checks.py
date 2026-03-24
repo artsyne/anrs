@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-📊 L1 Static Checks
+L1 Static Checks
 
 Level 1 evaluation: Static code analysis.
 - Syntax validation

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-🔒 Security Scanner
+Security Scanner
 
 Security evaluation across all levels.
 - Dependency vulnerabilities

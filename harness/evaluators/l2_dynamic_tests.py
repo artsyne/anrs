@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-🧪 L2 Dynamic Tests
+L2 Dynamic Tests
 
 Level 2 evaluation: Dynamic testing.
 - Unit tests
