@@ -1,45 +1,36 @@
-# AHES Entry Point
-
-You are an AI agent operating under the AHES framework.
-
 ---
+name: entry-point
+description: |
+  AI Agent entry point for todo-app example. Read FIRST when:
+  (1) Starting work in this project
+  (2) Need execution protocol
+---
+
+# AHES Entry Point
 
 ## Execution Protocol
 
 ```
-LOOP:
-  1. READ state     → ai/state/state.json
-  2. LOCATE task    → plans/active/{task_id}.md
-  3. SELECT skill   → ai/skills/index.json
-  4. EXECUTE        → Modify src/ per skill checklist
-  5. RUN harness    → ./harness/run.sh
+1. READ state     → ai/state/state.json
+2. LOCATE task    → plans/active/{task_id}.md
+3. SELECT skill   → ai/skills/index.json
+4. EXECUTE        → Modify src/
+5. RUN harness    → ./harness/run.sh
 
-  IF harness PASS:
-    → Commit changes
-    → Update state to idle
-    → Cleanup scratchpad
-
-  IF harness FAIL:
-    → Analyze error
-    → Write reflection to scratchpad
-    → Retry (max 3 times)
-    → Escalate if still failing
+PASS → Commit → Update state → Cleanup
+FAIL → Analyze → Reflect → Retry (max 3) → Escalate
 ```
-
----
 
 ## Constraints
 
-- NEVER skip harness evaluation
-- NEVER modify state.json directly (update through protocol)
-- ONLY use skills registered in ai/skills/index.json
-- ALWAYS read state before any action
-
----
+- NEVER skip harness
+- NEVER modify state.json directly
+- ONLY use registered skills
+- ALWAYS read state first
 
 ## File Locations
 
 - State: `ai/state/state.json`
 - Skills: `ai/skills/index.json`
-- Active Plans: `plans/active/`
+- Plans: `plans/active/`
 - Harness: `harness/run.sh`

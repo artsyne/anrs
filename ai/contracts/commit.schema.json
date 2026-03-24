@@ -33,8 +33,8 @@
     
     "task_id": {
       "type": "string",
-      "pattern": "^task-\\d{3,}$",
-      "description": "Related task ID"
+      "pattern": "^[a-z]+-\\d{3,}$",
+      "description": "Related task ID (e.g., task-001, todo-001)"
     },
     
     "harness_result": {

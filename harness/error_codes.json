@@ -6,7 +6,8 @@
     "E2xx": "Test Errors",
     "E3xx": "Stability Errors",
     "E4xx": "Security Errors",
-    "E5xx": "Protocol Errors"
+    "E5xx": "Protocol Errors",
+    "E6xx": "Environment Errors"
   },
   
   "errors": {
@@ -111,6 +112,42 @@
       "severity": "high",
       "message": "Used skill not in registry",
       "recovery": "Register skill in index.json or use registered skill"
+    },
+    
+    "E601": {
+      "name": "dependency_missing",
+      "category": "environment",
+      "severity": "critical",
+      "message": "Required dependency not installed",
+      "recovery": "Install missing dependency"
+    },
+    "E602": {
+      "name": "network_timeout",
+      "category": "environment",
+      "severity": "high",
+      "message": "Network operation timed out",
+      "recovery": "Check network connectivity and retry"
+    },
+    "E603": {
+      "name": "disk_full",
+      "category": "environment",
+      "severity": "critical",
+      "message": "Insufficient disk space",
+      "recovery": "Free disk space and retry"
+    },
+    "E604": {
+      "name": "permission_denied",
+      "category": "environment",
+      "severity": "critical",
+      "message": "Permission denied for file or resource",
+      "recovery": "Check file permissions or run with appropriate privileges"
+    },
+    "E605": {
+      "name": "tool_not_found",
+      "category": "environment",
+      "severity": "high",
+      "message": "Required tool not found in PATH",
+      "recovery": "Install tool or update PATH"
     }
   },
   

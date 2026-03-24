@@ -1,10 +1,12 @@
-# Write Plan Checklist
-
-<!--
-  ✅ CHECKLIST for write-plan skill
--->
-
 ---
+name: write-plan-checklist
+description: |
+  Checklist for write-plan skill. Read when:
+  (1) Creating a new plan
+  (2) Validating plan quality
+---
+
+# Write Plan Checklist
 
 ## Pre-Execution
 
@@ -16,8 +18,7 @@
 
 - [ ] Objective is single sentence
 - [ ] All requirements listed
-- [ ] Steps are atomic
-- [ ] Steps are ordered correctly
+- [ ] Steps are atomic and ordered
 - [ ] Acceptance criteria are measurable
 - [ ] Effort estimate provided
 
@@ -26,4 +27,4 @@
 - [ ] Plan file created in `plans/active/`
 - [ ] Plan follows template structure
 - [ ] Plan is under 200 lines
-- [ ] No vague terms used
+- [ ] No vague terms

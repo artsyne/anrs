@@ -1,167 +1,93 @@
-# Safety Rules
-
-<!--
-  🛡️ SAFETY CONSTRAINTS
-  
-  Rules to prevent dangerous or irreversible actions.
-  These rules protect the system and users.
--->
-
+---
+name: safety-rules
+description: |
+  Safety constraints to prevent dangerous actions. Read when:
+  (1) About to execute potentially risky operations
+  (2) Handling data or credentials
+  (3) Accessing external systems
 ---
 
-## 🔴 Prohibited Actions
+# Safety Rules
 
-### 1. Destructive Operations
+## Prohibited Actions (NEVER)
 
+### Destructive Operations
 ```bash
-# ❌ NEVER execute these commands
 rm -rf /
 rm -rf *
 DROP DATABASE
-DELETE FROM users;  # Without WHERE clause
+DELETE FROM users;  # Without WHERE
 ```
 
-### 2. Secret Exposure
-
+### Secret Exposure
 ```bash
-# ❌ NEVER output secrets
 echo $API_KEY
 cat .env
 git add .env
 ```
 
-### 3. Production Access
-
+### Production Access
 ```bash
-# ❌ NEVER directly access production
 ssh production-server
 kubectl exec -it prod-pod
 psql production_database
 ```
 
-### 4. Force Operations
-
+### Force Operations
 ```bash
-# ❌ NEVER use force flags without explicit approval
 git push --force
 git reset --hard
 kubectl delete --force
 ```
 
----
+## Restricted Actions (REQUIRES approval)
 
-## 🟡 Restricted Actions
-
-### 1. Database Operations
-
+### Database
 ```sql
--- ⚠️ REQUIRES review before execution
-ALTER TABLE ...
-DROP INDEX ...
-TRUNCATE TABLE ...
-UPDATE ... WHERE ...  # Must have specific WHERE clause
+ALTER TABLE / DROP INDEX / TRUNCATE TABLE
+UPDATE ... WHERE ...  # Must have specific WHERE
 ```
 
-### 2. System Configuration
+### System
+```bash
+chmod 777 / chown / systemctl restart
+```
+
+### Network
+```bash
+curl external-url / wget / npm install (public registry)
+```
+
+## Safe Operations (ALWAYS OK)
 
 ```bash
-# ⚠️ REQUIRES explicit approval
-chmod 777 ...
-chown ...
-systemctl restart ...
+# Read-only
+ls, cat, grep, find, git status/log/diff, kubectl get/describe
+
+# Local development
+go run/test, npm run dev, docker-compose up (local)
+
+# Harness
+./scripts/run_harness.sh, ./scripts/run_task.sh
 ```
 
-### 3. Network Operations
+## Data Protection
 
-```bash
-# ⚠️ REQUIRES security review
-curl external-url
-wget ...
-npm install (from public registry)
-```
+- NEVER log PII or credentials
+- NEVER expose PII in error messages
+- ALWAYS mask sensitive data
+- ALWAYS use environment variables for secrets
+- ALWAYS backup before destructive operations
 
----
+## Incident Response
 
-## ✅ Safe Operations
+If safety rule violated: STOP → ASSESS → NOTIFY → CONTAIN → DOCUMENT
 
-### 1. Read-Only
+## Safety Checklist
 
-```bash
-# ✅ Always safe
-ls, cat, grep, find
-git status, git log, git diff
-kubectl get, kubectl describe
-```
-
-### 2. Local Development
-
-```bash
-# ✅ Safe in development
-go run, go test
-npm run dev
-docker-compose up (local)
-```
-
-### 3. Harness Operations
-
-```bash
-# ✅ Safe - designed for this purpose
-./scripts/run_harness.sh
-./scripts/run_task.sh
-```
-
----
-
-## 🔒 Data Protection
-
-### 1. PII (Personal Identifiable Information)
-
-- **NEVER** log PII
-- **NEVER** expose PII in error messages
-- **ALWAYS** mask PII in outputs
-
-### 2. Credentials
-
-- **NEVER** commit credentials
-- **NEVER** print credentials
-- **ALWAYS** use environment variables
-
-### 3. Backups
-
-- **ALWAYS** backup before destructive operations
-- **ALWAYS** verify backup integrity
-- **ALWAYS** document recovery procedure
-
----
-
-## 🚨 Incident Response
-
-If a safety rule is violated:
-
-```
-1. STOP all operations immediately
-2. ASSESS the impact
-3. NOTIFY appropriate parties
-4. CONTAIN the damage
-5. DOCUMENT the incident
-6. IMPLEMENT preventive measures
-```
-
----
-
-## 📋 Safety Checklist
-
-Before any potentially risky operation:
-
-- [ ] Is this operation reversible?
+Before risky operations:
+- [ ] Is this reversible?
 - [ ] Is there a backup?
-- [ ] Has this been tested in non-production?
-- [ ] Is explicit approval documented?
-- [ ] Are rollback procedures ready?
-
----
-
-## 🔗 Related
-
-- `harness/evaluators/security_scan.py` — Automated security checks
-- `ai/skills/core/rollback/` — Rollback procedures
+- [ ] Tested in non-production?
+- [ ] Approval documented?
+- [ ] Rollback ready?

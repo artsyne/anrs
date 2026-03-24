@@ -1,26 +1,19 @@
+---
+name: frontend-architecture
+description: |
+  Frontend development guidelines. Read when:
+  (1) Writing React/TypeScript code
+  (2) Designing component structure
+  (3) Managing state
+---
+
 # Frontend Architecture
 
-<!--
-  🎨 FRONTEND ARCHITECTURE
-  
-  Guidelines for frontend development within AHES.
--->
-
----
-
-## 🎯 Overview
-
-Frontend follows a component-based architecture with strong typing and test coverage.
-
----
-
-## 📐 Standard Structure
+## Standard Structure
 
 ```
 src/
-├── components/          # Reusable components
-│   ├── ui/              # Design system
-│   └── features/        # Feature components
+├── components/          # Reusable (ui/, features/)
 ├── pages/               # Page components
 ├── hooks/               # Custom hooks
 ├── services/            # API services
@@ -29,18 +22,11 @@ src/
 └── types/               # TypeScript types
 ```
 
----
+## Design Patterns
 
-## 🔧 Design Patterns
-
-### 1. Component Composition
-
+**Component Composition**:
 ```tsx
-// Small, focused components
-const Avatar = ({ src, alt }) => (
-  <img src={src} alt={alt} className="avatar" />
-);
-
+const Avatar = ({ src, alt }) => <img src={src} alt={alt} className="avatar" />;
 const UserCard = ({ user }) => (
   <div className="user-card">
     <Avatar src={user.avatar} alt={user.name} />
@@ -49,74 +35,38 @@ const UserCard = ({ user }) => (
 );
 ```
 
-### 2. Custom Hooks
-
+**Custom Hooks**:
 ```tsx
-// Extract reusable logic
 function useUser(userId: string) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  
   useEffect(() => {
     fetchUser(userId).then(setUser).finally(() => setLoading(false));
   }, [userId]);
-  
   return { user, loading };
 }
 ```
 
-### 3. Type Safety
-
+**Type Safety**:
 ```tsx
-// Define clear interfaces
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-
-interface UserCardProps {
-  user: User;
-  onClick?: (user: User) => void;
-}
+interface User { id: string; name: string; email: string; }
+interface UserCardProps { user: User; onClick?: (user: User) => void; }
 ```
 
----
+## State Management
 
-## 🔌 State Management
-
-### Local State
-
+**Local**: `useState` for component-specific state
+**Shared**: Zustand for global state
 ```tsx
-// Use for component-specific state
-const [isOpen, setIsOpen] = useState(false);
-```
-
-### Shared State
-
-```tsx
-// Use Zustand for shared state
 const useStore = create((set) => ({
   user: null,
   setUser: (user) => set({ user }),
 }));
 ```
 
----
+## Styling
 
-## 🎨 Styling
-
-### Component Styles
-
+Tailwind CSS preferred:
 ```tsx
-// Tailwind CSS preferred
-<button className="px-4 py-2 bg-blue-500 text-white rounded">
-  Submit
-</button>
+<button className="px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
 ```
-
----
-
-## 🔗 Related
-
-- `ai/rules/coding.md` — Frontend coding standards

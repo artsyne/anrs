@@ -95,6 +95,12 @@
           }
         }
       }
+    },
+    
+    "extensions": {
+      "type": "object",
+      "description": "Project-specific custom fields. Use namespaced keys (e.g., 'vendor.field', 'project.field').",
+      "additionalProperties": true
     }
   },
   

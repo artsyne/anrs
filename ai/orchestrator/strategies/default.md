@@ -1,44 +1,32 @@
+---
+name: default-strategy
+description: |
+  Standard execution strategy. Use when:
+  (1) New feature implementation
+  (2) Bug fixes (non-critical)
+  (3) Documentation updates
+  (4) Test additions
+---
+
 # Default Strategy
 
-<!--
-  📋 DEFAULT EXECUTION STRATEGY
-  
-  Standard protocol for normal development tasks.
--->
+## Protocol
 
----
+**Pre-Execution**:
+1. Verify task in `plans/active/`
+2. Read current state
+3. Check no blockers
 
-## 🎯 When to Use
+**Execution**:
+1. Select skill based on task type
+2. Execute skill with full checklist
+3. Run harness (L1 → L2 → L3)
 
-- New feature implementation
-- Bug fixes (non-critical)
-- Documentation updates
-- Test additions
+**Post-Execution**:
+- Success: Commit → Update State → Cleanup
+- Failure: Reflect → Retry (max 3)
 
----
-
-## 📋 Protocol
-
-### Pre-Execution
-
-1. **Verify** task is in `plans/active/`
-2. **Read** current state
-3. **Check** no blockers exist
-
-### Execution
-
-1. **Select** appropriate skill based on task type
-2. **Execute** skill with full checklist
-3. **Run** harness (L1 → L2 → L3)
-
-### Post-Execution
-
-- **On Success**: Commit → Update State → Cleanup
-- **On Failure**: Reflect → Retry (max 3)
-
----
-
-## 🔧 Configuration
+## Config
 
 ```yaml
 strategy: default
@@ -47,15 +35,11 @@ harness_levels: [L1, L2, L3]
 commit_style: atomic
 ```
 
----
-
-## 📊 Decision Matrix
+## Skill Selection
 
 ```
-Task Type           → Skill Selection
-────────────────────────────────────────
-New feature         → test-driven-dev
-Bug fix             → execute-plan
-Refactoring         → (use refactor.md strategy)
-Documentation       → write-plan
+New feature   → test-driven-dev
+Bug fix       → execute-plan
+Refactoring   → use refactor.md
+Documentation → write-plan
 ```

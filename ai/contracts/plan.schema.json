@@ -1,17 +1,17 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://ahes.dev/schemas/task.schema.json",
-  "title": "AHES Task Schema",
-  "description": "Schema for task definition in plans/active/",
+  "$id": "https://ahes.dev/schemas/plan.schema.json",
+  "title": "AHES Plan Schema",
+  "description": "Schema for plan metadata in plans/active/{task_id}.md. Plans are Markdown files with this structured content.",
   "type": "object",
   
-  "required": ["task_id", "objective", "requirements", "steps", "acceptance_criteria"],
+  "required": ["task_id", "objective", "steps", "acceptance_criteria"],
   
   "properties": {
     "task_id": {
       "type": "string",
       "pattern": "^[a-z]+-\\d{3,}$",
-      "description": "Unique task identifier (e.g., task-001, todo-001, feat-001)"
+      "description": "Unique task identifier (e.g., task-001, todo-001)"
     },
     
     "objective": {
@@ -22,10 +22,7 @@
     
     "requirements": {
       "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "string"
-      },
+      "items": { "type": "string" },
       "description": "List of requirements for this task"
     },
     
@@ -47,12 +44,6 @@
             "type": "string",
             "enum": ["pending", "in_progress", "completed", "skipped"],
             "default": "pending"
-          },
-          "depends_on": {
-            "type": "array",
-            "items": {
-              "type": "integer"
-            }
           }
         }
       },
@@ -66,13 +57,8 @@
         "type": "object",
         "required": ["description"],
         "properties": {
-          "description": {
-            "type": "string"
-          },
-          "verified": {
-            "type": "boolean",
-            "default": false
-          }
+          "description": { "type": "string" },
+          "verified": { "type": "boolean", "default": false }
         }
       },
       "description": "Measurable criteria for task completion"
@@ -83,30 +69,22 @@
       "description": "Estimated time to complete (e.g., '2 hours', '1 day')"
     },
     
-    "priority": {
-      "type": "string",
-      "enum": ["critical", "high", "medium", "low"],
-      "default": "medium"
-    },
-    
-    "tags": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "Tags for categorization"
-    },
-    
     "created_at": {
       "type": "string",
       "format": "date-time"
     },
     
-    "updated_at": {
+    "completed_at": {
       "type": "string",
       "format": "date-time"
+    },
+    
+    "commit_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{7,40}$",
+      "description": "Git commit hash when plan was completed"
     }
   },
   
-  "additionalProperties": false
+  "additionalProperties": true
 }

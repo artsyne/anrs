@@ -1,5 +1,5 @@
 {
-  "$schema": "../contracts/skill.schema.json",
+  "$schema": "../contracts/skill_registry.schema.json",
   "version": "0.1.0",
   "last_updated": "2026-03-24",
   

@@ -1,156 +1,49 @@
+---
+name: system-architecture
+description: |
+  AHES framework architecture overview. Read when:
+  (1) Understanding component relationships
+  (2) Learning data flow
+  (3) Integrating with external systems
+---
+
 # System Architecture
 
-<!--
-  🏗️ SYSTEM ARCHITECTURE
-  
-  High-level overview of the AHES framework architecture.
--->
+AHES is a protocol-driven framework for AI-assisted software development.
 
----
-
-## 🎯 Overview
-
-AHES is a **protocol-driven framework** for AI-assisted software development.
+## Components
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                      AHES Framework                          │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  ┌─────────────┐     ┌─────────────┐     ┌─────────────┐   │
-│  │   Rules     │     │   State     │     │   Skills    │   │
-│  │  (ai/rules) │     │ (ai/state)  │     │ (ai/skills) │   │
-│  └──────┬──────┘     └──────┬──────┘     └──────┬──────┘   │
-│         │                   │                   │           │
-│         └───────────────────┼───────────────────┘           │
-│                             │                               │
-│                             ▼                               │
-│                   ┌─────────────────┐                       │
-│                   │  Orchestrator   │                       │
-│                   │ (ai/orchestrator)│                      │
-│                   └────────┬────────┘                       │
-│                            │                                │
-│              ┌─────────────┼─────────────┐                 │
-│              ▼             ▼             ▼                  │
-│         ┌────────┐   ┌──────────┐   ┌─────────┐           │
-│         │ Plans  │   │   Code   │   │ Harness │           │
-│         │(plans/)│   │  (src/)  │   │(harness/)│           │
-│         └────────┘   └──────────┘   └─────────┘           │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+AHES Framework
+├── Rules (ai/rules/)      → Constraints & standards
+├── State (ai/state/)      → Execution state (SSOT)
+├── Skills (ai/skills/)    → Executable actions
+├── Orchestrator (ai/orchestrator/) → Execution flow
+└── Harness (harness/)     → Code quality evaluation
 ```
 
----
-
-## 📦 Components
-
-### 1. Rules Layer (`ai/rules/`)
-
-**Purpose**: Define constraints and standards.
+### Directory Layout
 
 ```
-ai/rules/
-├── global.md        # Critical constraints
-├── coding.md        # Code standards
-├── safety.md        # Security rules
-└── constraints.json # Machine-readable rules
+ai/rules/        → global.md, coding.md, safety.md
+ai/state/        → state.json, scratchpad/
+ai/skills/       → index.json, core/, engineering/, sre/
+ai/orchestrator/ → ORCHESTRATOR.md, strategies/
+harness/         → quality_gate.py, evaluators/ (L1/L2/L3)
 ```
 
-### 2. State Layer (`ai/state/`)
-
-**Purpose**: Track execution state (SSOT).
+## Data Flow
 
 ```
-ai/state/
-├── state.json       # Current state
-├── state.schema.json
-└── scratchpad/      # Temporary memory
+User Request → Read State → Load Plan → Select Skill → Execute
+                                                         ↓
+                                                    Run Harness
+                                                         ↓
+                                              PASS? → Commit
+                                              FAIL? → Reflect & Retry
 ```
 
-### 3. Skills Layer (`ai/skills/`)
-
-**Purpose**: Define executable actions.
-
-```
-ai/skills/
-├── index.json       # Skill registry
-├── core/            # Essential skills
-├── engineering/     # Dev skills
-├── sre/             # Reliability skills
-└── env/             # Environment skills
-```
-
-### 4. Orchestrator (`ai/orchestrator/`)
-
-**Purpose**: Control execution flow.
-
-```
-ai/orchestrator/
-├── ORCHESTRATOR.md  # Main protocol
-└── strategies/      # Execution strategies
-```
-
-### 5. Harness (`harness/`)
-
-**Purpose**: Evaluate code quality.
-
-```
-harness/
-├── quality_gate.py  # Entry point
-├── evaluators/      # L1/L2/L3
-├── metrics/         # Thresholds
-└── reports/         # Results
-```
-
----
-
-## 🔄 Data Flow
-
-```
-User Request
-    │
-    ▼
-┌─────────────┐
-│ Read State  │ ◀─────── ai/state/state.json
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│ Load Plan   │ ◀─────── plans/active/
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│Select Skill │ ◀─────── ai/skills/index.json
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│Execute Skill│ ─────▶ Modify src/
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│ Run Harness │ ◀─────── harness/quality_gate.py
-└──────┬──────┘
-       │
-   ┌───┴───┐
-   │ PASS? │
-   └───┬───┘
-       │
-   ┌───┴───┐
-   │       │
-  YES      NO
-   │       │
-   ▼       ▼
-Commit   Reflect & Retry
-```
-
----
-
-## 🔐 Security Model
-
-### Access Control
+## Access Control
 
 | Component | Read | Write |
 |-----------|------|-------|
@@ -159,59 +52,12 @@ Commit   Reflect & Retry
 | Skills | All | Registry |
 | Code | All | Skill Execution |
 
-### Trust Boundaries
+## Trust Boundaries
 
-```
-┌──────────────────────────────────────┐
-│           Trusted Zone               │
-│  ┌──────────┐  ┌──────────┐         │
-│  │ Harness  │  │  State   │         │
-│  └──────────┘  └──────────┘         │
-└──────────────────────────────────────┘
-                 │
-        ─────────┼─────────
-                 │
-┌──────────────────────────────────────┐
-│         Untrusted Zone               │
-│  ┌──────────┐  ┌──────────┐         │
-│  │ AI Agent │  │   Code   │         │
-│  └──────────┘  └──────────┘         │
-└──────────────────────────────────────┘
-```
+**Trusted Zone**: Harness, State
+**Untrusted Zone**: AI Agent, Code Output
 
----
+## Integration
 
-## 🔗 Integration Points
-
-### Adapters
-
-```
-adapters/
-├── cursor/      # Cursor IDE
-├── claude/      # Claude API
-├── openai/      # OpenAI API
-└── ...
-```
-
-### External Tools
-
-- Version Control: Git
-- CI/CD: GitHub Actions, GitLab CI
-- Monitoring: Prometheus, Grafana
-
----
-
-## 📊 Scalability
-
-AHES is designed to scale:
-
-- **Horizontally**: Multiple projects
-- **Vertically**: Larger codebases
-- **Complexity**: More skills and rules
-
----
-
-## 🔗 Related
-
-- `docs/architecture/backend.md` — Backend specifics
-- `docs/architecture/frontend.md` — Frontend specifics
+Adapters: `adapters/cursor/`, `adapters/claude/`, `adapters/openai/`
+External: Git, GitHub Actions, Prometheus/Grafana

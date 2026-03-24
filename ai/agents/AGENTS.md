@@ -1,145 +1,57 @@
-# Agent Definitions
-
-<!--
-  🎭 AGENT ROLE SYSTEM
-  
-  This file defines the behavioral model for AI agents.
-  Agents must comply with these definitions.
--->
-
+---
+name: agent-definitions
+description: |
+  Agent role system overview. Read when:
+  (1) Understanding agent types and capabilities
+  (2) Checking allowed/denied skills for an agent
+  (3) Creating specialized agents
 ---
 
-## 🎯 Purpose
+# Agent Definitions
 
-Agents are the **actors** in the AHES framework. Each agent has:
+Agents are the actors in AHES. Each agent has:
 - Defined capabilities (skills whitelist)
 - Prohibited actions (red lines)
 - Decision priorities
 
----
+## Agent Types
 
-## 🤖 Default Agent
+| Type | Focus | Skills | Restrictions |
+|------|-------|--------|--------------|
+| Developer (default) | Code implementation | core + engineering | No SRE skills |
+| SRE | Reliability & operations | core + SRE | Limited code modification |
+| Review | Code review & quality | read-only + code-review | Cannot modify code |
 
-The default agent is a general-purpose coding assistant.
-
-### Capabilities
+## Default Agent
 
 ```yaml
 allowed_skills:
-  - write-plan
-  - execute-plan
-  - update-state
-  - atomic-commit
-  - reflection
-  - cleanup-scratchpad
-  - task-completion
-  - test-driven-dev
-  - code-review
-```
+  - write-plan, execute-plan, update-state, atomic-commit
+  - reflection, cleanup-scratchpad, task-completion
+  - test-driven-dev, code-review
 
-### Constraints
-
-```yaml
 prohibited_actions:
-  - Modify production systems directly
-  - Skip harness evaluation
+  - Modify production directly
+  - Skip harness
   - Commit without passing checks
-  - Access secrets or credentials
+  - Access secrets
   - Execute destructive commands
+
+priority: Correctness > Simplicity > Stability > Performance
 ```
 
-### Decision Priorities
+## Agent Lifecycle
 
 ```
-1. Correctness     ← Highest
-2. Simplicity
-3. Stability
-4. Performance     ← Lowest
+CREATED → ACTIVE (assigned) → EXECUTING (running skill)
+         → SUCCESS → [DONE]
+         → FAILED → REFLECTING → RETRYING → ...
 ```
 
----
+## Red Lines (NEVER allowed)
 
-## 📋 Agent Types
+1. **Security**: Exposing secrets, bypassing auth, unauthorized access
+2. **Data Loss**: Deleting without backup, dropping databases
+3. **Protocol**: Skipping harness, direct state modification, unregistered skills
 
-### 1. Developer Agent (default)
-
-- **Focus**: Code implementation
-- **Skills**: All core + engineering skills
-- **Restrictions**: No SRE skills
-
-### 2. SRE Agent
-
-- **Focus**: Reliability and operations
-- **Skills**: All core + SRE skills
-- **Restrictions**: Limited code modification
-
-### 3. Review Agent
-
-- **Focus**: Code review and quality
-- **Skills**: read-only + code-review
-- **Restrictions**: Cannot modify code
-
----
-
-## 🔄 Agent Lifecycle
-
-```
-┌──────────────┐
-│   CREATED    │
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│   ACTIVE     │◀─── Assigned to task
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│  EXECUTING   │◀─── Running skill
-└──────┬───────┘
-       │
-       ├───────────────────┐
-       ▼                   ▼
-┌──────────────┐    ┌──────────────┐
-│   SUCCESS    │    │   FAILED     │
-└──────────────┘    └──────┬───────┘
-                          │
-                          ▼
-                   ┌──────────────┐
-                   │  REFLECTING  │
-                   └──────┬───────┘
-                          │
-                          ▼
-                   ┌──────────────┐
-                   │   RETRYING   │
-                   └──────────────┘
-```
-
----
-
-## 🛑 Red Lines
-
-These actions are **NEVER** allowed for any agent:
-
-1. **Security Violations**
-   - Exposing secrets
-   - Bypassing authentication
-   - Accessing unauthorized systems
-
-2. **Data Loss**
-   - Deleting without backup
-   - Dropping databases
-   - Removing git history
-
-3. **Protocol Violations**
-   - Skipping harness
-   - Direct state modification
-   - Unregistered skill usage
-
----
-
-## 🔗 Related
-
-- `ai/rules/global.md` — Global rules
-- `ai/skills/index.json` — Skill registry
-- `ai/agents/default.md` — Default agent template
+See `ai/agents/default.md` for full default agent template.
