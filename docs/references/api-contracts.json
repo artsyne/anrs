@@ -1,7 +1,7 @@
 {
   "$comment": "API contracts reference for AI agents",
   
-  "version": "1.0.0",
+  "version": "0.1.0",
   
   "endpoints": {
     "health": {
