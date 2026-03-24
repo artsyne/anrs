@@ -28,7 +28,7 @@ Traditional AI coding often suffers from "Context Drift" and "Instruction Decay.
 
 **Vendor Agnostic** — Through its adapter layer, AHES bridges different AI ecosystems (Cursor, Claude, OpenAI, open-source models) without vendor lock-in.
 
-**Multi-Layer Verification** — A triple-layer gate—static checks (L1), functional tests (L2), and SRE-grade stability audits (L3/FMEA)—ensures production-grade reliability.
+**Multi-Layer Verification** — A triple-layer gate—static checks (L1), functional tests (L2), and stability audits (L3)—ensures production-grade reliability.
 
 **Closed-Loop Evolution** — Systematic capture and analysis of failure cases creates a feedback loop for self-correction.
 
@@ -169,7 +169,7 @@ The following diagram shows how a task flows through the AHES pipeline:
 ├── LICENSE                # MIT
 ├── CONTRIBUTING.md        # How to contribute
 │
-├── ai/                    # 🔥 Core specification layer
+├── ai/                    # Core specification layer
 │   ├── ENTRY.md           # AI agent entry point
 │   ├── rules/             # Global rules & constraints
 │   ├── agents/            # Agent definitions & behaviors
@@ -178,33 +178,41 @@ The following diagram shows how a task flows through the AHES pipeline:
 │   ├── skills/            # Skill definitions
 │   └── contracts/         # Schema definitions
 │
-├── harness/               # 🧪 Evaluation system
+├── harness/               # Evaluation system
 │   ├── evaluators/        # L1/L2/L3 evaluators
 │   ├── metrics/           # Quality metrics
 │   └── quality_gate.py    # Evaluation entry point
 │
-├── docs/                  # 📚 Documentation
-├── plans/                 # 🗺 Task management
-├── evals/                 # 🔁 Evolution system
-├── adapters/              # 🔌 Vendor adapters
-├── scripts/               # 🛠 Utility scripts
-└── src/                   # 💻 Your business code
+├── examples/              # Quick start examples
+│   ├── hello-world/       # Minimal example (5 min)
+│   └── todo-app/          # Complete example
+│
+├── docs/                  # Documentation
+├── plans/                 # Task management
+├── evals/                 # Evolution system
+├── adapters/              # Vendor adapters
+├── scripts/               # Utility scripts
+└── src/                   # Your business code
 ```
 
 ---
 
 ## Quick Start
 
+### Option 1: Try the Example
+
 ```bash
-# 1. Clone
 git clone https://github.com/artsyne/AHES.git
-cd AHES
+cd AHES/examples/hello-world
+cat README.md
+```
 
-# 2. Run harness to verify setup
-./scripts/run_harness.sh --verbose
+### Option 2: Apply to Your Project
 
-# 3. Configure your AI tool (optional)
-./scripts/generate_adapters.sh cursor
+```bash
+git clone https://github.com/artsyne/AHES.git
+cp -r AHES/ai your-project/
+cp -r AHES/harness your-project/
 ```
 
 Point your AI tool to `ai/ENTRY.md` as the entry point.
@@ -235,6 +243,8 @@ Point your AI tool to `ai/ENTRY.md` as the entry point.
 
 ## Documentation
 
+- [Hello World Example](examples/hello-world/) — 5-minute quick start
+- [Todo App Example](examples/todo-app/) — Complete workflow demo
 - [Core Beliefs](docs/core-beliefs.md) — Design principles
 - [System Architecture](docs/architecture/system.md) — Technical design
 - [Contributing Guide](CONTRIBUTING.md) — How to contribute

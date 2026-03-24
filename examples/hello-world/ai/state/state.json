@@ -1,0 +1,5 @@
+{
+  "current_task": "hello-001",
+  "status": "pending",
+  "task_description": "Add a greet(name) function that returns 'Hello, {name}!'"
+}

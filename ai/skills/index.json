@@ -88,10 +88,10 @@
       "description": "Site Reliability Engineering skills",
       "items": [
         {
-          "name": "generate-fmea-report",
-          "path": "sre/generate-fmea-report",
-          "triggers": ["FMEA", "failure analysis", "reliability"],
-          "description": "Generate Failure Mode Effects Analysis"
+          "name": "risk-analysis",
+          "path": "sre/risk-analysis",
+          "triggers": ["risk", "analyze changes", "pre-commit check"],
+          "description": "AI-driven risk analysis for code changes"
         },
         {
           "name": "incident-analysis",

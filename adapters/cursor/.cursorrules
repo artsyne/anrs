@@ -3,6 +3,7 @@
 # ===========================================
 # AI HARNESS ENGINEERING STANDARD (AHES)
 # Vendor: Cursor
+# Version: 0.1
 # ===========================================
 
 ## Core Protocol
@@ -27,6 +28,12 @@ IF PASS: atomic commit → update state
 IF FAIL: reflect → scratchpad → retry
 ```
 
+## Before Any Task
+
+1. Read ai/state/state.json to understand current context
+2. Check if there's an active task in plans/active/
+3. Review relevant skills in ai/skills/
+
 ## Decision Priorities
 
 1. Correctness (highest)
@@ -48,13 +55,20 @@ IF FAIL: reflect → scratchpad → retry
 - Global Rules: `ai/rules/global.md`
 - Skill Registry: `ai/skills/index.json`
 - State: `ai/state/state.json`
-- Harness: `harness/quality_gate.py`
+- Harness: `harness/quality_gate.py` or `./scripts/run_harness.sh`
 
 ## On Failure
 
-1. Parse error from harness
-2. Call reflection skill
-3. Update scratchpad
-4. Create fix plan
-5. Retry (max 3 times)
-6. Escalate if still failing
+1. Parse error from harness output
+2. Check harness/error_codes.json for error details
+3. Call reflection skill
+4. Update scratchpad with analysis
+5. Create fix plan
+6. Retry (max 3 times)
+7. Escalate to human if still failing
+
+## Quick Start
+
+When you start, say:
+"I've read the AHES protocol. Let me check the current state..."
+Then read ai/state/state.json.

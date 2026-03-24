@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """
-🛡️ L3 Stability & FMEA
+L3 Stability & Risk Analysis
 
 Level 3 evaluation: Reliability engineering.
-- Failure Mode and Effects Analysis
-- Chaos engineering (optional)
+- AI-driven risk analysis (replaces traditional FMEA)
 - SLO validation
+- Chaos engineering (optional)
+
+Note: Risk analysis is primarily performed by the AI agent
+following the risk-analysis skill protocol. This module
+provides the framework integration.
 """
 
 import json
@@ -13,52 +17,58 @@ from pathlib import Path
 from typing import Dict, List
 
 
-def analyze_fmea(components: List[str] = None) -> Dict:
+def analyze_risk(changed_files: List[str] = None) -> Dict:
     """
-    Run FMEA analysis on system components.
+    Run risk analysis on changed files.
+    
+    This is a placeholder that integrates with AI-driven analysis.
+    The actual analysis is performed by the AI agent using the
+    risk-analysis skill (ai/skills/sre/risk-analysis/SKILL.md).
 
     Args:
-        components: List of components to analyze (all if None)
+        changed_files: List of files to analyze (all staged if None)
 
     Returns:
-        Check result dictionary
+        Risk analysis result dictionary
     """
     result = {
-        "name": "fmea",
+        "name": "risk_analysis",
         "status": "PASS",
-        "message": "No high-risk items (RPN < 100)",
+        "message": "No high-risk items detected",
         "risk_items": [],
-        "high_risk_count": 0
+        "overall_score": "low"
     }
 
-    # Implementation would analyze:
-    # - Critical failure modes
-    # - Single points of failure
-    # - Cascading failure risks
-
-    # Example risk items
+    # In practice, this would:
+    # 1. Get list of changed files from git
+    # 2. Invoke AI agent to perform risk analysis
+    # 3. Parse and validate the AI's risk report
+    
+    # Example risk assessment structure
     risk_items = [
         {
-            "component": "database",
-            "failure_mode": "Connection timeout",
-            "effect": "Request failures",
-            "severity": 7,
-            "occurrence": 3,
-            "detection": 4,
-            "rpn": 84,  # S × O × D
-            "mitigation": "Add circuit breaker"
+            "file": "src/example.py",
+            "severity": 3,
+            "occurrence": 2,
+            "detection": 2,
+            "rpn": 12,  # S × O × D
+            "concerns": ["Low complexity change"],
+            "mitigation": "Standard review"
         }
     ]
 
     result["risk_items"] = risk_items
 
-    # Check for high-risk items (RPN >= 100)
-    high_risk = [r for r in risk_items if r["rpn"] >= 100]
-    result["high_risk_count"] = len(high_risk)
-
-    if high_risk:
+    # Calculate overall score
+    max_rpn = max((r["rpn"] for r in risk_items), default=0)
+    
+    if max_rpn >= 100:
         result["status"] = "FAIL"
-        result["message"] = f"{len(high_risk)} high-risk items found (RPN >= 100)"
+        result["overall_score"] = "high"
+        result["message"] = f"High-risk items found (max RPN: {max_rpn})"
+    elif max_rpn >= 50:
+        result["overall_score"] = "medium"
+        result["message"] = f"Medium-risk items found (max RPN: {max_rpn})"
 
     return result
 
@@ -155,7 +165,7 @@ def run_l3(chaos_enabled: bool = False) -> Dict:
 
     # Run all checks
     checks = [
-        analyze_fmea(),
+        analyze_risk(),
         run_chaos_tests(chaos_enabled),
         validate_slos()
     ]

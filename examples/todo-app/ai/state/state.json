@@ -1,0 +1,11 @@
+{
+  "version": "0.1.0",
+  "current_task": "todo-001",
+  "status": "pending",
+  "execution": {
+    "retry_count": 0,
+    "max_retries": 3,
+    "last_harness_result": null
+  },
+  "history": []
+}
