@@ -140,4 +140,4 @@ Use 5 Whys:
 
 ## 🔗 Related
 
-- `ai/skills/sre/generate-fmea-report/` — Preventive analysis
+- `ai/skills/sre/risk-analysis/` — Preventive analysis

@@ -3,7 +3,7 @@
 L3 Stability & Risk Analysis
 
 Level 3 evaluation: Reliability engineering.
-- AI-driven risk analysis (replaces traditional FMEA)
+- AI-driven risk analysis
 - SLO validation
 - Chaos engineering (optional)
 
@@ -20,7 +20,7 @@ from typing import Dict, List
 def analyze_risk(changed_files: List[str] = None) -> Dict:
     """
     Run risk analysis on changed files.
-    
+
     This is a placeholder that integrates with AI-driven analysis.
     The actual analysis is performed by the AI agent using the
     risk-analysis skill (ai/skills/sre/risk-analysis/SKILL.md).
@@ -43,7 +43,7 @@ def analyze_risk(changed_files: List[str] = None) -> Dict:
     # 1. Get list of changed files from git
     # 2. Invoke AI agent to perform risk analysis
     # 3. Parse and validate the AI's risk report
-    
+
     # Example risk assessment structure
     risk_items = [
         {
@@ -61,7 +61,7 @@ def analyze_risk(changed_files: List[str] = None) -> Dict:
 
     # Calculate overall score
     max_rpn = max((r["rpn"] for r in risk_items), default=0)
-    
+
     if max_rpn >= 100:
         result["status"] = "FAIL"
         result["overall_score"] = "high"

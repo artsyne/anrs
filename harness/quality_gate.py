@@ -69,9 +69,9 @@ def run_level(level: str, verbose: bool = False) -> dict:
                 "message": "API contracts valid"}
         ]
     elif level == "L3":
-        # Stability: FMEA, chaos
+        # Stability: Risk Analysis, chaos
         result["checks"] = [
-            {"name": "fmea", "status": "PASS", "message": "No high-risk items"},
+            {"name": "risk_analysis", "status": "PASS", "message": "No high-risk items"},
             {"name": "chaos", "status": "SKIP", "message": "Skipped in dev mode"}
         ]
 

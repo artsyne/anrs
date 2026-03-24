@@ -62,7 +62,7 @@
     },
     
     "E301": {
-      "name": "fmea_high_risk",
+      "name": "risk_analysis_high",
       "category": "stability",
       "severity": "high",
       "message": "High-risk failure mode detected (RPN >= 100)",
@@ -124,7 +124,7 @@
       "message": "Test coverage below target but above minimum"
     },
     "W301": {
-      "name": "fmea_medium_risk",
+      "name": "risk_analysis_medium",
       "message": "Medium-risk failure mode detected (50 <= RPN < 100)"
     }
   }

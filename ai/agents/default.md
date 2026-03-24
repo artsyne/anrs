@@ -48,7 +48,7 @@ env:
 
 ```yaml
 denied_skills:
-  - generate-fmea-report    # SRE only
+  - risk-analysis           # SRE only
   - incident-analysis       # SRE only
 ```
 

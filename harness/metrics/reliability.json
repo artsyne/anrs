@@ -17,7 +17,7 @@
     }
   },
   
-  "fmea": {
+  "risk_analysis": {
     "enabled": true,
     "rpn_threshold": 100,
     "auto_generate": true,

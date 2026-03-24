@@ -145,7 +145,7 @@ Classification:
 This skill is called by L3 evaluator:
 
 ```
-harness/evaluators/l3_stability_fmea.py
+harness/evaluators/l3_stability.py
   └─▶ AI executes risk-analysis skill
       └─▶ Output saved to harness/reports/risk-analysis.json
 ```
@@ -163,5 +163,5 @@ harness/evaluators/l3_stability_fmea.py
 
 ## Related
 
-- `harness/evaluators/l3_stability_fmea.py` — L3 evaluator
+- `harness/evaluators/l3_stability.py` — L3 evaluator
 - `ai/skills/core/reflection/SKILL.md` — Post-failure analysis
