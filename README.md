@@ -22,13 +22,15 @@ Traditional AI coding often suffers from "Context Drift" and "Instruction Decay.
 
 ## Core Pillars
 
-| Pillar | Description |
-|--------|-------------|
-| **Deterministic Orchestration** | Every AI action follows a defined execution loop (Read → Plan → Execute → Verify), ensuring consistent results regardless of the underlying model. |
-| **Transactional Integrity** | Code changes and state updates are treated as a single atomic unit. The codebase remains in a valid, reversible state at all times. |
-| **Vendor Agnostic** | Through its adapter layer, AHES bridges different AI ecosystems (Cursor, Claude, OpenAI, open-source models) without vendor lock-in. |
-| **Multi-Layer Verification** | A triple-layer gate—static checks (L1), functional tests (L2), and SRE-grade stability audits (L3/FMEA)—ensures production-grade reliability. |
-| **Closed-Loop Evolution** | Systematic capture and analysis of failure cases creates a feedback loop for self-correction. |
+**Deterministic Orchestration** — Every AI action follows a defined execution loop (Read → Plan → Execute → Verify), ensuring consistent results regardless of the underlying model.
+
+**Transactional Integrity** — Code changes and state updates are treated as a single atomic unit. The codebase remains in a valid, reversible state at all times.
+
+**Vendor Agnostic** — Through its adapter layer, AHES bridges different AI ecosystems (Cursor, Claude, OpenAI, open-source models) without vendor lock-in.
+
+**Multi-Layer Verification** — A triple-layer gate—static checks (L1), functional tests (L2), and SRE-grade stability audits (L3/FMEA)—ensures production-grade reliability.
+
+**Closed-Loop Evolution** — Systematic capture and analysis of failure cases creates a feedback loop for self-correction.
 
 ---
 
@@ -211,24 +213,23 @@ Point your AI tool to `ai/ENTRY.md` as the entry point.
 
 ## Core Concepts
 
-| Concept | Location | Description |
-|---------|----------|-------------|
-| **State (SSOT)** | `ai/state/state.json` | Single Source of Truth for task state. AI reads this before any action. |
-| **Orchestrator** | `ai/orchestrator/ORCHESTRATOR.md` | Defines the execution protocol (Read → Plan → Execute → Verify loop). |
-| **Skills** | `ai/skills/index.json` | Registered action templates with input/output schemas and constraints. |
-| **Harness** | `harness/quality_gate.py` | Multi-layer evaluation gate (L1: static, L2: tests, L3: stability). |
+**State (SSOT)** — `ai/state/state.json` — Single Source of Truth for task state. AI reads this before any action.
+
+**Orchestrator** — `ai/orchestrator/ORCHESTRATOR.md` — Defines the execution protocol (Read → Plan → Execute → Verify loop).
+
+**Skills** — `ai/skills/index.json` — Registered action templates with input/output schemas and constraints.
+
+**Harness** — `harness/quality_gate.py` — Multi-layer evaluation gate (L1: static, L2: tests, L3: stability).
 
 ---
 
 ## Key Files Reference
 
-| File | Purpose |
-|------|---------|
-| `ai/ENTRY.md` | AI agent entry point |
-| `ai/rules/global.md` | Global constraints (must follow) |
-| `ai/rules/constraints.json` | Machine-readable rules |
-| `ai/skills/index.json` | Skill registry |
-| `harness/error_codes.json` | Error code definitions for reflection |
+- `ai/ENTRY.md` — AI agent entry point
+- `ai/rules/global.md` — Global constraints (must follow)
+- `ai/rules/constraints.json` — Machine-readable rules
+- `ai/skills/index.json` — Skill registry
+- `harness/error_codes.json` — Error code definitions for reflection
 
 ---
 
