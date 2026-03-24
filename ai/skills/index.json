@@ -48,6 +48,12 @@
           "path": "core/task-completion",
           "triggers": ["done", "finished", "complete task"],
           "description": "Finalize and archive completed task"
+        },
+        {
+          "name": "dispatch-subagent",
+          "path": "core/dispatch-subagent",
+          "triggers": ["parallel", "subagent", "concurrent tasks", "independent tasks"],
+          "description": "Dispatch independent tasks to subagents for parallel execution"
         }
       ]
     },
@@ -114,7 +120,7 @@
   },
   
   "metadata": {
-    "total_skills": 14,
+    "total_skills": 15,
     "categories": ["core", "engineering", "sre", "env"]
   }
 }

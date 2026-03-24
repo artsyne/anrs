@@ -16,7 +16,8 @@ description: |
 2. LOCATE TASK   → plans/active/{task_id}.md
 3. SELECT SKILL  → ai/skills/index.json (match task to triggers)
 4. EXECUTE SKILL → Follow SKILL.md checklist completely
-5. RUN HARNESS   → ./scripts/run_harness.sh (L1 → L2 → L3)
+   └─ OR dispatch-subagent for parallel independent tasks
+5. RUN HARNESS   → ./scripts/run_harness.sh (Security → L1 → L2 → L3)
 
 PASS → 6. atomic-commit → 7. update-state → 8. cleanup-scratchpad → DONE
 FAIL → reflection → SCRATCHPAD → new plan → RETRY (step 4)
@@ -67,3 +68,24 @@ on_max_retries: {action: escalate, set_status: blocked}
 | `strategies/default.md` | Normal development |
 | `strategies/debug.md` | Investigating bugs |
 | `strategies/refactor.md` | Code refactoring |
+
+## Execution Modes
+
+### Sequential (Default)
+```
+Task 1 → Task 2 → Task 3 → ...
+```
+Use `execute-plan` skill. Best for dependent tasks.
+
+### Parallel (Subagent)
+```
+        ┌─ Task 1 ─┐
+Main ───┼─ Task 2 ─┼─── Collect → Review → Harness
+        └─ Task 3 ─┘
+```
+Use `dispatch-subagent` skill. Best for independent tasks.
+
+**Parallel execution criteria:**
+- Tasks have no dependencies
+- Tasks modify different files
+- Each task is self-contained (2-5 min)
