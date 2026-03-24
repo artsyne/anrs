@@ -204,7 +204,7 @@ The following diagram shows how a task flows through the AHES pipeline:
 │   ├── benchmarks/        # Performance benchmarks
 │   ├── failure-cases/     # Failure case archive
 │   └── prompts/           # Evaluation prompts
-├── adapters/              # Vendor adapters
+├── adapters/              # Vendor adapters (claude/cursor/openai/opencode)
 └── scripts/               # Utility scripts
 ```
 
@@ -229,6 +229,29 @@ cp -r AHES/harness your-project/
 ```
 
 Point your AI tool to `ai/ENTRY.md` as the entry point.
+
+### Option 3: Configure Your AI Platform
+
+AHES provides ready-to-use adapters for popular AI platforms:
+
+| Platform | Configuration |
+|----------|---------------|
+| **Cursor** | Copy `adapters/cursor/.cursorrules` to project root |
+| **Claude** | Use `adapters/claude/system-prompt.txt` as system prompt |
+| **OpenAI** | Use `adapters/openai/agent-config.json` for Agents |
+| **OpenCode** | Copy `adapters/opencode/` to `.opencode/` |
+
+```bash
+# Example: Configure for Cursor
+cp adapters/cursor/.cursorrules your-project/.cursorrules
+
+# Example: Configure for OpenCode
+mkdir -p your-project/.opencode/agents
+cp adapters/opencode/opencode.json your-project/.opencode/
+cp adapters/opencode/agents/*.md your-project/.opencode/agents/
+```
+
+See [adapters/README.md](adapters/README.md) for detailed instructions.
 
 ---
 
