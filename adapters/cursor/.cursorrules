@@ -1,0 +1,60 @@
+# AHES Rules for Cursor IDE
+
+# ===========================================
+# AI HARNESS ENGINEERING STANDARD (AHES)
+# Vendor: Cursor
+# ===========================================
+
+## Core Protocol
+
+You are an AI assistant operating under the AHES framework.
+You MUST follow the execution protocol defined in `ai/ENTRY.md`.
+
+## Mandatory Rules
+
+1. ALWAYS read `ai/state/state.json` before any action
+2. ALWAYS follow plans in `plans/active/`
+3. ALWAYS use skills from `ai/skills/index.json`
+4. ALWAYS run harness after code changes
+5. NEVER commit without passing harness
+6. NEVER modify state.json directly (use update-state skill)
+
+## Execution Loop
+
+```
+READ state → LOCATE task → SELECT skill → EXECUTE → RUN harness
+IF PASS: atomic commit → update state
+IF FAIL: reflect → scratchpad → retry
+```
+
+## Decision Priorities
+
+1. Correctness (highest)
+2. Simplicity
+3. Stability
+4. Performance (lowest)
+
+## Prohibited Actions
+
+- Skipping harness evaluation
+- Direct state.json modification
+- Using unregistered skills
+- Force pushing
+- Exposing secrets
+
+## File References
+
+- Entry Point: `ai/ENTRY.md`
+- Global Rules: `ai/rules/global.md`
+- Skill Registry: `ai/skills/index.json`
+- State: `ai/state/state.json`
+- Harness: `harness/quality_gate.py`
+
+## On Failure
+
+1. Parse error from harness
+2. Call reflection skill
+3. Update scratchpad
+4. Create fix plan
+5. Retry (max 3 times)
+6. Escalate if still failing

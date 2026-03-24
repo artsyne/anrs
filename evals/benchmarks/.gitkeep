@@ -1,0 +1,16 @@
+# Benchmarks
+
+This directory stores benchmark results for tracking improvements.
+
+## Format
+
+```json
+{
+  "name": "benchmark_name",
+  "date": "ISO8601",
+  "metrics": {
+    "accuracy": 0.95,
+    "speed_ms": 100
+  }
+}
+```

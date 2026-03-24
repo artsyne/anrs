@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ahes.dev/schemas/harness_result.schema.json",
+  "title": "AHES Harness Result Schema",
+  "description": "Schema for harness evaluation results",
+  "type": "object",
+  
+  "required": ["result", "timestamp", "levels"],
+  
+  "properties": {
+    "result": {
+      "type": "string",
+      "enum": ["PASS", "FAIL"],
+      "description": "Overall harness result"
+    },
+    
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the evaluation was run"
+    },
+    
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total evaluation time in milliseconds"
+    },
+    
+    "levels": {
+      "type": "object",
+      "properties": {
+        "L1": {
+          "$ref": "#/definitions/level_result"
+        },
+        "L2": {
+          "$ref": "#/definitions/level_result"
+        },
+        "L3": {
+          "$ref": "#/definitions/level_result"
+        }
+      },
+      "description": "Results for each evaluation level"
+    },
+    
+    "errors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/error_item"
+      },
+      "description": "List of errors if any"
+    },
+    
+    "warnings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/warning_item"
+      },
+      "description": "List of warnings if any"
+    },
+    
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "test_count": {
+          "type": "integer"
+        },
+        "test_passed": {
+          "type": "integer"
+        },
+        "coverage_percent": {
+          "type": "number"
+        },
+        "lint_issues": {
+          "type": "integer"
+        }
+      },
+      "description": "Quality metrics from evaluation"
+    }
+  },
+  
+  "definitions": {
+    "level_result": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["PASS", "FAIL", "SKIP"]
+        },
+        "duration_ms": {
+          "type": "integer"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "status": {"type": "string"},
+              "message": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    
+    "error_item": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^E\\d{3}$"
+        },
+        "message": {
+          "type": "string"
+        },
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"]
+        }
+      }
+    },
+    
+    "warning_item": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^W\\d{3}$"
+        },
+        "message": {
+          "type": "string"
+        },
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  
+  "additionalProperties": false
+}

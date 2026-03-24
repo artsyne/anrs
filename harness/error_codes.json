@@ -1,0 +1,131 @@
+{
+  "$comment": "AHES Error Codes - Reference for AI agents during reflection",
+  
+  "categories": {
+    "E1xx": "Static Analysis Errors",
+    "E2xx": "Test Errors",
+    "E3xx": "Stability Errors",
+    "E4xx": "Security Errors",
+    "E5xx": "Protocol Errors"
+  },
+  
+  "errors": {
+    "E101": {
+      "name": "syntax_error",
+      "category": "static",
+      "severity": "critical",
+      "message": "Syntax error in source file",
+      "recovery": "Fix syntax error at specified line"
+    },
+    "E102": {
+      "name": "lint_error",
+      "category": "static",
+      "severity": "high",
+      "message": "Lint rule violation",
+      "recovery": "Fix lint issue or disable rule with justification"
+    },
+    "E103": {
+      "name": "complexity_exceeded",
+      "category": "static",
+      "severity": "medium",
+      "message": "Function complexity exceeds threshold",
+      "recovery": "Refactor function into smaller units"
+    },
+    "E104": {
+      "name": "type_error",
+      "category": "static",
+      "severity": "critical",
+      "message": "Type checking failed",
+      "recovery": "Fix type mismatch"
+    },
+    
+    "E201": {
+      "name": "test_failed",
+      "category": "test",
+      "severity": "critical",
+      "message": "Unit test failed",
+      "recovery": "Fix code to pass test or update test if incorrect"
+    },
+    "E202": {
+      "name": "coverage_low",
+      "category": "test",
+      "severity": "high",
+      "message": "Test coverage below threshold",
+      "recovery": "Add tests for uncovered code paths"
+    },
+    "E203": {
+      "name": "contract_violation",
+      "category": "test",
+      "severity": "high",
+      "message": "API contract violation",
+      "recovery": "Align implementation with contract or update contract"
+    },
+    
+    "E301": {
+      "name": "fmea_high_risk",
+      "category": "stability",
+      "severity": "high",
+      "message": "High-risk failure mode detected (RPN >= 100)",
+      "recovery": "Add mitigation for identified failure mode"
+    },
+    "E302": {
+      "name": "slo_breach",
+      "category": "stability",
+      "severity": "critical",
+      "message": "Service Level Objective not met",
+      "recovery": "Optimize to meet SLO target"
+    },
+    
+    "E401": {
+      "name": "vulnerability_found",
+      "category": "security",
+      "severity": "critical",
+      "message": "Security vulnerability detected",
+      "recovery": "Fix vulnerability or update dependency"
+    },
+    "E402": {
+      "name": "secret_detected",
+      "category": "security",
+      "severity": "critical",
+      "message": "Hardcoded secret detected",
+      "recovery": "Remove secret and use environment variable"
+    },
+    
+    "E501": {
+      "name": "harness_skipped",
+      "category": "protocol",
+      "severity": "critical",
+      "message": "Harness evaluation was skipped",
+      "recovery": "Run harness before commit"
+    },
+    "E502": {
+      "name": "state_desync",
+      "category": "protocol",
+      "severity": "critical",
+      "message": "State and code out of sync",
+      "recovery": "Ensure atomic commit includes state.json"
+    },
+    "E503": {
+      "name": "unregistered_skill",
+      "category": "protocol",
+      "severity": "high",
+      "message": "Used skill not in registry",
+      "recovery": "Register skill in index.json or use registered skill"
+    }
+  },
+  
+  "warnings": {
+    "W101": {
+      "name": "complexity_warning",
+      "message": "Function complexity approaching threshold"
+    },
+    "W201": {
+      "name": "coverage_warning",
+      "message": "Test coverage below target but above minimum"
+    },
+    "W301": {
+      "name": "fmea_medium_risk",
+      "message": "Medium-risk failure mode detected (50 <= RPN < 100)"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# Failure Cases
+
+This directory stores failure cases for analysis and learning.
+
+## Format
+
+Each failure case should include:
+- Error code and message
+- Root cause analysis
+- Fix applied
+- Lessons learned
+
+## Usage
+
+When a task fails multiple times, archive the scratchpad here for future reference.

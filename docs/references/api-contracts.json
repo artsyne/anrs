@@ -1,0 +1,66 @@
+{
+  "$comment": "API contracts reference for AI agents",
+  
+  "version": "1.0.0",
+  
+  "endpoints": {
+    "health": {
+      "method": "GET",
+      "path": "/health",
+      "response": {
+        "status": "healthy|degraded|unhealthy",
+        "version": "string",
+        "uptime_seconds": "number"
+      }
+    },
+    "tasks": {
+      "list": {
+        "method": "GET",
+        "path": "/api/tasks",
+        "response": {
+          "tasks": [
+            {
+              "id": "task-xxx",
+              "status": "pending|in_progress|completed|failed",
+              "created_at": "ISO8601"
+            }
+          ]
+        }
+      },
+      "create": {
+        "method": "POST",
+        "path": "/api/tasks",
+        "request": {
+          "description": "string",
+          "priority": "low|medium|high|critical"
+        }
+      },
+      "get": {
+        "method": "GET",
+        "path": "/api/tasks/{id}"
+      }
+    },
+    "harness": {
+      "run": {
+        "method": "POST",
+        "path": "/api/harness/run",
+        "request": {
+          "level": "L1|L2|L3"
+        },
+        "response": {
+          "result": "PASS|FAIL",
+          "report_url": "string"
+        }
+      }
+    }
+  },
+  
+  "error_codes": {
+    "400": "Bad Request",
+    "401": "Unauthorized",
+    "403": "Forbidden",
+    "404": "Not Found",
+    "422": "Validation Error",
+    "500": "Internal Server Error"
+  }
+}

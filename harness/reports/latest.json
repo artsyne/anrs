@@ -1,0 +1,23 @@
+{
+  "$comment": "Initial harness report - placeholder",
+  "result": "PASS",
+  "timestamp": "2024-01-01T00:00:00Z",
+  "duration_ms": 0,
+  "levels": {
+    "L1": {
+      "status": "PASS",
+      "checks": []
+    },
+    "L2": {
+      "status": "PASS",
+      "checks": []
+    },
+    "L3": {
+      "status": "PASS",
+      "checks": []
+    }
+  },
+  "errors": [],
+  "warnings": [],
+  "metrics": {}
+}

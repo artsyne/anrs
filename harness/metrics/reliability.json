@@ -1,0 +1,48 @@
+{
+  "$comment": "Reliability metrics configuration",
+  
+  "slos": {
+    "availability": {
+      "target": 99.9,
+      "unit": "percent",
+      "window": "30d"
+    },
+    "latency_p99": {
+      "target": 200,
+      "unit": "ms"
+    },
+    "error_rate": {
+      "maximum": 0.1,
+      "unit": "percent"
+    }
+  },
+  
+  "fmea": {
+    "enabled": true,
+    "rpn_threshold": 100,
+    "auto_generate": true,
+    "components": [
+      "database",
+      "cache",
+      "api",
+      "auth",
+      "queue"
+    ]
+  },
+  
+  "chaos": {
+    "enabled": false,
+    "environments": ["staging"],
+    "scenarios": [
+      "network_partition",
+      "service_failure",
+      "resource_exhaustion"
+    ]
+  },
+  
+  "recovery": {
+    "rto_seconds": 300,
+    "rpo_seconds": 60,
+    "auto_failover": true
+  }
+}

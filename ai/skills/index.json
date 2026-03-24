@@ -1,0 +1,122 @@
+{
+  "$schema": "../contracts/skill.schema.json",
+  "$comment": "🧰 Skill Registry - All available skills for AI agents",
+  
+  "version": "0.1.0",
+  "last_updated": "2024-01-01",
+  
+  "skills": {
+    "core": {
+      "description": "Essential skills for execution protocol",
+      "items": [
+        {
+          "name": "write-plan",
+          "path": "core/write-plan",
+          "triggers": ["new task", "plan required", "create plan"],
+          "description": "Create execution plan for a task"
+        },
+        {
+          "name": "execute-plan",
+          "path": "core/execute-plan",
+          "triggers": ["implement", "execute", "code change"],
+          "description": "Execute steps in an existing plan"
+        },
+        {
+          "name": "update-state",
+          "path": "core/update-state",
+          "triggers": ["state change", "task progress"],
+          "description": "Update the state.json file"
+        },
+        {
+          "name": "atomic-commit",
+          "path": "core/atomic-commit",
+          "triggers": ["commit", "save changes"],
+          "description": "Commit code and state atomically"
+        },
+        {
+          "name": "reflection",
+          "path": "core/reflection",
+          "triggers": ["failure", "error", "debug"],
+          "description": "Analyze failure and plan recovery"
+        },
+        {
+          "name": "cleanup-scratchpad",
+          "path": "core/cleanup-scratchpad",
+          "triggers": ["task complete", "cleanup"],
+          "description": "Clear scratchpad after success"
+        },
+        {
+          "name": "task-completion",
+          "path": "core/task-completion",
+          "triggers": ["done", "finished", "complete task"],
+          "description": "Finalize and archive completed task"
+        }
+      ]
+    },
+    
+    "engineering": {
+      "description": "Software engineering practices",
+      "items": [
+        {
+          "name": "test-driven-dev",
+          "path": "engineering/test-driven-dev",
+          "triggers": ["new feature", "TDD", "add tests"],
+          "description": "Implement feature using TDD"
+        },
+        {
+          "name": "code-review",
+          "path": "engineering/code-review",
+          "triggers": ["review", "check code", "quality"],
+          "description": "Review code for quality issues"
+        },
+        {
+          "name": "refactor-go-interface",
+          "path": "engineering/refactor-go-interface",
+          "triggers": ["go interface", "refactor go"],
+          "description": "Refactor Go interfaces safely"
+        },
+        {
+          "name": "performance-optimize",
+          "path": "engineering/performance-optimize",
+          "triggers": ["optimize", "performance", "slow"],
+          "description": "Optimize code performance"
+        }
+      ]
+    },
+    
+    "sre": {
+      "description": "Site Reliability Engineering skills",
+      "items": [
+        {
+          "name": "generate-fmea-report",
+          "path": "sre/generate-fmea-report",
+          "triggers": ["FMEA", "failure analysis", "reliability"],
+          "description": "Generate Failure Mode Effects Analysis"
+        },
+        {
+          "name": "incident-analysis",
+          "path": "sre/incident-analysis",
+          "triggers": ["incident", "postmortem", "outage"],
+          "description": "Analyze production incidents"
+        }
+      ]
+    },
+    
+    "env": {
+      "description": "Environment setup skills",
+      "items": [
+        {
+          "name": "setup-docker-env",
+          "path": "env/setup-docker-env",
+          "triggers": ["docker", "container", "environment"],
+          "description": "Setup Docker development environment"
+        }
+      ]
+    }
+  },
+  
+  "metadata": {
+    "total_skills": 13,
+    "categories": ["core", "engineering", "sre", "env"]
+  }
+}

@@ -1,0 +1,54 @@
+# AHES .gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Dependencies
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build outputs
+dist/
+build/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test outputs
+coverage/
+*.cover
+.coverage
+htmlcov/
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Harness reports (keep latest, ignore history)
+# harness/reports/history/*
+# !harness/reports/history/.gitkeep
+
+# IDE specific
+*.iml

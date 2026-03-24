@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ahes.dev/schemas/commit.schema.json",
+  "title": "AHES Commit Schema",
+  "description": "Schema for atomic commit format",
+  "type": "object",
+  
+  "required": ["type", "scope", "subject", "task_id", "harness_result"],
+  
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["feat", "fix", "refactor", "test", "docs", "chore", "perf"],
+      "description": "Commit type following conventional commits"
+    },
+    
+    "scope": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Affected component or module"
+    },
+    
+    "subject": {
+      "type": "string",
+      "maxLength": 72,
+      "description": "Brief description of the change"
+    },
+    
+    "body": {
+      "type": "string",
+      "description": "Detailed description of what and why"
+    },
+    
+    "task_id": {
+      "type": "string",
+      "pattern": "^task-\\d{3,}$",
+      "description": "Related task ID"
+    },
+    
+    "harness_result": {
+      "type": "string",
+      "enum": ["PASS", "FAIL"],
+      "description": "Result of harness evaluation"
+    },
+    
+    "files_changed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of files included in this commit"
+    },
+    
+    "breaking_change": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is a breaking change"
+    },
+    
+    "breaking_change_description": {
+      "type": "string",
+      "description": "Description of breaking change if applicable"
+    }
+  },
+  
+  "additionalProperties": false
+}

@@ -1,0 +1,21 @@
+# Design Docs Directory
+
+This directory contains design documents for significant features and changes.
+
+## Template
+
+```markdown
+# Design: {Feature Name}
+
+## Status
+Draft | In Review | Approved | Implemented
+
+## Context
+Why is this change needed?
+
+## Decision
+What are we going to do?
+
+## Consequences
+What are the trade-offs?
+```

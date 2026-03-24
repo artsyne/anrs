@@ -1,0 +1,49 @@
+{
+  "$comment": "Performance metrics configuration",
+  
+  "benchmarks": {
+    "enabled": true,
+    "timeout_seconds": 300,
+    "iterations": 3
+  },
+  
+  "thresholds": {
+    "latency_p50": {
+      "maximum": 50,
+      "unit": "ms"
+    },
+    "latency_p95": {
+      "maximum": 100,
+      "unit": "ms"
+    },
+    "latency_p99": {
+      "maximum": 200,
+      "unit": "ms"
+    },
+    "throughput": {
+      "minimum": 1000,
+      "unit": "rps"
+    },
+    "memory": {
+      "maximum": 512,
+      "unit": "MB"
+    },
+    "cpu": {
+      "maximum": 80,
+      "unit": "percent"
+    }
+  },
+  
+  "regression": {
+    "enabled": true,
+    "tolerance_percent": 10,
+    "compare_with": "baseline"
+  },
+  
+  "profiling": {
+    "cpu": true,
+    "memory": true,
+    "goroutines": true,
+    "output_dir": "reports/profiles"
+  }
+}

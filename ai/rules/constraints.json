@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AHES Constraints",
+  "description": "Machine-readable constraints for AI agents. This is the source of truth for generating adapter configurations.",
+  "version": "0.1.0",
+  
+  "constraints": {
+    "critical": {
+      "description": "Violations cause immediate failure",
+      "rules": [
+        {
+          "id": "C001",
+          "name": "harness_required",
+          "description": "Must run harness after every code change",
+          "enforcement": "block"
+        },
+        {
+          "id": "C002",
+          "name": "atomic_commit",
+          "description": "All commits must be atomic (state + code synchronized)",
+          "enforcement": "block"
+        },
+        {
+          "id": "C003",
+          "name": "plan_required",
+          "description": "Must have plan before code modification",
+          "enforcement": "block"
+        },
+        {
+          "id": "C004",
+          "name": "skill_whitelist",
+          "description": "Only registered skills may be used",
+          "enforcement": "block"
+        },
+        {
+          "id": "C005",
+          "name": "state_via_skill",
+          "description": "State must be modified via update-state skill only",
+          "enforcement": "block"
+        }
+      ]
+    },
+    
+    "safety": {
+      "description": "Prevents dangerous operations",
+      "rules": [
+        {
+          "id": "S001",
+          "name": "no_destructive_commands",
+          "description": "Prohibit rm -rf, DROP DATABASE, etc.",
+          "patterns": [
+            "rm -rf",
+            "DROP DATABASE",
+            "DELETE FROM .* WHERE 1=1",
+            "TRUNCATE TABLE"
+          ],
+          "enforcement": "block"
+        },
+        {
+          "id": "S002",
+          "name": "no_secret_exposure",
+          "description": "Prohibit outputting secrets",
+          "patterns": [
+            "echo \\$.*KEY",
+            "echo \\$.*SECRET",
+            "cat .env"
+          ],
+          "enforcement": "block"
+        },
+        {
+          "id": "S003",
+          "name": "no_force_push",
+          "description": "Prohibit force push to main branches",
+          "patterns": [
+            "git push --force origin main",
+            "git push --force origin master"
+          ],
+          "enforcement": "block"
+        },
+        {
+          "id": "S004",
+          "name": "no_production_access",
+          "description": "Prohibit direct production access",
+          "patterns": [
+            "ssh.*prod",
+            "kubectl exec.*prod"
+          ],
+          "enforcement": "warn"
+        }
+      ]
+    },
+    
+    "quality": {
+      "description": "Code quality requirements",
+      "rules": [
+        {
+          "id": "Q001",
+          "name": "max_function_lines",
+          "description": "Functions should be under 50 lines",
+          "threshold": 50,
+          "enforcement": "warn"
+        },
+        {
+          "id": "Q002",
+          "name": "max_file_lines",
+          "description": "Files should be under 500 lines",
+          "threshold": 500,
+          "enforcement": "warn"
+        },
+        {
+          "id": "Q003",
+          "name": "test_coverage",
+          "description": "Test coverage should be above 80%",
+          "threshold": 80,
+          "enforcement": "warn"
+        }
+      ]
+    }
+  },
+  
+  "execution": {
+    "priority": ["critical", "safety", "quality"],
+    "on_violation": {
+      "block": "stop_and_rollback",
+      "warn": "log_and_continue"
+    }
+  }
+}

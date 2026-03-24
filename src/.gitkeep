@@ -1,0 +1,39 @@
+# Source Code Directory
+
+This is where your business code lives.
+
+## Structure
+
+Organize your code according to the architecture guidelines in `docs/architecture/`.
+
+### Example Go Structure
+
+```
+src/
+├── cmd/
+│   └── server/
+│       └── main.go
+├── internal/
+│   ├── handler/
+│   ├── service/
+│   └── repository/
+└── pkg/
+```
+
+### Example Frontend Structure
+
+```
+src/
+├── components/
+├── pages/
+├── hooks/
+├── services/
+└── types/
+```
+
+## Guidelines
+
+- Follow coding standards in `ai/rules/coding.md`
+- Run harness before committing
+- Keep functions under 50 lines
+- Maintain test coverage above 80%

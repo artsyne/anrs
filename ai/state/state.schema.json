@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ahes.dev/schemas/state.schema.json",
+  "title": "AHES State Schema",
+  "description": "Schema for the AHES state file. This is the Single Source of Truth (SSOT) for task execution.",
+  "type": "object",
+  
+  "required": ["version", "last_updated", "status"],
+  
+  "properties": {
+    "$comment": {
+      "type": "string",
+      "description": "Human-readable description of this file"
+    },
+    
+    "$schema": {
+      "type": "string",
+      "description": "Reference to this schema file"
+    },
+    
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Schema version following semver"
+    },
+    
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO8601 timestamp of last state update"
+    },
+    
+    "current_task": {
+      "type": ["string", "null"],
+      "pattern": "^task-\\d{3,}$",
+      "description": "ID of the currently active task (e.g., task-001). Null if idle."
+    },
+    
+    "status": {
+      "type": "string",
+      "enum": ["idle", "running", "blocked", "completed", "failed"],
+      "description": "Current execution status"
+    },
+    
+    "execution": {
+      "type": "object",
+      "description": "Current execution context",
+      "properties": {
+        "last_skill": {
+          "type": ["string", "null"],
+          "description": "Name of the last executed skill"
+        },
+        "last_result": {
+          "type": ["string", "null"],
+          "enum": ["success", "failure", null],
+          "description": "Result of the last skill execution"
+        },
+        "retry_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Number of retries for current task"
+        },
+        "next_action": {
+          "type": ["string", "null"],
+          "enum": ["continue", "retry", "reflect", "escalate", null],
+          "description": "Recommended next action"
+        }
+      }
+    },
+    
+    "history": {
+      "type": "array",
+      "description": "Recent task history (last 10 tasks)",
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "required": ["task_id", "status", "completed_at"],
+        "properties": {
+          "task_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["completed", "failed", "cancelled"]
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  },
+  
+  "additionalProperties": false
+}

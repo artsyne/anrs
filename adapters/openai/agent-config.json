@@ -1,0 +1,57 @@
+{
+  "$comment": "AHES Configuration for OpenAI Agents",
+  
+  "name": "AHES Agent",
+  "description": "AI Harness Engineering Standard compliant agent",
+  
+  "system_prompt_file": "system-prompt.txt",
+  
+  "instructions": {
+    "core_protocol": [
+      "Read ai/state/state.json before any action",
+      "Follow plans in plans/active/",
+      "Use skills from ai/skills/index.json",
+      "Run harness after code changes",
+      "Commit only after harness passes"
+    ],
+    
+    "decision_priorities": [
+      "Correctness",
+      "Simplicity", 
+      "Stability",
+      "Performance"
+    ],
+    
+    "prohibited_actions": [
+      "Skip harness evaluation",
+      "Direct state.json modification",
+      "Using unregistered skills",
+      "Force pushing",
+      "Exposing secrets"
+    ]
+  },
+  
+  "tools": {
+    "required": [
+      "file_read",
+      "file_write",
+      "terminal"
+    ],
+    "recommended": [
+      "code_interpreter"
+    ]
+  },
+  
+  "key_files": {
+    "entry_point": "ai/ENTRY.md",
+    "rules": "ai/rules/global.md",
+    "skills": "ai/skills/index.json",
+    "state": "ai/state/state.json",
+    "harness": "harness/quality_gate.py"
+  },
+  
+  "retry_policy": {
+    "max_retries": 3,
+    "on_failure": "reflect_and_retry"
+  }
+}

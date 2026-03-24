@@ -1,0 +1,56 @@
+{
+  "$comment": "Code quality metrics configuration",
+  
+  "thresholds": {
+    "coverage": {
+      "minimum": 80,
+      "target": 90,
+      "unit": "percent"
+    },
+    "complexity": {
+      "maximum": 10,
+      "unit": "cyclomatic"
+    },
+    "function_lines": {
+      "maximum": 50,
+      "unit": "lines"
+    },
+    "file_lines": {
+      "maximum": 500,
+      "unit": "lines"
+    },
+    "duplication": {
+      "maximum": 5,
+      "unit": "percent"
+    }
+  },
+  
+  "rules": {
+    "lint": {
+      "enabled": true,
+      "fail_on_warning": false
+    },
+    "syntax": {
+      "enabled": true,
+      "fail_on_error": true
+    },
+    "complexity": {
+      "enabled": true,
+      "fail_on_exceed": true
+    }
+  },
+  
+  "exclusions": {
+    "paths": [
+      "vendor/",
+      "node_modules/",
+      "generated/",
+      "*_test.go",
+      "test_*.py"
+    ],
+    "files": [
+      "*.pb.go",
+      "*.generated.ts"
+    ]
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ahes.dev/schemas/api.schema.json",
+  "title": "AHES API Schema",
+  "description": "Schema for external API integrations",
+  "type": "object",
+  
+  "definitions": {
+    "api_endpoint": {
+      "type": "object",
+      "required": ["method", "path"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["GET", "POST", "PUT", "DELETE", "PATCH"]
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "description": {
+          "type": "string"
+        },
+        "request_schema": {
+          "type": "object"
+        },
+        "response_schema": {
+          "type": "object"
+        },
+        "auth_required": {
+          "type": "boolean",
+          "default": true
+        },
+        "rate_limit": {
+          "type": "object",
+          "properties": {
+            "requests": {"type": "integer"},
+            "period": {"type": "string"}
+          }
+        }
+      }
+    }
+  },
+  
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    
+    "base_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    
+    "endpoints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/api_endpoint"
+      }
+    },
+    
+    "authentication": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["bearer", "api_key", "oauth2", "basic"]
+        },
+        "header_name": {
+          "type": "string"
+        },
+        "token_url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    
+    "common_headers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    
+    "error_codes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "status": {"type": "integer"},
+          "message": {"type": "string"},
+          "retry": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}
