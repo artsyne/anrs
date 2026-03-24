@@ -232,26 +232,24 @@ Point your AI tool to `ai/ENTRY.md` as the entry point.
 
 ### Option 3: Configure Your AI Platform
 
-AHES provides ready-to-use adapters for popular AI platforms:
+AHES provides ready-to-use adapters with **multi-mode support** (build/plan/review):
 
-| Platform | Configuration |
-|----------|---------------|
-| **Cursor** | Copy `adapters/cursor/.cursorrules` to project root |
-| **Claude** | Use `adapters/claude/system-prompt.txt` as system prompt |
-| **OpenAI** | Use `adapters/openai/agent-config.json` for Agents |
-| **OpenCode** | Copy `adapters/opencode/` to `.opencode/` |
+| Platform | Modes | Quick Start |
+|----------|-------|-------------|
+| **Cursor** | build, plan | `cp adapters/cursor/.cursorrules .` |
+| **Claude** | build, plan | Use `adapters/claude/projects/*.md` |
+| **OpenAI** | build, plan, review | Use `adapters/openai/assistants/*.json` |
+| **OpenCode** | build, plan, review | Copy `adapters/opencode/` to `.opencode/` |
 
 ```bash
-# Example: Configure for Cursor
+# Cursor (build mode)
 cp adapters/cursor/.cursorrules your-project/.cursorrules
 
-# Example: Configure for OpenCode
-mkdir -p your-project/.opencode/agents
-cp adapters/opencode/opencode.json your-project/.opencode/
-cp adapters/opencode/agents/*.md your-project/.opencode/agents/
+# Cursor (plan mode - read only)
+cp adapters/cursor/modes/cursorrules-plan your-project/.cursorrules
 ```
 
-See [adapters/README.md](adapters/README.md) for detailed instructions.
+See [adapters/README.md](adapters/README.md) for all platforms and modes.
 
 ---
 
