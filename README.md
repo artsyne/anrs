@@ -20,7 +20,7 @@ Traditional AI coding often suffers from "Context Drift" and "Instruction Decay.
 
 ---
 
-## Core Pillars
+## Core
 
 **Deterministic Orchestration** — Every AI action follows a defined execution loop (Read → Plan → Execute → Verify), ensuring consistent results regardless of the underlying model.
 
@@ -111,7 +111,7 @@ The following diagram shows how a task flows through the AHES pipeline:
   │     │ Static  │     │ Dynamic │     │Stability│                  │
   │     └────┬────┘     └────┬────┘     └────┬────┘                  │
   │          │               │               │                        │
-  │     • Syntax         • Unit Tests    • FMEA Analysis             │
+  │     • Syntax         • Unit Tests    • Risk Analysis              │
   │     • Lint           • Coverage      • SLO Validation            │
   │     • Complexity     • Contracts     • Chaos (optional)          │
   │                                                                   │
