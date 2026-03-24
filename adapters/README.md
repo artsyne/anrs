@@ -17,7 +17,7 @@ Vendor-specific configurations for integrating AHES with different AI platforms.
 |---------|----------|-------|-------|
 | [claude/](claude/) | Claude (Anthropic) | build, plan | system-prompt.txt, projects/*.md |
 | [cursor/](cursor/) | Cursor IDE | build, plan | .cursorrules, modes/* |
-| [openai/](openai/) | OpenAI API/Assistants | build, plan, review | system-prompt.txt, assistants/*.json |
+| [codex/](codex/) | OpenAI Codex CLI | build, plan, review | AGENTS.md, modes/*.md |
 | [opencode/](opencode/) | OpenCode CLI/TUI | build, plan, review | opencode.json, agents/*.md |
 
 ## Quick Comparison
@@ -54,17 +54,21 @@ cp adapters/cursor/modes/cursorrules-plan your-project/.cursorrules
 
 See [cursor/README.md](cursor/README.md) for Composer tips.
 
-### OpenAI
+### Codex CLI
 
 ```bash
-# Chat Completions API
-cat adapters/openai/system-prompt.txt  # Use as system message
+# Quick start (build mode)
+cp adapters/codex/AGENTS.md your-project/AGENTS.md
 
-# Assistants API (recommended)
-# Use adapters/openai/assistants/ahes-{build,plan,review}.json
+# Global configuration
+mkdir -p ~/.codex
+cp adapters/codex/AGENTS.md ~/.codex/AGENTS.md
+
+# Switch modes
+cp adapters/codex/modes/AGENTS-plan.md your-project/AGENTS.md
 ```
 
-See [openai/README.md](openai/README.md) for code examples.
+See [codex/README.md](codex/README.md) for approval modes and model selection.
 
 ### OpenCode
 

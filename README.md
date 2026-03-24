@@ -238,7 +238,7 @@ AHES provides ready-to-use adapters with **multi-mode support** (build/plan/revi
 |----------|-------|-------------|
 | **Cursor** | build, plan | `cp adapters/cursor/.cursorrules .` |
 | **Claude** | build, plan | Use `adapters/claude/projects/*.md` |
-| **OpenAI** | build, plan, review | Use `adapters/openai/assistants/*.json` |
+| **Codex** | build, plan, review | `cp adapters/codex/AGENTS.md .` |
 | **OpenCode** | build, plan, review | Copy `adapters/opencode/` to `.opencode/` |
 
 ```bash
