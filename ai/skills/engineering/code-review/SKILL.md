@@ -1,29 +1,24 @@
-# Skill: Code Review
-
-<!--
-  🔍 SKILL: code-review
-  
-  Review code for quality, security, and best practices.
--->
-
+---
+name: code-review
+description: |
+  Review code for quality, security, and best practices. Use when:
+  (1) Before merging a pull request
+  (2) Need systematic code quality assessment
+  (3) Security or best practice audit required
 ---
 
-## 🎯 Purpose
+# Code Review
 
 Systematically review code to identify issues and improvements.
 
----
-
-## 📥 Input
+## Input
 
 ```yaml
 files: list            # Files to review
 focus_areas: list      # Specific concerns (optional)
 ```
 
----
-
-## 📤 Output
+## Output
 
 ```yaml
 issues: list
@@ -31,64 +26,49 @@ suggestions: list
 approved: boolean
 ```
 
----
-
-## 📋 Checklist
+## Checklist
 
 - [ ] Code compiles/runs
 - [ ] Tests pass
 - [ ] No security issues
 - [ ] Follows coding standards
 - [ ] No obvious bugs
-- [ ] Documentation adequate
 
----
+## Execution
 
-## 🔧 Execution
+### 1. Static Analysis
 
-### Step 1: Static Analysis
-
-```
 Check for:
 - Syntax errors
 - Lint violations
 - Type errors
 - Unused code
-```
 
-### Step 2: Logic Review
+### 2. Logic Review
 
-```
 Check for:
 - Correct behavior
 - Edge cases handled
 - Error handling
 - Resource cleanup
-```
 
-### Step 3: Security Review
+### 3. Security Review
 
-```
 Check for:
 - Input validation
 - SQL injection
 - XSS vulnerabilities
 - Secrets in code
-```
 
-### Step 4: Quality Review
+### 4. Quality Review
 
-```
 Check for:
 - Code readability
 - Naming conventions
 - Function size
 - Complexity
-```
 
----
-
-## 📊 Issue Categories
+## Issue Categories
 
 | Category | Priority |
 |----------|----------|
@@ -97,9 +77,7 @@ Check for:
 | Performance | Medium |
 | Style | Low |
 
----
-
-## 📝 Review Output Format
+## Review Output Format
 
 ```markdown
 ## Code Review: {file}
@@ -122,17 +100,13 @@ Check for:
 [x] Changes Required
 ```
 
----
-
-## ⚠️ Constraints
+## Constraints
 
 - Review ONE file at a time
 - Document ALL issues found
 - Provide actionable fixes
 
----
-
-## 🔗 Related
+## Related
 
 - `ai/rules/coding.md` — Coding standards
 - `ai/rules/safety.md` — Security rules

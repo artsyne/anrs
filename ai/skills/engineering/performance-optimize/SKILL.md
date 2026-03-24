@@ -1,20 +1,17 @@
-# Skill: Performance Optimization
-
-<!--
-  ⚡ SKILL: performance-optimize
-  
-  Optimize code performance with measurement and validation.
--->
-
+---
+name: performance-optimize
+description: |
+  Optimize code performance with measurement and validation. Use when:
+  (1) Performance issues identified
+  (2) Need to improve response time or throughput
+  (3) Optimizing based on profiling data
 ---
 
-## 🎯 Purpose
+# Performance Optimization
 
 Improve code performance based on measurement, not guessing.
 
----
-
-## 📥 Input
+## Input
 
 ```yaml
 target: string         # What to optimize
@@ -22,9 +19,7 @@ current_metric: number # Current performance
 goal_metric: number    # Target performance
 ```
 
----
-
-## 📤 Output
+## Output
 
 ```yaml
 optimizations_applied: list
@@ -32,9 +27,7 @@ new_metric: number
 improvement_percent: number
 ```
 
----
-
-## 📋 Checklist
+## Checklist
 
 - [ ] Baseline measured
 - [ ] Bottleneck identified
@@ -43,33 +36,26 @@ improvement_percent: number
 - [ ] Improvement validated
 - [ ] No regressions
 
----
+## Execution
 
-## 🔧 Execution
-
-### Step 1: Measure Baseline
+### 1. Measure Baseline
 
 ```bash
-# Run benchmark
 go test -bench=. -benchmem > baseline.txt
-
-# Profile
 go test -cpuprofile=cpu.prof
 go tool pprof cpu.prof
 ```
 
-### Step 2: Identify Bottleneck
+### 2. Identify Bottleneck
 
-```
 Common bottlenecks:
 - N+1 queries
 - Unnecessary allocations
 - Missing indexes
 - Inefficient algorithms
 - Missing caching
-```
 
-### Step 3: Optimize
+### 3. Optimize
 
 ```go
 // Before: N+1 queries
@@ -82,19 +68,14 @@ userIDs := extractIDs(users)
 orders := db.GetOrdersForUsers(userIDs)
 ```
 
-### Step 4: Validate
+### 4. Validate
 
 ```bash
-# Run benchmark again
 go test -bench=. -benchmem > optimized.txt
-
-# Compare
 benchstat baseline.txt optimized.txt
 ```
 
----
-
-## 📊 Optimization Checklist
+## Optimization Techniques
 
 | Technique | Impact | Risk |
 |-----------|--------|------|
@@ -104,18 +85,14 @@ benchstat baseline.txt optimized.txt
 | Algorithm change | High | High |
 | Remove allocations | Medium | Low |
 
----
-
-## ⚠️ Constraints
+## Constraints
 
 - MUST measure before optimizing
 - MUST validate improvement
 - MUST check for regressions
 - NO premature optimization
 
----
-
-## 🔗 Related
+## Related
 
 - `harness/evaluators/l2_dynamic_tests.py` — Benchmark runner
 - `harness/metrics/performance.json` — Performance metrics

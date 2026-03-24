@@ -1,20 +1,17 @@
-# Skill: Incident Analysis
-
-<!--
-  🚨 SKILL: incident-analysis
-  
-  Analyze production incidents and create postmortems.
--->
-
+---
+name: incident-analysis
+description: |
+  Analyze production incidents and create postmortems. Use when:
+  (1) A production incident has occurred
+  (2) Need to perform root cause analysis
+  (3) Creating a blameless postmortem document
 ---
 
-## 🎯 Purpose
+# Incident Analysis
 
 Systematically analyze incidents to prevent recurrence.
 
----
-
-## 📥 Input
+## Input
 
 ```yaml
 incident_id: string    # Incident identifier
@@ -22,9 +19,7 @@ timeline: list         # Events timeline
 impact: object         # Impact metrics
 ```
 
----
-
-## 📤 Output
+## Output
 
 ```yaml
 postmortem: file
@@ -32,9 +27,7 @@ root_causes: list
 action_items: list
 ```
 
----
-
-## 📋 Checklist
+## Checklist
 
 - [ ] Timeline reconstructed
 - [ ] Impact quantified
@@ -43,14 +36,9 @@ action_items: list
 - [ ] Action items created
 - [ ] Postmortem documented
 
----
+## Execution
 
-## 🔧 Execution
-
-### Step 1: Reconstruct Timeline
-
-```markdown
-## Timeline
+### 1. Reconstruct Timeline
 
 | Time (UTC) | Event |
 |------------|-------|
@@ -58,49 +46,34 @@ action_items: list
 | 14:05 | Error rate increased |
 | 14:10 | Alert triggered |
 | 14:15 | Incident declared |
-| 14:30 | Root cause identified |
 | 14:35 | Rollback initiated |
 | 14:40 | Service restored |
-```
 
-### Step 2: Quantify Impact
+### 2. Quantify Impact
 
-```markdown
-## Impact
-
-- Duration: 40 minutes
-- Users affected: 10,000
-- Requests failed: 50,000
+- Duration: X minutes
+- Users affected: X
+- Requests failed: X
 - Revenue impact: $X
 - SLA breach: Yes/No
-```
 
-### Step 3: Root Cause Analysis
+### 3. Root Cause Analysis (5 Whys)
 
-```
-Use 5 Whys:
 1. Why did the service fail? → DB connection exhausted
 2. Why were connections exhausted? → Connection leak
 3. Why was there a leak? → Missing connection close
 4. Why was it missing? → Not caught in review
 5. Why not caught? → No static analysis for this
-```
 
-### Step 4: Create Action Items
-
-```markdown
-## Action Items
+### 4. Create Action Items
 
 | Priority | Action | Owner | Due |
 |----------|--------|-------|-----|
 | P1 | Fix connection leak | @dev | Done |
-| P1 | Add connection monitoring | @sre | 1 week |
-| P2 | Add static analysis rule | @platform | 2 weeks |
-```
+| P1 | Add monitoring | @sre | 1 week |
+| P2 | Add static analysis | @platform | 2 weeks |
 
----
-
-## 📝 Postmortem Format
+## Postmortem Format
 
 ```markdown
 # Incident Postmortem: {incident_id}
@@ -117,9 +90,6 @@ Use 5 Whys:
 ## Root Cause
 {5 Whys analysis}
 
-## Contributing Factors
-{What made this worse}
-
 ## Action Items
 {Table of actions}
 
@@ -127,17 +97,12 @@ Use 5 Whys:
 {What we learned}
 ```
 
----
-
-## ⚠️ Constraints
+## Constraints
 
 - Blameless analysis
 - Focus on systems, not people
 - Actionable items only
-- Follow up on items
 
----
-
-## 🔗 Related
+## Related
 
 - `ai/skills/sre/risk-analysis/` — Preventive analysis
