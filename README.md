@@ -2,7 +2,7 @@
 
 > A deterministic, transactional framework for AI-driven development.
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1-blue.svg)]()
 [![Standard](https://img.shields.io/badge/AI%20Native-Repo%20Spec-green.svg)]()
 
@@ -166,7 +166,7 @@ The following diagram shows how a task flows through the AHES pipeline:
 ```
 .
 ├── README.md              # Human entry point (this file)
-├── LICENSE                # Apache 2.0
+├── LICENSE                # MIT
 ├── CONTRIBUTING.md        # How to contribute
 │
 ├── ai/                    # 🔥 Core specification layer
@@ -243,4 +243,4 @@ Point your AI tool to `ai/ENTRY.md` as the entry point.
 
 ## License
 
-Apache License 2.0 — See [LICENSE](LICENSE) for details.
+MIT License — See [LICENSE](LICENSE) for details.
