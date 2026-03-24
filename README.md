@@ -191,8 +191,19 @@ The following diagram shows how a task flows through the AHES pipeline:
 │   └── todo-app/          # Complete example
 │
 ├── docs/                  # Documentation
+│   ├── architecture/      # System design docs
+│   ├── references/        # API contracts, dependency maps
+│   ├── design-docs/       # Design decision records
+│   └── generated/         # Auto-generated docs
+│
 ├── plans/                 # Task management
+│   ├── active/            # Current tasks
+│   └── completed/         # Archived tasks
+│
 ├── evals/                 # Evolution system
+│   ├── benchmarks/        # Performance benchmarks
+│   ├── failure-cases/     # Failure case archive
+│   └── prompts/           # Evaluation prompts
 ├── adapters/              # Vendor adapters
 ├── scripts/               # Utility scripts
 └── src/                   # Your business code
@@ -250,6 +261,8 @@ Point your AI tool to `ai/ENTRY.md` as the entry point.
 - [Todo App Example](examples/todo-app/) — Complete workflow demo
 - [Core Beliefs](docs/core-beliefs.md) — Design principles
 - [System Architecture](docs/architecture/system.md) — Technical design
+- [Architecture Graph](docs/references/architecture-graph.md) — Component relationships
+- [API Contracts](docs/references/api-contracts.md) — Endpoint definitions
 - [Contributing Guide](CONTRIBUTING.md) — How to contribute
 
 ---

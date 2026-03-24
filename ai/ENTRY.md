@@ -39,9 +39,11 @@ IF FAIL: reflection → SCRATCHPAD → new plan → RETRY
 | File | Purpose |
 |------|---------|
 | `ai/state/state.json` | Current state (SSOT) |
-| `ai/orchestrator/ORCHESTRATOR.md` | Detailed protocol |
-| `ai/rules/global.md` | Constraints |
-| `ai/skills/index.json` | Skill registry |
+| `ai/orchestrator/ORCHESTRATOR.md` | Detailed protocol (sequential + parallel modes) |
+| `ai/rules/global.md` | Global constraints |
+| `ai/skills/index.json` | Skill registry (15 skills) |
+| `harness/quality_gate.py` | Evaluation entry (Security → L1 → L2 → L3) |
+| `docs/references/` | Architecture graph, dependency map, API contracts |
 
 ## Decision Tree
 
