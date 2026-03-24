@@ -27,8 +27,7 @@ todo-app/
 │       └── index.json
 ├── src/
 │   ├── __init__.py
-│   ├── todo.py          # Main module
-│   └── storage.py       # Data persistence
+│   └── todo.py          # Main module (implement here)
 ├── tests/
 │   └── test_todo.py
 ├── harness/
