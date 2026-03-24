@@ -205,8 +205,7 @@ The following diagram shows how a task flows through the AHES pipeline:
 │   ├── failure-cases/     # Failure case archive
 │   └── prompts/           # Evaluation prompts
 ├── adapters/              # Vendor adapters
-├── scripts/               # Utility scripts
-└── src/                   # Your business code
+└── scripts/               # Utility scripts
 ```
 
 ---
