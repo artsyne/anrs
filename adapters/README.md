@@ -15,7 +15,7 @@ Vendor-specific configurations for integrating AHES with different AI platforms.
 
 | Adapter | Platform | Modes | Files |
 |---------|----------|-------|-------|
-| [claude/](claude/) | Claude (Anthropic) | build, plan | system-prompt.txt, projects/*.md |
+| [claude-code/](claude-code/) | Claude Code CLI | build, plan, review | CLAUDE.md, modes/*.md |
 | [cursor/](cursor/) | Cursor IDE | build, plan | .cursorrules, modes/* |
 | [codex/](codex/) | OpenAI Codex CLI | build, plan, review | AGENTS.md, modes/*.md |
 | [opencode/](opencode/) | OpenCode CLI/TUI | build, plan, review | opencode.json, agents/*.md |
@@ -30,17 +30,21 @@ Vendor-specific configurations for integrating AHES with different AI platforms.
 
 ## Usage
 
-### Claude
+### Claude Code
 
 ```bash
 # Quick start (build mode)
-cat adapters/claude/system-prompt.txt  # Copy to Claude system prompt
+cp adapters/claude-code/CLAUDE.md your-project/CLAUDE.md
 
-# For Claude Projects
-# Copy adapters/claude/projects/ahes-build.md or ahes-plan.md
+# Global configuration
+mkdir -p ~/.claude
+cp adapters/claude-code/CLAUDE.md ~/.claude/CLAUDE.md
+
+# Switch modes
+cp adapters/claude-code/modes/CLAUDE-plan.md your-project/CLAUDE.md
 ```
 
-See [claude/README.md](claude/README.md) for API and Projects setup.
+See [claude-code/README.md](claude-code/README.md) for subagents and model selection.
 
 ### Cursor
 

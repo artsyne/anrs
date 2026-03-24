@@ -236,8 +236,8 @@ AHES provides ready-to-use adapters with **multi-mode support** (build/plan/revi
 
 | Platform | Modes | Quick Start |
 |----------|-------|-------------|
+| **Claude Code** | build, plan, review | `cp adapters/claude-code/CLAUDE.md .` |
 | **Cursor** | build, plan | `cp adapters/cursor/.cursorrules .` |
-| **Claude** | build, plan | Use `adapters/claude/projects/*.md` |
 | **Codex** | build, plan, review | `cp adapters/codex/AGENTS.md .` |
 | **OpenCode** | build, plan, review | Copy `adapters/opencode/` to `.opencode/` |
 
