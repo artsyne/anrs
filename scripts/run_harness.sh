@@ -40,7 +40,7 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-echo "🧪 AHES Harness Runner"
+echo "AHES Harness Runner"
 echo "======================"
 echo "Level: $LEVEL"
 echo ""
@@ -60,10 +60,10 @@ RESULT=$(python3 -c "import json; print(json.load(open('harness/reports/latest.j
 
 echo ""
 if [ "$RESULT" == "PASS" ]; then
-    echo -e "${GREEN}✅ Harness PASSED${NC}"
+    echo -e "${GREEN}[PASS] Harness PASSED${NC}"
     exit 0
 else
-    echo -e "${RED}❌ Harness FAILED${NC}"
+    echo -e "${RED}[FAIL] Harness FAILED${NC}"
     echo "See harness/reports/latest.json for details"
     exit 1
 fi

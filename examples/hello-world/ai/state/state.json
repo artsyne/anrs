@@ -1,4 +1,6 @@
 {
+  "$comment": "AHES State - Single Source of Truth (SSOT)",
+  "$schema": "../../../ai/state/state.schema.json",
   "version": "0.1.0",
   "last_updated": "2026-03-24T00:00:00Z",
   "current_task": "hello-001",

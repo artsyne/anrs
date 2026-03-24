@@ -37,7 +37,7 @@ IF FAIL: reflection → SCRATCHPAD → new plan → RETRY
 ## Key Files
 
 | File | Purpose |
-|------|---------||
+|------|---------|
 | `ai/state/state.json` | Current state (SSOT) |
 | `ai/orchestrator/ORCHESTRATOR.md` | Detailed protocol |
 | `ai/rules/global.md` | Constraints |

@@ -1,5 +1,5 @@
 {
-  "$comment": "🧠 AHES State - Single Source of Truth (SSOT)",
+  "$comment": "AHES State - Single Source of Truth (SSOT)",
   "$schema": "./state.schema.json",
   
   "version": "0.1.0",

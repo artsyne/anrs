@@ -71,7 +71,8 @@ def run_level(level: str, verbose: bool = False) -> dict:
     elif level == "L3":
         # Stability: Risk Analysis, chaos
         result["checks"] = [
-            {"name": "risk_analysis", "status": "PASS", "message": "No high-risk items"},
+            {"name": "risk_analysis", "status": "PASS",
+                "message": "No high-risk items"},
             {"name": "chaos", "status": "SKIP", "message": "Skipped in dev mode"}
         ]
 
@@ -107,8 +108,10 @@ def run_security(verbose: bool = False) -> dict:
     result = {
         "status": "PASS",
         "checks": [
-            {"name": "dependency_scan", "status": "PASS", "message": "No vulnerable dependencies"},
-            {"name": "secret_detection", "status": "PASS", "message": "No secrets detected"},
+            {"name": "dependency_scan", "status": "PASS",
+                "message": "No vulnerable dependencies"},
+            {"name": "secret_detection", "status": "PASS",
+                "message": "No secrets detected"},
             {"name": "sast", "status": "PASS", "message": "No security issues found"}
         ]
     }
