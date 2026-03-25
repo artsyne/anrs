@@ -10,13 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Initial ANRS framework structure
-- Core specification layer (`ai/`)
-  - Entry point (`ai/ENTRY.md`)
-  - Rules and constraints (`ai/rules/`)
-  - State management with SSOT (`ai/state/`)
-  - Orchestrator protocol (`ai/orchestrator/`)
-  - Skills registry and definitions (`ai/skills/`)
-  - JSON Schema contracts (`ai/contracts/`)
+- Core specification layer (`spec/`)
+  - Entry point (`spec/ENTRY.md`)
+  - Rules and constraints (`spec/rules/`)
+  - State management with SSOT (`spec/state/`)
+  - Orchestrator protocol (`spec/orchestrator/`)
+  - Skills registry and definitions (`spec/skills/`)
+  - JSON Schema contracts (`spec/contracts/`)
 - Harness evaluation system (`harness/`)
   - L1 static checks
   - L2 dynamic tests

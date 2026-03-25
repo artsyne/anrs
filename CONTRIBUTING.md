@@ -54,11 +54,11 @@ Follow the [Style Guidelines](#style-guidelines) below.
 
 ### Adding a New Skill
 
-1. Create a new directory under `ai/skills/{category}/`
+1. Create a new directory under `spec/skills/{category}/`
 2. Include:
    - `SKILL.md` — Skill definition
    - `checklist.md` — Execution checklist (optional)
-3. Register the skill in `ai/skills/index.json`
+3. Register the skill in `spec/skills/index.json`
 
 ### Adding a New Adapter
 

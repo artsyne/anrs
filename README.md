@@ -18,7 +18,7 @@ When AI agents operate in traditional codebases, they often lose track of their 
 - **Defined Skills (`skills/`)** — Replaces open-ended guessing. The AI is restricted to documented checklists, preventing undefined behaviors.
 - **Mandatory Harness (`harness/`)** — Replaces blind commits. AI-generated code must pass checks and tests before task completion.
 
-> **Note**: ANRS is a **specification**, not a runtime tool. It's a standardized folder structure (`ai/`, `harness/`, `plans/`) plus execution protocols that any AI tool can follow.
+> **Note**: ANRS is a **specification**, not a runtime tool. It's a standardized folder structure (`spec/`, `harness/`, `plans/`) plus execution protocols that any AI tool can follow.
 
 ---
 
@@ -54,9 +54,9 @@ When AI agents operate in traditional codebases, they often lose track of their 
 ## Execution Workflow
 
 ```
-1. READ STATE    → ai/state/state.json
+1. READ STATE    → spec/state/state.json
 2. LOAD PLAN     → plans/active/{task_id}.md
-3. SELECT SKILL  → ai/skills/index.json
+3. SELECT SKILL  → spec/skills/index.json
 4. EXECUTE       → Follow SKILL.md checklist
 5. RUN HARNESS   → L1 (Static) → L2 (Tests) → L3 (Stability)
 
@@ -80,11 +80,11 @@ cat README.md
 
 ```bash
 git clone https://github.com/artsyne/anrs.git
-cp -r anrs/ai your-project/
+cp -r anrs/spec your-project/
 cp -r anrs/harness your-project/
 ```
 
-Point your AI tool to `ai/ENTRY.md` as the entry point.
+Point your AI tool to `spec/ENTRY.md` as the entry point.
 
 ### Option 3: Configure Your AI Platform
 
@@ -111,11 +111,11 @@ See [adapters/README.md](adapters/README.md) for all platforms and modes.
 
 ## Core Concepts
 
-**State (SSOT)** — `ai/state/state.json` — Single Source of Truth for task state. AI reads this before any action.
+**State (SSOT)** — `spec/state/state.json` — Single Source of Truth for task state. AI reads this before any action.
 
-**Orchestrator** — `ai/orchestrator/ORCHESTRATOR.md` — Defines the execution protocol (Read → Plan → Execute → Verify loop). Supports sequential and parallel (subagent) execution modes.
+**Orchestrator** — `spec/orchestrator/ORCHESTRATOR.md` — Defines the execution protocol (Read → Plan → Execute → Verify loop). Supports sequential and parallel (subagent) execution modes.
 
-**Skills** — `ai/skills/index.json` — 15 registered action templates with input/output schemas and constraints.
+**Skills** — `spec/skills/index.json` — 15 registered action templates with input/output schemas and constraints.
 
 **Harness** — `harness/quality_gate.py` — Multi-layer evaluation gate (Security → L1: static → L2: tests → L3: stability).
 
@@ -123,10 +123,10 @@ See [adapters/README.md](adapters/README.md) for all platforms and modes.
 
 ## Key Files Reference
 
-- `ai/ENTRY.md` — AI agent entry point
-- `ai/rules/global.md` — Global constraints (must follow)
-- `ai/rules/constraints.json` — Machine-readable rules
-- `ai/skills/index.json` — Skill registry
+- `spec/ENTRY.md` — AI agent entry point
+- `spec/rules/global.md` — Global constraints (must follow)
+- `spec/rules/constraints.json` — Machine-readable rules
+- `spec/skills/index.json` — Skill registry
 - `harness/error_codes.json` — Error code definitions for reflection
 
 ---
@@ -135,7 +135,7 @@ See [adapters/README.md](adapters/README.md) for all platforms and modes.
 
 - [Hello World Example](examples/hello-world/) — 5-minute quick start
 - [Todo App Example](examples/todo-app/) — Complete workflow demo
-- [Core Beliefs](docs/core-beliefs.md) — Design principles
+- [Core Beliefs](spec/core-beliefs.md) — Design principles
 - [System Architecture](docs/architecture/system.md) — Technical design
 - [Architecture Graph](docs/references/architecture-graph.md) — Component relationships
 - [API Contracts](docs/references/api-contracts.md) — Endpoint definitions

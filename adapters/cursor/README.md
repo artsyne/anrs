@@ -75,15 +75,15 @@ Cursor's Composer is ideal for ANRS multi-file changes:
 ### Inline References
 
 Use `@` to reference ANRS files in chat:
-- `@ai/ENTRY.md` - Entry point
-- `@ai/state/state.json` - Current state
-- `@ai/skills/index.json` - Available skills
+- `@spec/ENTRY.md` - Entry point
+- `@spec/state/state.json` - Current state
+- `@spec/skills/index.json` - Available skills
 
 ### Codebase Context
 
 Cursor indexes your codebase. Leverage this:
-- Ask "What skills are available?" → Cursor reads `ai/skills/`
-- Ask "What's the current state?" → Cursor reads `ai/state/state.json`
+- Ask "What skills are available?" → Cursor reads `spec/skills/`
+- Ask "What's the current state?" → Cursor reads `spec/state/state.json`
 
 ## Best Practices
 
@@ -91,7 +91,7 @@ Cursor indexes your codebase. Leverage this:
 
 Always begin by checking state:
 ```
-Read ai/state/state.json and tell me the current status
+Read spec/state/state.json and tell me the current status
 ```
 
 ### 2. Use Composer for Multi-File Changes

@@ -31,7 +31,7 @@ Each example follows the ANRS directory structure:
 
 ```
 example/
-├── ai/
+├── spec/
 │   ├── ENTRY.md        # AI entry point (read first)
 │   ├── state/
 │   │   └── state.json  # Current state (SSOT)
@@ -45,7 +45,7 @@ example/
 ## How to Use
 
 **For AI:**
-1. Read `ai/ENTRY.md` first
+1. Read `spec/ENTRY.md` first
 2. Follow the execution protocol
 3. Run harness before completion
 

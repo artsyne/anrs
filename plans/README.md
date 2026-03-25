@@ -81,6 +81,6 @@ What this task achieves.
 
 | File | Purpose |
 |------|---------|
-| `ai/ENTRY.md` | Execution loop references `plans/active/` |
-| `ai/state/state.json` | Contains `current_task` field |
-| `ai/skills/core/task-completion/` | Moves plans to `completed/` |
+| `spec/ENTRY.md` | Execution loop references `plans/active/` |
+| `spec/state/state.json` | Contains `current_task` field |
+| `spec/skills/core/task-completion/` | Moves plans to `completed/` |

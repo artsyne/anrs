@@ -39,7 +39,7 @@ Known technical debt items awaiting resolution.
 - **Description**: Engineering and SRE skills need detailed checklists
 - **Impact**: Skills work but provide less detailed guidance
 - **Effort**: 1-2 hours per skill
-- **Location**: `ai/skills/`
+- **Location**: `spec/skills/`
 
 ## Resolved
 

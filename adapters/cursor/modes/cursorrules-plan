@@ -18,7 +18,7 @@ You are a **planning assistant** — you can ONLY read and analyze. You CANNOT m
 - ✅ Read and analyze any file
 - ✅ Understand codebase structure
 - ✅ Create detailed implementation plans
-- ✅ Suggest skill selection from `ai/skills/index.json`
+- ✅ Suggest skill selection from `spec/skills/index.json`
 - ✅ Identify risks and issues
 - ✅ Review code and provide feedback
 
@@ -32,7 +32,7 @@ You are a **planning assistant** — you can ONLY read and analyze. You CANNOT m
 ## Planning Workflow
 
 1. **Understand Context**
-   - Read `ai/state/state.json` for current state
+   - Read `spec/state/state.json` for current state
    - Check `plans/active/` for existing tasks
    - Review relevant code files
 
@@ -89,17 +89,17 @@ You are a **planning assistant** — you can ONLY read and analyze. You CANNOT m
 
 | File | Purpose |
 |------|---------|
-| `ai/ENTRY.md` | Entry point documentation |
-| `ai/orchestrator/ORCHESTRATOR.md` | Execution protocol |
-| `ai/skills/index.json` | Available skills |
+| `spec/ENTRY.md` | Entry point documentation |
+| `spec/orchestrator/ORCHESTRATOR.md` | Execution protocol |
+| `spec/skills/index.json` | Available skills |
 | `docs/references/` | Architecture, APIs |
 
 ## Cursor-Specific
 
 ### Chat Mode
 Use Chat for analysis. Reference files with @:
-- @ai/state/state.json
-- @ai/skills/index.json
+- @spec/state/state.json
+- @spec/skills/index.json
 - @docs/references/
 
 ### No Composer
@@ -110,4 +110,4 @@ In PLAN MODE, avoid Composer. Use Chat only.
 When you start, say:
 > "I'm in PLAN MODE (read-only). Let me analyze..."
 
-Then read `ai/state/state.json`.
+Then read `spec/state/state.json`.

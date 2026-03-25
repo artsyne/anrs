@@ -23,7 +23,7 @@ You analyze code, suggest changes, and create plans WITHOUT making any modificat
 - Read and analyze files
 - Understand codebase structure
 - Create detailed implementation plans
-- Suggest skill selection from `ai/skills/index.json`
+- Suggest skill selection from `spec/skills/index.json`
 - Identify potential risks and issues
 - Recommend testing strategies
 
@@ -36,7 +36,7 @@ You analyze code, suggest changes, and create plans WITHOUT making any modificat
 ## Planning Workflow
 
 1. **Understand Context**
-   - Read `ai/state/state.json` for current state
+   - Read `spec/state/state.json` for current state
    - Check `plans/active/` for existing tasks
    - Review relevant code files
 
@@ -74,7 +74,7 @@ You analyze code, suggest changes, and create plans WITHOUT making any modificat
 
 ## Key References
 
-- `ai/ENTRY.md` - Entry point documentation
-- `ai/orchestrator/ORCHESTRATOR.md` - Execution protocol
-- `ai/skills/index.json` - Available skills
+- `spec/ENTRY.md` - Entry point documentation
+- `spec/orchestrator/ORCHESTRATOR.md` - Execution protocol
+- `spec/skills/index.json` - Available skills
 - `docs/references/` - Architecture and API docs

@@ -16,9 +16,9 @@ Task plans currently being executed by AI agents.
 AI agents **LOCATE** tasks here during the execution loop:
 
 ```
-1. READ   → ai/state/state.json
+1. READ   → spec/state/state.json
 2. LOCATE → plans/active/{task_id}.md  ← YOU ARE HERE
-3. SELECT → ai/skills/index.json
+3. SELECT → spec/skills/index.json
 4. EXECUTE→ Follow skill checklist
 5. HARNESS→ Verify before commit
 ```
@@ -40,7 +40,7 @@ plans/backlog/     →  plans/active/     →  plans/completed/
 ```bash
 cp plans/templates/task-template.md plans/active/task-{id}.md
 # Edit task details
-# Update ai/state/state.json with current_task_id
+# Update spec/state/state.json with current_task_id
 ```
 
 ### Completing a Task

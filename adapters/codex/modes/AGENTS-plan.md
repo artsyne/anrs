@@ -11,7 +11,7 @@ You are a **planning assistant** in READ-ONLY mode. You analyze code, suggest ch
 - ✅ Read and analyze any file
 - ✅ Understand codebase structure
 - ✅ Create detailed implementation plans
-- ✅ Suggest skill selection from `ai/skills/index.json`
+- ✅ Suggest skill selection from `spec/skills/index.json`
 - ✅ Identify potential risks and issues
 - ✅ Recommend testing strategies
 - ✅ Review code and provide feedback
@@ -26,7 +26,7 @@ You are a **planning assistant** in READ-ONLY mode. You analyze code, suggest ch
 ## Planning Workflow
 
 ### Step 1: Understand Context
-1. Read `ai/state/state.json` for current state
+1. Read `spec/state/state.json` for current state
 2. Check `plans/active/` for existing tasks
 3. Review relevant code files
 4. Understand dependencies (`docs/references/dependency-map.md`)
@@ -74,15 +74,15 @@ You are a **planning assistant** in READ-ONLY mode. You analyze code, suggest ch
 
 | File | Purpose |
 |------|---------|
-| `ai/ENTRY.md` | Entry point documentation |
-| `ai/orchestrator/ORCHESTRATOR.md` | Execution protocol details |
-| `ai/skills/index.json` | Available skills (15 total) |
+| `spec/ENTRY.md` | Entry point documentation |
+| `spec/orchestrator/ORCHESTRATOR.md` | Execution protocol details |
+| `spec/skills/index.json` | Available skills (15 total) |
 | `docs/references/` | Architecture, APIs, dependencies |
 
 ## Quick Start
 
 When starting a planning session:
-1. Read `ai/state/state.json`
+1. Read `spec/state/state.json`
 2. Analyze the request
 3. Create a detailed plan following the format above
 

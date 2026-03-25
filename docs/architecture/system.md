@@ -15,20 +15,20 @@ ANRS is a protocol-driven framework for AI-assisted software development.
 
 ```
 ANRS Framework
-├── Rules (ai/rules/)      → Constraints & standards
-├── State (ai/state/)      → Execution state (SSOT)
-├── Skills (ai/skills/)    → Executable actions
-├── Orchestrator (ai/orchestrator/) → Execution flow
+├── Rules (spec/rules/)      → Constraints & standards
+├── State (spec/state/)      → Execution state (SSOT)
+├── Skills (spec/skills/)    → Executable actions
+├── Orchestrator (spec/orchestrator/) → Execution flow
 └── Harness (harness/)     → Code quality evaluation
 ```
 
 ### Directory Layout
 
 ```
-ai/rules/        → global.md, coding.md, safety.md
-ai/state/        → state.json, scratchpad/
-ai/skills/       → index.json, core/, engineering/, sre/
-ai/orchestrator/ → ORCHESTRATOR.md, strategies/
+spec/rules/        → global.md, coding.md, safety.md
+spec/state/        → state.json, scratchpad/
+spec/skills/       → index.json, core/, engineering/, sre/
+spec/orchestrator/ → ORCHESTRATOR.md, strategies/
 harness/         → quality_gate.py, evaluators/ (L1/L2/L3)
 ```
 
@@ -59,5 +59,5 @@ User Request → Read State → Load Plan → Select Skill → Execute
 
 ## Integration
 
-Adapters: `adapters/cursor/`, `adapters/claude/`, `adapters/openai/`
+Adapters: `adapters/cursor/`, `adapters/claude-code/`, `adapters/codex/`
 External: Git, GitHub Actions, Prometheus/Grafana

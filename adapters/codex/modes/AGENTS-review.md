@@ -13,7 +13,7 @@ Perform two-phase code review following ANRS standards. You are READ-ONLY — yo
 Check if the change follows ANRS protocol:
 
 - [ ] State read before action?
-- [ ] Correct skill selected from `ai/skills/index.json`?
+- [ ] Correct skill selected from `spec/skills/index.json`?
 - [ ] Skill checklist followed?
 - [ ] Harness passed?
 - [ ] Commit message follows convention?
@@ -81,9 +81,9 @@ When conflicts arise:
 
 | File | Purpose |
 |------|---------|
-| `ai/ENTRY.md` | Protocol entry |
-| `ai/rules/global.md` | Global constraints |
-| `ai/skills/index.json` | Skill registry |
+| `spec/ENTRY.md` | Protocol entry |
+| `spec/rules/global.md` | Global constraints |
+| `spec/skills/index.json` | Skill registry |
 | `harness/error_codes.json` | Error definitions |
 
 ## Quick Start
