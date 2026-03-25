@@ -59,14 +59,15 @@ class TestAdapterInstallCommand:
         assert "is not one of" in result.output
 
     def test_adapter_install_already_exists(self, runner, tmp_path):
-        """Test error when adapter config already exists."""
+        """Test behavior when adapter config already exists."""
         # First install
         runner.invoke(cli, ["adapter", "install", "cursor", str(tmp_path)])
-        # Second install should fail
+        # Second install without force shows conflict prompt
         result = runner.invoke(
             cli, ["adapter", "install", "cursor", str(tmp_path)])
         assert result.exit_code != 0
-        assert "already exists" in result.output
+        # New behavior: shows conflict detection or aborts
+        assert "Conflict" in result.output or "Aborted" in result.output
 
     def test_adapter_install_force(self, runner, tmp_path):
         """Test force overwrite with --force."""
@@ -88,11 +89,11 @@ class TestAdapterInstallCommand:
         assert not (tmp_path / ".cursorrules").exists()
 
     def test_adapter_install_dry_run_with_existing(self, runner, tmp_path):
-        """Test dry run shows error when file already exists."""
+        """Test dry run shows conflict when file already exists."""
         # First install
         runner.invoke(cli, ["adapter", "install", "cursor", str(tmp_path)])
-        # Dry run without force should fail
+        # Dry run should show conflict info
         result = runner.invoke(
             cli, ["adapter", "install", "cursor", "--dry-run", str(tmp_path)])
-        assert result.exit_code != 0
-        assert "already exists" in result.output
+        assert result.exit_code == 0
+        assert "Conflict" in result.output

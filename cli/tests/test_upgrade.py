@@ -7,6 +7,7 @@ from click.testing import CliRunner
 
 from anrs.main import cli
 from anrs.upgrade import get_current_version, backup_state, upgrade_file
+from anrs.backup import get_backup_dir
 
 
 @pytest.fixture
@@ -65,23 +66,24 @@ class TestBackupState:
     def test_backup_creates_file(self, anrs_repo):
         """Test that backup creates a backup file."""
         anrs_dir = anrs_repo / ".anrs"
-        backup_dir = anrs_dir / ".backups"
+        backup_dir = get_backup_dir(anrs_dir)
 
         backup_state(anrs_dir, backup_dir)
 
         assert backup_dir.exists()
-        backup_files = list(backup_dir.glob("state_*.json"))
+        # New backup format: state.json.YYYYMMDD_HHMMSS
+        backup_files = list(backup_dir.glob("state.json.*"))
         assert len(backup_files) == 1
 
     def test_backup_no_state(self, tmp_path):
         """Test backup when no state file exists."""
         anrs_dir = tmp_path / ".anrs"
         anrs_dir.mkdir()
-        backup_dir = anrs_dir / ".backups"
+        backup_dir = get_backup_dir(anrs_dir)
 
-        # Should not raise
-        backup_state(anrs_dir, backup_dir)
-        assert not backup_dir.exists()
+        # Should not raise, returns None
+        result = backup_state(anrs_dir, backup_dir)
+        assert result is None
 
 
 class TestUpgradeFile:
@@ -148,8 +150,9 @@ class TestUpgradeCommand:
         """Test that upgrade creates backup."""
         result = runner.invoke(cli, ["upgrade", "--force", str(anrs_repo)])
 
-        backup_dir = anrs_repo / ".anrs" / ".backups"
-        backup_files = list(backup_dir.glob("state_*.json"))
+        backup_dir = get_backup_dir(anrs_repo / ".anrs")
+        # New backup format: state.json.YYYYMMDD_HHMMSS
+        backup_files = list(backup_dir.glob("state.json.*"))
         assert len(backup_files) >= 1
 
     def test_upgrade_no_backup(self, runner, anrs_repo):

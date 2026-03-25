@@ -14,6 +14,15 @@ from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from anrs.constants import TEMPLATES_DIR, PRESERVE_FIELDS
+from anrs.backup import (
+    backup_file,
+    backup_directory,
+    get_backup_dir,
+    merge_json_files,
+    create_backup_id,
+    list_backups,
+    show_backup_list,
+)
 
 logger = logging.getLogger(__name__)
 console = Console()
@@ -33,20 +42,12 @@ def get_current_version(anrs_dir: Path) -> Optional[str]:
     return None
 
 
-def backup_state(anrs_dir: Path, backup_dir: Path) -> None:
-    """Backup state files before upgrade."""
+def backup_state(anrs_dir: Path, backup_dir: Path, backup_id: Optional[str] = None) -> Optional[Path]:
+    """Backup state files before upgrade using unified backup module."""
     state_file = anrs_dir / "state.json"
     if state_file.exists():
-        try:
-            backup_dir.mkdir(parents=True, exist_ok=True)
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            backup_path = backup_dir / f"state_{timestamp}.json"
-            shutil.copy(state_file, backup_path)
-            console.print(f"[dim]Backed up state to {backup_path}[/dim]")
-        except IOError as e:
-            logger.warning(f"Failed to backup state: {e}")
-            console.print(
-                f"[yellow]Warning: Could not backup state: {e}[/yellow]")
+        return backup_file(state_file, backup_dir, backup_id)
+    return None
 
 
 def upgrade_file(source: Path, target: Path, preserve_data: bool = False) -> bool:
@@ -55,27 +56,17 @@ def upgrade_file(source: Path, target: Path, preserve_data: bool = False) -> boo
         return False
 
     if preserve_data and target.exists():
-        # For JSON files, merge preserving user data
+        # For JSON files, use merge_json_files from backup module
         if target.suffix == ".json":
             try:
-                with open(target) as f:
-                    user_data = json.load(f)
-                with open(source) as f:
-                    template_data = json.load(f)
-
-                # Preserve user-specific fields
-                for field in PRESERVE_FIELDS:
-                    if field in user_data:
-                        template_data[field] = user_data[field]
-
-                # Update metadata
-                if "metadata" in template_data:
-                    template_data["metadata"]["updated_at"] = datetime.now(
-                    ).isoformat()
-
-                with open(target, "w") as f:
-                    json.dump(template_data, f, indent=2)
-                return True
+                merged = merge_json_files(source, target, PRESERVE_FIELDS)
+                if merged:
+                    # Update metadata
+                    if "metadata" in merged:
+                        merged["metadata"]["updated_at"] = datetime.now().isoformat()
+                    with open(target, "w") as f:
+                        json.dump(merged, f, indent=2)
+                    return True
             except (json.JSONDecodeError, KeyError) as e:
                 logger.warning(f"Failed to merge JSON, overwriting: {e}")
             except IOError as e:
@@ -107,8 +98,13 @@ def upgrade_file(source: Path, target: Path, preserve_data: bool = False) -> boo
     is_flag=True,
     help="Skip backing up state files"
 )
+@click.option(
+    "--list-backups",
+    is_flag=True,
+    help="List available backups"
+)
 @click.argument("path", default=".", type=click.Path(exists=True))
-def upgrade(dry_run: bool, force: bool, no_backup: bool, path: str):
+def upgrade(dry_run: bool, force: bool, no_backup: bool, list_backups: bool, path: str):
     """Upgrade .anrs/ directory to latest ANRS version.
 
     This command updates the ANRS protocol files while preserving:
@@ -116,10 +112,21 @@ def upgrade(dry_run: bool, force: bool, no_backup: bool, path: str):
     - Project configuration
     - Custom skills (if any)
 
-    State files are backed up before upgrade.
+    \b
+    State files are automatically backed up before upgrade.
+    Use --list-backups to see available backups.
     """
     target_dir = Path(path).resolve()
     anrs_dir = target_dir / ".anrs"
+    backup_dir = get_backup_dir(anrs_dir)
+
+    # Handle --list-backups option
+    if list_backups:
+        if not anrs_dir.exists():
+            console.print("[yellow]No .anrs directory found[/yellow]")
+            return
+        show_backup_list(backup_dir)
+        return
 
     if not anrs_dir.exists():
         raise click.ClickException(
@@ -178,10 +185,12 @@ def upgrade(dry_run: bool, force: bool, no_backup: bool, path: str):
         console.print(table)
         return
 
-    # Backup state
+    # Backup state (use unified backup module)
+    backup_id = create_backup_id()
     if not no_backup:
-        backup_dir = anrs_dir / ".backups"
-        backup_state(anrs_dir, backup_dir)
+        backup_path = backup_state(anrs_dir, backup_dir, backup_id)
+        if backup_path:
+            console.print(f"[dim]Backed up state to {backup_path}[/dim]")
 
     # Perform upgrade
     upgraded = []

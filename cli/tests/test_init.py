@@ -133,13 +133,15 @@ class TestInitCommand:
         assert (temp_dir / "harness").exists()  # harness at root for CI/CD
 
     def test_init_already_exists(self, runner, temp_dir):
-        """Test error when .anrs already exists."""
+        """Test error when .anrs already exists without --force or --merge."""
         # First init
         runner.invoke(cli, ["init", str(temp_dir)])
-        # Second init should fail
+        # Second init without force should prompt for conflict resolution
+        # When no input provided, it aborts
         result = runner.invoke(cli, ["init", str(temp_dir)])
         assert result.exit_code != 0
-        assert "already exists" in result.output
+        # New behavior: shows conflict detection table
+        assert "Existing Files Detected" in result.output or "Aborted" in result.output
 
     def test_init_force(self, runner, temp_dir):
         """Test force overwrite with --force."""
