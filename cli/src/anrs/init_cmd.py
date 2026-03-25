@@ -194,7 +194,7 @@ def init(
     \b
     - minimal:  .anrs/ with ENTRY + state + config
     - standard: + plans/ + scratchpad (default)
-    - full:     + skills/ + harness/ + failure-cases/
+    - full:     + skills/ + .anrs/harness/ + failure-cases/
 
     \b
     Conflict handling:

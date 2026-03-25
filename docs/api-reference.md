@@ -45,7 +45,7 @@ anrs init [OPTIONS] [PATH]
 |-------|----------|
 | `minimal` | `.anrs/` (ENTRY.md, state.json, config.json) |
 | `standard` | + scratchpad.md, `.anrs/plans/` |
-| `full` | + `.anrs/skills/`, `.anrs/failure-cases/`, `harness/` |
+| `full` | + `.anrs/skills/`, `.anrs/failure-cases/`, `.anrs/harness/` |
 
 ### Examples
 

@@ -29,8 +29,8 @@ denied_skills: [risk-analysis, incident-analysis]  # SRE only
 ## Behavior Model
 
 **Input Processing**:
-1. Read state from `spec/state/state.json`
-2. Locate task from `plans/active/`
+1. Read state from `.anrs/state.json`
+2. Locate task from `.anrs/plans/active/`
 3. Parse requirements, select skill
 
 **Priority**: `Correctness > Simplicity > Stability > Performance`

@@ -10,7 +10,7 @@ ANRS supports three installation levels:
 |-------|---------|----------|
 | Minimal | `anrs init --level minimal` | `.anrs/` (ENTRY, state, config) |
 | Standard | `anrs init` | + scratchpad, plans/ |
-| Full | `anrs init --level full` | + skills/, failure-cases/, harness/ |
+| Full | `anrs init --level full` | + skills/, failure-cases/, .anrs/harness/ |
 
 ## CLI Installation
 
@@ -91,8 +91,8 @@ your-project/
 ├── .anrs/
 │   ├── ...               # (all standard files)
 │   ├── skills/           # Custom skill definitions
-│   └── failure-cases/    # Failed attempt archive
-├── harness/              # Quality gate (at root for CI/CD)
+│   ├── failure-cases/    # Failed attempt archive
+│   └── harness/          # Quality gate
 └── ... (your code)
 ```
 
@@ -111,7 +111,6 @@ anrs upgrade --dry-run
 To remove ANRS from a project:
 
 ```bash
-rm -rf .anrs/
-rm -rf harness/          # if full level
+rm -rf .anrs/            # remove all ANRS files (includes harness/ if full level)
 rm .cursorrules          # or other adapter files
 ```

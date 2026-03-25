@@ -179,7 +179,7 @@ Report:
 
 | Rule | Description |
 |------|-------------|
-| **No Global State Writes** | Subagents **MUST NOT** modify `spec/state/state.json` |
+| **No Global State Writes** | Subagents **MUST NOT** modify `.anrs/state.json` |
 | **Exclusive File Scope** | Each subagent owns a disjoint set of files |
 | **Orchestrator Merges** | Only Main Agent updates global state after all subagents complete |
 
@@ -189,7 +189,7 @@ Report:
 ┌─────────────────────────────────────────────────┐
 │                 Main Agent                       │
 │  ┌─────────────────────────────────────────┐    │
-│  │         spec/state/state.json             │    │
+│  │         .anrs/state.json                │    │
 │  │         (ONLY Main Agent writes)        │    │
 │  └─────────────────────────────────────────┘    │
 └─────────────────────┬───────────────────────────┘
@@ -267,7 +267,7 @@ result:
 
 ```
 1. READ state.json
-2. LOAD plan from plans/active/
+2. LOAD plan from .anrs/plans/active/
 3. ANALYZE task independence
 4. IF independent tasks exist:
    → dispatch-subagent

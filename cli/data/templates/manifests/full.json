@@ -10,8 +10,7 @@
     },
     {
       "source": "harness/config.template.json",
-      "target": "harness/config.json",
-      "comment": "harness/ at root for CI/CD accessibility"
+      "target": ".anrs/harness/config.json"
     },
     {
       "source": "failure-cases/README.md",
@@ -21,7 +20,7 @@
   "directories": [
     ".anrs/skills",
     ".anrs/failure-cases",
-    "harness"
+    ".anrs/harness"
   ],
   "post_init": [
     "echo 'Full ANRS setup complete. Run anrs harness to verify.'"

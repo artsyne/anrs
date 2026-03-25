@@ -26,7 +26,7 @@ templates/
 |-------|------|----------|
 | 0 | minimal | `.anrs/` with ENTRY + state + config |
 | 1 | standard | + plans/ + scratchpad |
-| 2 | full | + skills/ + harness/ + failure-cases/ |
+| 2 | full | + skills/ + .anrs/harness/ + failure-cases/ |
 
 ## Usage
 

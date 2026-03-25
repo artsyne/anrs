@@ -40,7 +40,7 @@ new_state: object
 ### 1. Read Current
 
 ```json
-// Read spec/state/state.json
+// Read .anrs/state.json
 {
   "status": "running",
   "current_task": "task-001"
@@ -67,7 +67,7 @@ new_state: object
 ### 4. Write State
 
 1. Validate complete state against schema
-2. Write to `spec/state/state.json`
+2. Write to `.anrs/state.json`
 3. Verify write success
 
 ## Constraints
@@ -78,5 +78,5 @@ new_state: object
 
 ## Related
 
-- `spec/state/state.json` — State file
-- `spec/state/state.schema.json` — Schema
+- `.anrs/state.json` — State file
+- `.anrs/state.schema.json` — Schema

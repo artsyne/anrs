@@ -45,7 +45,7 @@ You MUST NOT:
 ## On Harness Failure
 
 1. Parse error message from harness output
-2. Check `harness/error_codes.json` for error details
+2. Check `.anrs/harness/error_codes.json` for error details
 3. Write root cause analysis to `.anrs/scratchpad.md`
 4. Create fix plan
 5. Retry (max 3 attempts)

@@ -100,8 +100,8 @@ class TestResolveManifest:
         manifest = resolve_manifest("full")
         # Should have all files from minimal + standard + full
         assert len(manifest["files"]) >= 6
-        # Should have harness directory (at root level for CI/CD)
-        assert "harness" in manifest["directories"]
+        # Should have harness directory (inside .anrs/)
+        assert ".anrs/harness" in manifest["directories"]
 
 
 class TestTransforms:
@@ -150,7 +150,7 @@ class TestInitCommand:
         assert result.exit_code == 0
         assert (temp_dir / ".anrs" / "skills").exists()
         assert (temp_dir / ".anrs" / "failure-cases").exists()
-        assert (temp_dir / "harness").exists()  # harness at root for CI/CD
+        assert (temp_dir / ".anrs" / "harness").exists()  # harness inside .anrs/
 
     def test_init_already_exists(self, runner, temp_dir):
         """Test error when .anrs already exists without --force or --merge."""

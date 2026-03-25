@@ -84,7 +84,7 @@ When conflicts arise:
 | `.anrs/ENTRY.md` | Protocol entry |
 | `.anrs/ENTRY.md (rules section)` | Global constraints |
 | `.anrs/skills/index.json` | Skill registry |
-| `harness/error_codes.json` | Error definitions |
+| `.anrs/harness/error_codes.json` | Error definitions |
 
 ## Quick Start
 

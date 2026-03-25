@@ -19,16 +19,16 @@ def runner():
 @pytest.fixture
 def repo_with_harness(tmp_path):
     """Create a repository with harness directory."""
-    harness_dir = tmp_path / "harness"
-    harness_dir.mkdir()
+    harness_dir = tmp_path / ".anrs" / "harness"
+    harness_dir.mkdir(parents=True)
     return tmp_path
 
 
 @pytest.fixture
 def repo_with_quality_gate(tmp_path):
     """Create a repository with quality_gate.py."""
-    harness_dir = tmp_path / "harness"
-    harness_dir.mkdir()
+    harness_dir = tmp_path / ".anrs" / "harness"
+    harness_dir.mkdir(parents=True)
 
     # Create a simple quality_gate.py that just exits successfully
     quality_gate = harness_dir / "quality_gate.py"
@@ -44,8 +44,8 @@ sys.exit(0)
 @pytest.fixture
 def repo_with_scripts(tmp_path):
     """Create a repository with harness shell scripts."""
-    harness_dir = tmp_path / "harness"
-    harness_dir.mkdir()
+    harness_dir = tmp_path / ".anrs" / "harness"
+    harness_dir.mkdir(parents=True)
 
     # Create shell scripts for each level
     (harness_dir / "l1_lint.sh").write_text("#!/bin/bash\necho L1 passed")
@@ -91,7 +91,8 @@ class TestHarnessCommand:
         real_dir.mkdir()
 
         # Create a symlink
-        harness_link = tmp_path / "harness"
+        (tmp_path / ".anrs").mkdir()
+        harness_link = tmp_path / ".anrs" / "harness"
         harness_link.symlink_to(real_dir)
 
         result = runner.invoke(cli, ["harness", str(tmp_path)])
@@ -118,8 +119,8 @@ class TestHarnessCommand:
 
     def test_harness_quality_gate_with_args(self, runner, tmp_path):
         """Test quality gate with level and strict args."""
-        harness_dir = tmp_path / "harness"
-        harness_dir.mkdir()
+        harness_dir = tmp_path / ".anrs" / "harness"
+        harness_dir.mkdir(parents=True)
 
         # Create a quality_gate.py that accepts args
         quality_gate = harness_dir / "quality_gate.py"
@@ -147,8 +148,8 @@ sys.exit(0)
 
     def test_harness_missing_script_skipped(self, runner, tmp_path):
         """Test that missing scripts are skipped."""
-        harness_dir = tmp_path / "harness"
-        harness_dir.mkdir()
+        harness_dir = tmp_path / ".anrs" / "harness"
+        harness_dir.mkdir(parents=True)
         # Only create L1 script
         (harness_dir / "l1_lint.sh").write_text("#!/bin/bash\necho L1")
 
@@ -158,8 +159,8 @@ sys.exit(0)
 
     def test_harness_quality_gate_outside_dir(self, runner, tmp_path):
         """Test quality_gate.py symlink pointing outside harness."""
-        harness_dir = tmp_path / "harness"
-        harness_dir.mkdir()
+        harness_dir = tmp_path / ".anrs" / "harness"
+        harness_dir.mkdir(parents=True)
 
         # Create quality_gate.py outside harness
         outside_script = tmp_path / "evil_script.py"
@@ -177,8 +178,8 @@ sys.exit(0)
         """Test quality_gate.py timeout handling."""
         import subprocess
 
-        harness_dir = tmp_path / "harness"
-        harness_dir.mkdir()
+        harness_dir = tmp_path / ".anrs" / "harness"
+        harness_dir.mkdir(parents=True)
 
         # Create quality_gate that times out
         quality_gate = harness_dir / "quality_gate.py"
@@ -200,8 +201,8 @@ sys.exit(0)
         """Test quality_gate.py exception handling."""
         import subprocess
 
-        harness_dir = tmp_path / "harness"
-        harness_dir.mkdir()
+        harness_dir = tmp_path / ".anrs" / "harness"
+        harness_dir.mkdir(parents=True)
 
         quality_gate = harness_dir / "quality_gate.py"
         quality_gate.write_text("print('test')")
@@ -220,8 +221,8 @@ sys.exit(0)
         """Test shell script timeout handling."""
         import subprocess
 
-        harness_dir = tmp_path / "harness"
-        harness_dir.mkdir()
+        harness_dir = tmp_path / ".anrs" / "harness"
+        harness_dir.mkdir(parents=True)
         (harness_dir / "l1_lint.sh").write_text("#!/bin/bash\nsleep 999")
 
         call_count = [0]
@@ -239,8 +240,8 @@ sys.exit(0)
 
     def test_harness_shell_script_strict_fail(self, runner, tmp_path):
         """Test --strict fails on script error."""
-        harness_dir = tmp_path / "harness"
-        harness_dir.mkdir()
+        harness_dir = tmp_path / ".anrs" / "harness"
+        harness_dir.mkdir(parents=True)
         # Create script that fails
         (harness_dir / "l1_lint.sh").write_text("#!/bin/bash\nexit 1")
 

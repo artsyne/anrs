@@ -59,7 +59,7 @@ def status(path: str):
         ("Scratchpad", check_file(anrs_dir / "scratchpad.md"), ".anrs/scratchpad.md"),
         ("Plans", check_dir(anrs_dir / "plans"), ".anrs/plans/"),
         ("Skills", check_dir(anrs_dir / "skills"), ".anrs/skills/"),
-        ("Harness", check_dir(target_dir / "harness"), "harness/ (Level 2)"),
+        ("Harness", check_dir(anrs_dir / "harness"), ".anrs/harness/ (Level 2)"),
     ]
 
     for name, (exists, status_icon), filepath in checks:

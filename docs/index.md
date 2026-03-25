@@ -81,7 +81,7 @@ ANRS treats AI as a **constrained executor**, not an autonomous agent:
 |-------|--------------|
 | `minimal` | `.anrs/` with ENTRY, state, config |
 | `standard` | + plans/, scratchpad *(default)* |
-| `full` | + skills/, harness/, failure-cases/ |
+| `full` | + skills/, .anrs/harness/, failure-cases/ |
 
 ```bash
 anrs init --level full

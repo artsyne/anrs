@@ -71,9 +71,10 @@ For project-specific checks (requires `anrs init --level full`):
 
 ```
 your-project/
-└── harness/               # At root for CI/CD accessibility
-    ├── config.json        # Harness configuration
-    └── ... (custom scripts)
+└── .anrs/
+    └── harness/          # Quality gate
+        ├── config.json   # Harness configuration
+        └── ... (custom scripts)
 ```
 
-Add custom evaluators and configure in `harness/config.json`.
+Add custom evaluators and configure in `.anrs/harness/config.json`.

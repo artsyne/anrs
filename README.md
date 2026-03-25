@@ -16,7 +16,7 @@ When AI agents operate in traditional codebases, they often lose track of their 
 
 - **Explicit State (`state.json`)** — Replaces fragile chat history. The AI always reads this file first to know "what task I am doing" and "what step I am on."
 - **Defined Skills (`skills/`)** — Replaces open-ended guessing. The AI is restricted to documented checklists, preventing undefined behaviors.
-- **Mandatory Harness (`harness/`)** — Replaces blind commits. AI-generated code must pass checks and tests before task completion.
+- **Mandatory Harness (`.anrs/harness/`)** — Replaces blind commits. AI-generated code must pass checks and tests before task completion.
 
 > **Note**: ANRS is a **specification**, not a runtime tool. It's a standardized folder structure (`.anrs/`) plus execution protocols that any AI tool can follow.
 

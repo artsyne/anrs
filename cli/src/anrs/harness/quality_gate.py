@@ -90,7 +90,7 @@ def run_level(level: str, verbose: bool = False, strict: bool = True, src_dir: s
         else:
             result["checks"] = [
                 {"name": "l1_checks", "status": "SKIP",
-                 "message": "L1 evaluator not available (run from harness/ directory)"}
+                 "message": "L1 evaluator not available (run from .anrs/harness/ directory)"}
             ]
 
     elif level == "L2":
@@ -117,7 +117,7 @@ def run_level(level: str, verbose: bool = False, strict: bool = True, src_dir: s
         else:
             result["checks"] = [
                 {"name": "l2_checks", "status": "SKIP",
-                 "message": "L2 evaluator not available (run from harness/ directory)"}
+                 "message": "L2 evaluator not available (run from .anrs/harness/ directory)"}
             ]
 
     elif level == "L3":
@@ -129,7 +129,7 @@ def run_level(level: str, verbose: bool = False, strict: bool = True, src_dir: s
         else:
             result["checks"] = [
                 {"name": "l3_checks", "status": "SKIP",
-                 "message": "L3 evaluator not available (run from harness/ directory)"}
+                 "message": "L3 evaluator not available (run from .anrs/harness/ directory)"}
             ]
 
     result["duration_ms"] = int((time.time() - start_time) * 1000)
@@ -171,7 +171,7 @@ def run_security(verbose: bool = False, scan_path: str = ".") -> dict:
             "status": "SKIP",
             "checks": [
                 {"name": "security_scan", "status": "SKIP",
-                 "message": "Security evaluator not available (run from harness/ directory)"}
+                 "message": "Security evaluator not available (run from .anrs/harness/ directory)"}
             ]
         }
 

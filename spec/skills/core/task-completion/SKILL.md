@@ -39,7 +39,7 @@ state_updated: boolean
 
 ### 1. Verify Completion
 
-1. Read `plans/active/{task_id}.md`
+1. Read `.anrs/plans/active/{task_id}.md`
 2. Check all acceptance criteria
 3. Verify all steps completed
 4. Confirm harness passed
@@ -47,14 +47,14 @@ state_updated: boolean
 ### 2. Archive Plan
 
 ```bash
-mv plans/active/{task_id}.md plans/completed/{task_id}.md
+mv .anrs/plans/active/{task_id}.md .anrs/plans/completed/{task_id}.md
 
 # Add completion metadata
 echo "
 ---
 Completed: $(date -Iseconds)
 Commit: $(git rev-parse HEAD)
-" >> plans/completed/{task_id}.md
+" >> .anrs/plans/completed/{task_id}.md
 ```
 
 ### 3. Update State

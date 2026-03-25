@@ -70,7 +70,7 @@ class TestInitStatusWorkflow:
         # Verify full structure
         assert (temp_project / ".anrs" / "skills").is_dir()
         assert (temp_project / ".anrs" / "failure-cases").is_dir()
-        assert (temp_project / "harness").is_dir()
+        assert (temp_project / ".anrs" / "harness").is_dir()
 
         # Check status shows harness
         result = runner.invoke(cli, ["status", str(temp_project)])
@@ -299,7 +299,7 @@ class TestLevelUpgradeWorkflow:
         """Test upgrading from standard to full."""
         # Init standard
         runner.invoke(cli, ["init", "--level", "standard", str(temp_project)])
-        assert not (temp_project / "harness").exists()
+        assert not (temp_project / ".anrs" / "harness").exists()
 
         # Upgrade to full
         result = runner.invoke(
@@ -307,7 +307,7 @@ class TestLevelUpgradeWorkflow:
         assert result.exit_code == 0
 
         # Verify harness added
-        assert (temp_project / "harness").exists()
+        assert (temp_project / ".anrs" / "harness").exists()
 
 
 class TestMultipleAdaptersWorkflow:
