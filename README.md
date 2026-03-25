@@ -124,7 +124,7 @@ See [adapters documentation](cli/data/adapters/README.md) for manual setup and m
 
 **Skills** — `.anrs/skills/` — Registered action templates with input/output schemas and constraints.
 
-**Harness** — `harness/quality_gate.py` — Multi-layer evaluation gate (Security → L1: static → L2: tests → L3: stability).
+**Harness** — `.anrs/harness/quality_gate.py` (full level) or `anrs harness` command — Multi-layer evaluation gate (Security → L1: static → L2: tests → L3: stability).
 
 ---
 

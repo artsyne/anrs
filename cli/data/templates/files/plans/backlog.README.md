@@ -11,7 +11,7 @@ Future tasks and technical debt waiting to be prioritized.
 ## Promoting to Active
 
 ```bash
-cp plans/templates/task-template.md plans/active/task-{id}.md
+cp .anrs/plans/templates/task-template.md .anrs/plans/active/task-{id}.md
 # Edit task details
 # Update .anrs/state.json with current_task
 ```

@@ -122,7 +122,7 @@ Claude Code has a layered permission system:
 
 1. **Start with State**: Always check `.anrs/state.json` first
 2. **Follow Skills**: Use only registered skills from `.anrs/skills/index.json`
-3. **Run Harness**: Verify with `python harness/quality_gate.py` before commit
+3. **Run Harness**: Verify with `anrs harness` before commit
 4. **Use Subagents**: Delegate exploration to keep main context clean
 
 ## Troubleshooting

@@ -59,7 +59,7 @@ You MUST NOT:
 | `.anrs/state.json` | Current state (SSOT) |
 | `.anrs/skills/index.json` | Skill registry (15 skills) |
 | `.anrs/ENTRY.md (rules section)` | Global constraints |
-| `harness/quality_gate.py` | Evaluation entry |
+| `.anrs/harness/quality_gate.py` | Evaluation entry (full level) |
 
 ## Quick Start
 

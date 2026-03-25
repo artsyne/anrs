@@ -38,8 +38,8 @@ anrs harness --strict
 ### Via Python
 
 ```bash
-# If harness/quality_gate.py exists
-python harness/quality_gate.py --level L1
+# If .anrs/harness/quality_gate.py exists (full level)
+python .anrs/harness/quality_gate.py --level L1
 ```
 
 ## Integration

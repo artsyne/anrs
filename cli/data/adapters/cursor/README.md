@@ -102,7 +102,7 @@ For tasks touching multiple files, use Composer mode with ANRS context.
 
 After changes, run harness in Cursor's terminal:
 ```bash
-python harness/quality_gate.py
+anrs harness
 ```
 
 ### 4. Atomic Commits

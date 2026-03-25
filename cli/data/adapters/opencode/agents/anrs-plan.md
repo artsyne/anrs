@@ -37,7 +37,7 @@ You analyze code, suggest changes, and create plans WITHOUT making any modificat
 
 1. **Understand Context**
    - Read `.anrs/state.json` for current state
-   - Check `plans/active/` for existing tasks
+   - Check `.anrs/plans/active/` for existing tasks
    - Review relevant code files
 
 2. **Analyze Requirements**
@@ -77,4 +77,4 @@ You analyze code, suggest changes, and create plans WITHOUT making any modificat
 - `.anrs/ENTRY.md` - Entry point documentation
 - `.anrs/ENTRY.md` - Execution protocol
 - `.anrs/skills/index.json` - Available skills
-- `docs/references/` - Architecture and API docs
+- `docs/` - Architecture and API docs
