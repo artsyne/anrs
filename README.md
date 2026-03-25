@@ -39,175 +39,33 @@ Traditional AI coding often suffers from "Context Drift" and "Instruction Decay.
 ## Architecture Overview
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        AHES Framework                            │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  ┌──────────┐    ┌──────────────┐    ┌──────────┐               │
-│  │  State   │───▶│ Orchestrator │───▶│  Skills  │               │
-│  │  (SSOT)  │    │  (Protocol)  │    │ (Engine) │               │
-│  └──────────┘    └──────────────┘    └──────────┘               │
-│       │                │                   │                     │
-│       │                ▼                   ▼                     │
-│       │         ┌──────────────┐    ┌──────────┐                │
-│       │         │   Harness    │◀───│   Code   │                │
-│       │         │  (Evaluator) │    │  (src/)  │                │
-│       │         └──────────────┘    └──────────┘                │
-│       │                │                                         │
-│       │                ▼                                         │
-│       │    ┌─────────────────────────┐                          │
-│       │    │     PASS?               │                          │
-│       │    └─────────────────────────┘                          │
-│       │         │            │                                   │
-│       │        YES          NO                                   │
-│       │         │            │                                   │
-│       │         ▼            ▼                                   │
-│       │    ┌────────┐   ┌────────────┐                          │
-│       └────│ Commit │   │ Reflection │──▶ Retry Loop            │
-│            └────────┘   └────────────┘                          │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
+                    AHES Framework
+
+    State (SSOT)  →  Orchestrator  →  Skills
+         ↑              |              |
+         |              v              v
+         |           Harness  ←───  Code
+         |              |
+         |         [ PASS? ]
+         |          /     \
+         |        YES      NO
+         |         |        |
+         └── Commit       Reflection → Retry
 ```
 
 ---
 
 ## Execution Workflow
 
-The following diagram shows how a task flows through the AHES pipeline:
-
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         TASK EXECUTION WORKFLOW                          │
-└─────────────────────────────────────────────────────────────────────────┘
+1. READ STATE    → ai/state/state.json
+2. LOAD PLAN     → plans/active/{task_id}.md
+3. SELECT SKILL  → ai/skills/index.json
+4. EXECUTE       → Follow SKILL.md checklist
+5. RUN HARNESS   → L1 (Static) → L2 (Tests) → L3 (Stability)
 
-  ┌──────────┐
-  │  START   │
-  │  Task    │
-  └────┬─────┘
-       │
-       ▼
-  ┌──────────────────────────────────────────────────────────────────┐
-  │  1. READ STATE                                                    │
-  │     └─▶ ai/state/state.json (get current context)                │
-  └────┬─────────────────────────────────────────────────────────────┘
-       │
-       ▼
-  ┌──────────────────────────────────────────────────────────────────┐
-  │  2. LOAD PLAN                                                     │
-  │     └─▶ plans/active/{task_id}.md (get execution steps)          │
-  └────┬─────────────────────────────────────────────────────────────┘
-       │
-       ▼
-  ┌──────────────────────────────────────────────────────────────────┐
-  │  3. SELECT & EXECUTE SKILL                                        │
-  │     └─▶ ai/skills/{category}/{skill}/SKILL.md                    │
-  │     └─▶ Modify src/ according to skill checklist                 │
-  └────┬─────────────────────────────────────────────────────────────┘
-       │
-       ▼
-  ┌──────────────────────────────────────────────────────────────────┐
-  │  4. HARNESS EVALUATION (Cascade)                                  │
-  │                                                                   │
-  │     ┌─────────┐     ┌─────────┐     ┌─────────┐                  │
-  │     │   L1    │────▶│   L2    │────▶│   L3    │                  │
-  │     │ Static  │     │ Dynamic │     │Stability│                  │
-  │     └────┬────┘     └────┬────┘     └────┬────┘                  │
-  │          │               │               │                        │
-  │     • Syntax         • Unit Tests    • Risk Analysis              │
-  │     • Lint           • Coverage      • SLO Validation            │
-  │     • Complexity     • Contracts     • Chaos (optional)          │
-  │                                                                   │
-  │     ⚠️  Fail at any level → Stop cascade, enter reflection       │
-  └────┬─────────────────────────────────────────────────────────────┘
-       │
-       ▼
-  ┌─────────────┐
-  │   RESULT?   │
-  └──────┬──────┘
-         │
-    ┌────┴────┐
-    │         │
-   PASS      FAIL
-    │         │
-    ▼         ▼
-┌────────┐  ┌─────────────────────────────────────────────────────┐
-│ATOMIC  │  │  REFLECTION                                         │
-│COMMIT  │  │  ├─▶ Parse error from harness/error_codes.json      │
-│        │  │  ├─▶ Analyze root cause                             │
-│• Code  │  │  ├─▶ Write to ai/state/scratchpad/current.md        │
-│• State │  │  └─▶ Generate fix plan                              │
-│• Plan  │  │                                                      │
-└───┬────┘  └────────────────────────┬────────────────────────────┘
-    │                                │
-    ▼                                │ retry_count < max_retries?
-┌────────┐                           │
-│UPDATE  │                      ┌────┴────┐
-│STATE   │                      │         │
-│        │                     YES        NO
-│• idle  │                      │         │
-│• done  │                      ▼         ▼
-└───┬────┘                  [RETRY]   [ESCALATE]
-    │                          │      (human)
-    ▼                          │
-┌────────┐                     │
-│CLEANUP │◀────────────────────┘
-│SCRATCH │
-│PAD     │
-└───┬────┘
-    │
-    ▼
-  ┌──────────┐
-  │   END    │
-  └──────────┘
-```
-
----
-
-## Directory Structure
-
-```
-.
-├── README.md              # Human entry point (this file)
-├── LICENSE                # MIT
-├── CONTRIBUTING.md        # How to contribute
-│
-├── ai/                    # Core specification layer
-│   ├── ENTRY.md           # AI agent entry point
-│   ├── rules/             # Global rules & constraints
-│   ├── agents/            # Agent definitions & behaviors
-│   ├── state/             # State management (SSOT)
-│   ├── orchestrator/      # Execution protocols
-│   ├── skills/            # Skill definitions
-│   └── contracts/         # Schema definitions
-│
-├── harness/               # Evaluation system
-│   ├── evaluators/        # Security + L1/L2/L3 evaluators
-│   ├── metrics/           # Quality metrics
-│   ├── README.md          # Harness architecture
-│   └── quality_gate.py    # Evaluation entry point
-│
-├── examples/              # Quick start examples
-│   ├── hello-world/       # Minimal example (5 min)
-│   └── todo-app/          # Complete example
-│
-├── docs/                  # Documentation
-│   ├── architecture/      # System design docs
-│   ├── references/        # API contracts, dependency maps
-│   ├── design-docs/       # Design decision records
-│   └── generated/         # Auto-generated docs
-│
-├── plans/                 # Task management
-│   ├── active/            # Current tasks
-│   ├── completed/         # Archived tasks
-│   ├── backlog/           # Future work & tech debt
-│   └── templates/         # Plan templates
-│
-├── evals/                 # Evolution system
-│   ├── benchmarks/        # Performance benchmarks
-│   ├── failure-cases/     # Failure case archive
-│   └── prompts/           # Evaluation prompts
-├── adapters/              # Vendor adapters (claude/cursor/openai/opencode)
-└── scripts/               # Utility scripts
+PASS → Atomic commit → Update state → Done
+FAIL → Reflect → Retry (max 3) → Escalate to human
 ```
 
 ---
