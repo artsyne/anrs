@@ -9,6 +9,8 @@ from anrs.status import status
 from anrs.harness_cmd import harness
 from anrs.adapter import adapter
 from anrs.upgrade import upgrade
+from anrs.doctor_cmd import doctor
+from anrs.completion import completion
 
 console = Console()
 
@@ -28,6 +30,8 @@ cli.add_command(status)
 cli.add_command(harness)
 cli.add_command(adapter)
 cli.add_command(upgrade)
+cli.add_command(doctor)
+cli.add_command(completion)
 
 
 if __name__ == "__main__":

@@ -14,22 +14,17 @@ ANRS is a protocol-driven framework for AI-assisted software development.
 ## Components
 
 ```
-ANRS Framework
-├── Rules (spec/rules/)      → Constraints & standards
-├── State (spec/state/)      → Execution state (SSOT)
-├── Skills (spec/skills/)    → Executable actions
-├── Orchestrator (spec/orchestrator/) → Execution flow
-└── Harness (harness/)     → Code quality evaluation
-```
-
-### Directory Layout
-
-```
-spec/rules/        → global.md, coding.md, safety.md
-spec/state/        → state.json, scratchpad/
-spec/skills/       → index.json, core/, engineering/, sre/
-spec/orchestrator/ → ORCHESTRATOR.md, strategies/
-harness/         → quality_gate.py, evaluators/ (L1/L2/L3)
+User Project (after anrs init)
+├── .anrs/
+│   ├── ENTRY.md       → AI entry point
+│   ├── state.json     → Execution state (SSOT)
+│   ├── config.json    → Project configuration
+│   ├── scratchpad.md  → Temporary notes
+│   ├── plans/         → Task plans
+│   ├── skills/        → Custom skills (full level)
+│   └── failure-cases/ → Failed attempts (full level)
+├── harness/           → Quality gate (full level)
+└── .cursorrules       → AI adapter
 ```
 
 ## Data Flow
@@ -59,5 +54,10 @@ User Request → Read State → Load Plan → Select Skill → Execute
 
 ## Integration
 
-Adapters: `adapters/cursor/`, `adapters/claude-code/`, `adapters/codex/`
-External: Git, GitHub Actions, Prometheus/Grafana
+Adapters (installed via `anrs adapter install`):
+- Cursor: `.cursorrules`
+- Claude Code: `CLAUDE.md`
+- Codex: `AGENTS.md`
+- OpenCode: `opencode.json`
+
+External: Git, GitHub Actions, CI/CD pipelines

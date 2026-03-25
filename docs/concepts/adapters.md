@@ -52,20 +52,17 @@ Before taking ANY action, you MUST read and follow:
 Create adapter for new tools:
 
 1. Create config file pointing to `.anrs/ENTRY.md`
-2. Add to `adapters/` directory
-3. Register in CLI
+2. Use the trampoline pattern (minimal redirect)
+3. Contribute to ANRS project via PR
 
 ## Modes
 
-Some adapters support modes:
+Adapters may support different operation modes:
 
-```
-adapters/cursor/
-├── .cursorrules          # Default mode
-└── modes/
-    ├── cursorrules-plan   # Planning mode
-    ├── cursorrules-build  # Build mode
-    └── cursorrules-review # Review mode
-```
+| Mode | Purpose |
+|------|---------|
+| build | Default - code writing mode |
+| plan | Read-only planning mode |
+| review | Code review mode |
 
-Switch modes via CLI or manually copy mode file.
+Mode switching via CLI (coming soon) or manual file replacement.

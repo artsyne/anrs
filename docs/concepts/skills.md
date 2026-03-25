@@ -51,13 +51,13 @@ Detailed steps...
 ```
 1. READ state
 2. LOCATE task
-3. SELECT skill from spec/skills/index.json
+3. SELECT skill from .anrs/skills/index.json
 4. EXECUTE skill checklist
 ```
 
 ### Skill Registry
 
-Location: `spec/skills/index.json`
+Location: `.anrs/skills/index.json`
 
 ```json
 {
@@ -72,11 +72,12 @@ Location: `spec/skills/index.json`
 
 ## Custom Skills
 
-Add project-specific skills to `.anrs/skills/`:
+Add project-specific skills to `.anrs/skills/` (requires full level):
 
 ```
 .anrs/
 └── skills/
+    ├── index.json          # Skill registry
     └── my-custom-skill/
         └── SKILL.md
 ```

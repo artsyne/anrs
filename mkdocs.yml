@@ -1,0 +1,88 @@
+# ANRS Documentation Site Configuration
+# Build: mkdocs build
+# Serve: mkdocs serve
+# Deploy: mkdocs gh-deploy
+
+site_name: ANRS Documentation
+site_description: AI-Native Repository Specification - A practical spec for AI-friendly codebases
+site_url: https://artsyne.github.io/anrs
+repo_url: https://github.com/artsyne/anrs
+repo_name: artsyne/anrs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quick Start: getting-started.md
+      - Installation: installation.md
+      - Migration: migration.md
+  - Concepts:
+      - Overview: concepts/overview.md
+      - State: concepts/state.md
+      - Skills: concepts/skills.md
+      - Harness: concepts/harness.md
+      - Adapters: concepts/adapters.md
+  - Reference:
+      - CLI API: api-reference.md
+      - Versioning: versioning.md
+  - Contributing:
+      - Guide: ../CONTRIBUTING.md
+      - RFC Process: ../rfcs/README.md
+      - Changelog: ../CHANGELOG.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/artsyne/anrs
+  version:
+    provider: mike
+
+copyright: Copyright &copy; 2024 ANRS Contributors

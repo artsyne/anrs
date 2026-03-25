@@ -37,14 +37,14 @@ jobs:
           import json
           from jsonschema import validate
 
-          with open('ai/state/state.schema.json') as f:
+          with open('spec/state/state.schema.json') as f:
               schema = json.load(f)
 
-          with open('ai/state/state.json') as f:
+          with open('spec/state/state.json') as f:
               state = json.load(f)
 
           validate(instance=state, schema=schema)
-          print('✓ ai/state/state.json is valid')
+          print('✓ spec/state/state.json is valid')
           "
 
       - name: Validate skills registry against schema
@@ -53,14 +53,14 @@ jobs:
           import json
           from jsonschema import validate
 
-          with open('ai/contracts/skill_registry.schema.json') as f:
+          with open('spec/contracts/skill_registry.schema.json') as f:
               schema = json.load(f)
 
-          with open('ai/skills/index.json') as f:
+          with open('spec/skills/index.json') as f:
               registry = json.load(f)
 
           validate(instance=registry, schema=schema)
-          print('✓ ai/skills/index.json is valid')
+          print('✓ spec/skills/index.json is valid')
           "
 
       - name: Verify skill directories exist
@@ -69,13 +69,13 @@ jobs:
           import json
           import os
 
-          with open('ai/skills/index.json') as f:
+          with open('spec/skills/index.json') as f:
               registry = json.load(f)
 
           errors = []
           for category, data in registry['skills'].items():
               for skill in data['items']:
-                  skill_path = os.path.join('ai/skills', skill['path'])
+                  skill_path = os.path.join('spec/skills', skill['path'])
                   skill_md = os.path.join(skill_path, 'SKILL.md')
                   if not os.path.isdir(skill_path):
                       errors.append(f'Missing directory: {skill_path}')
@@ -84,17 +84,17 @@ jobs:
 
           if errors:
               for e in errors:
-                  print(f'\u2717 {e}')
+                  print(f'✗ {e}')
               exit(1)
           else:
-              print(f'\u2713 All {registry["metadata"]["total_skills"]} skill directories verified')
+              print(f'✓ All {registry["metadata"]["total_skills"]} skill directories verified')
           "
 
       - name: Validate YAML frontmatter in AI docs
         run: |
           echo "Checking YAML frontmatter in AI-facing documents..."
           errors=0
-          for f in $(find ai adapters -name "*.md" -type f 2>/dev/null); do
+          for f in $(find spec cli/data/adapters -name "*.md" -type f 2>/dev/null); do
             if ! head -1 "$f" | grep -q "^---"; then
               echo "Missing frontmatter: $f"
               errors=$((errors + 1))
@@ -113,7 +113,7 @@ jobs:
           import json
           from jsonschema import validate
 
-          with open('ai/contracts/harness_result.schema.json') as f:
+          with open('spec/contracts/harness_result.schema.json') as f:
               schema = json.load(f)
 
           with open('harness/reports/latest.json') as f:

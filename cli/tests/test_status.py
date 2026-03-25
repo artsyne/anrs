@@ -98,3 +98,91 @@ class TestStatusCommand:
         monkeypatch.chdir(anrs_repo)
         result = runner.invoke(cli, ["status"])
         assert result.exit_code == 0
+
+    def test_status_with_invalid_state_json(self, runner, tmp_path):
+        """Test status when state.json has invalid JSON."""
+        anrs_dir = tmp_path / ".anrs"
+        anrs_dir.mkdir()
+        (anrs_dir / "ENTRY.md").write_text("# Entry")
+        (anrs_dir / "state.json").write_text("invalid json")
+        (anrs_dir / "config.json").write_text("{}")
+
+        result = runner.invoke(cli, ["status", str(tmp_path)])
+        # Should still complete, showing partial status
+        assert result.exit_code == 0
+
+    def test_status_with_plans_directory(self, runner, tmp_path):
+        """Test status with plans directory."""
+        anrs_dir = tmp_path / ".anrs"
+        anrs_dir.mkdir()
+        (anrs_dir / "ENTRY.md").write_text("# Entry")
+        (anrs_dir / "state.json").write_text('{}')
+        (anrs_dir / "config.json").write_text('{}')
+        (anrs_dir / "plans").mkdir()
+
+        result = runner.invoke(cli, ["status", str(tmp_path)])
+        assert result.exit_code == 0
+        assert "Plans" in result.output
+
+    def test_status_with_harness_directory(self, runner, tmp_path):
+        """Test status with harness directory."""
+        anrs_dir = tmp_path / ".anrs"
+        anrs_dir.mkdir()
+        (anrs_dir / "ENTRY.md").write_text("# Entry")
+        (anrs_dir / "state.json").write_text('{}')
+        (anrs_dir / "config.json").write_text('{}')
+        (tmp_path / "harness").mkdir()  # harness is at root level
+
+        result = runner.invoke(cli, ["status", str(tmp_path)])
+        assert result.exit_code == 0
+        assert "Harness" in result.output
+
+    def test_status_corrupted_state_json(self, runner, tmp_path):
+        """Test status shows warning when state.json is corrupted."""
+        anrs_dir = tmp_path / ".anrs"
+        anrs_dir.mkdir()
+        (anrs_dir / "ENTRY.md").write_text("# Entry")
+        (anrs_dir / "state.json").write_text("{not valid json}")
+        (anrs_dir / "config.json").write_text('{}')
+
+        result = runner.invoke(cli, ["status", str(tmp_path)])
+        assert result.exit_code == 0
+        # Should show warning about corrupted state
+        assert "corrupted" in result.output.lower() or "warning" in result.output.lower()
+
+    def test_status_with_skills_directory(self, runner, tmp_path):
+        """Test status with skills directory."""
+        anrs_dir = tmp_path / ".anrs"
+        anrs_dir.mkdir()
+        (anrs_dir / "ENTRY.md").write_text("# Entry")
+        (anrs_dir / "state.json").write_text('{}')
+        (anrs_dir / "config.json").write_text('{}')
+        (anrs_dir / "skills").mkdir()
+
+        result = runner.invoke(cli, ["status", str(tmp_path)])
+        assert result.exit_code == 0
+        assert "Skills" in result.output
+
+    def test_status_state_read_error(self, runner, tmp_path, monkeypatch):
+        """Test status handles generic exceptions when reading state."""
+        anrs_dir = tmp_path / ".anrs"
+        anrs_dir.mkdir()
+        (anrs_dir / "ENTRY.md").write_text("# Entry")
+        (anrs_dir / "state.json").write_text('{"status": "idle"}')
+        (anrs_dir / "config.json").write_text('{}')
+
+        # Mock json.load to raise a generic exception
+        import json as json_module
+        original_load = json_module.load
+
+        def mock_load(f):
+            if "state.json" in str(f.name):
+                raise RuntimeError("Unexpected read error")
+            return original_load(f)
+
+        monkeypatch.setattr(json_module, "load", mock_load)
+
+        result = runner.invoke(cli, ["status", str(tmp_path)])
+        # Should still complete, showing error
+        assert result.exit_code == 0
+        assert "Error" in result.output or "error" in result.output.lower()

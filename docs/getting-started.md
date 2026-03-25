@@ -26,12 +26,15 @@ This creates:
 ```
 your-project/
 ├── .anrs/
-│   ├── ENTRY.md      # AI reads this first
-│   ├── state.json    # Current state
-│   └── config.json   # Configuration
-└── plans/
-    ├── active/
-    └── backlog/
+│   ├── ENTRY.md        # AI reads this first
+│   ├── state.json      # Current state (SSOT)
+│   ├── config.json     # Configuration
+│   ├── scratchpad.md   # Temporary notes
+│   └── plans/
+│       ├── active/     # Current tasks
+│       ├── backlog/    # Future tasks
+│       └── templates/
+└── .cursorrules        # (after adapter install)
 ```
 
 ### 3. Add AI Adapter
@@ -50,4 +53,3 @@ Point your AI tool to `.anrs/ENTRY.md` and start working!
 
 - [Installation Guide](installation.md) - Detailed setup options
 - [Concepts](concepts/overview.md) - Understanding ANRS architecture
-- [Examples](https://github.com/artsyne/anrs/tree/main/examples) - Sample projects

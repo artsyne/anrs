@@ -54,8 +54,8 @@ Review `.cursorrules.backup` and add any project-specific rules to:
    - Copy current task info to `.anrs/state.json`
 
 4. **Migrate plans**
-   - Move task plans to `plans/active/`
-   - Move backlog to `plans/backlog/`
+   - Move task plans to `.anrs/plans/active/`
+   - Move backlog to `.anrs/plans/backlog/`
 
 5. **Install adapter**
    ```bash
@@ -71,13 +71,15 @@ Review `.cursorrules.backup` and add any project-specific rules to:
 
 ### From Pre-0.1 to 0.1
 
-If you have an older `ai/` directory structure:
+If you have an older `ai/` or `spec/` directory structure:
 
 ```bash
-# Rename ai/ to .anrs/
+# Rename to .anrs/
 mv ai .anrs
+# or
+mv spec .anrs
 
-# Update adapter files
+# Reinstall adapter
 anrs adapter install cursor --force
 ```
 

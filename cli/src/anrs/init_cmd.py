@@ -5,7 +5,7 @@ import logging
 import shutil
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, Dict, Any, List
+from typing import Any, Dict, List, Optional, Tuple
 
 import click
 from rich.console import Console
@@ -241,7 +241,8 @@ def init(
     backup_id = create_backup_id()
     if conflicts and strategy == ConflictStrategy.BACKUP_AND_OVERWRITE:
         console.print("\n[bold]Creating backup...[/bold]")
-        backup_path = backup_directory(anrs_dir, backup_dir.parent / ".anrs-backups", backup_id)
+        backup_path = backup_directory(
+            anrs_dir, backup_dir.parent / ".anrs-backups", backup_id)
         if backup_path:
             console.print(f"[green]Backed up to:[/green] {backup_path}")
 
@@ -279,7 +280,7 @@ def detect_conflicts(
     manifest: Dict[str, Any],
     target_dir: Path,
     adapter: Optional[str] = None
-) -> List[Dict]:
+) -> List[Dict[str, Any]]:
     """Detect file conflicts with existing installation."""
     conflicts = []
 
@@ -320,7 +321,7 @@ def show_dry_run(
     manifest: Dict[str, Any],
     target_dir: Path,
     adapter: Optional[str],
-    conflicts: List[Dict]
+    conflicts: List[Dict[str, Any]]
 ) -> None:
     """Display dry-run summary."""
     console.print(Panel(
@@ -333,8 +334,10 @@ def show_dry_run(
         console.print("\n[bold yellow]Conflicts detected:[/bold yellow]")
         for c in conflicts:
             status_color = "yellow" if c["status"] == "modified" else "dim"
-            console.print(f"  [{status_color}]! {c['file']}[/{status_color}] ({c['status']})")
-        console.print("\n[dim]Use --force to backup and overwrite, or --merge to preserve customizations[/dim]")
+            console.print(
+                f"  [{status_color}]! {c['file']}[/{status_color}] ({c['status']})")
+        console.print(
+            "\n[dim]Use --force to backup and overwrite, or --merge to preserve customizations[/dim]")
 
     console.print("\n[bold]Directories to create:[/bold]")
     for d in manifest.get("directories", []):
@@ -417,7 +420,8 @@ def install_file_with_strategy(
 ) -> None:
     """Install a single file with conflict handling strategy."""
     if not source.exists():
-        console.print(f"[yellow]Warning: Template not found: {source.name}[/yellow]")
+        console.print(
+            f"[yellow]Warning: Template not found: {source.name}[/yellow]")
         return
 
     # Handle existing file
@@ -427,7 +431,8 @@ def install_file_with_strategy(
             return
         elif strategy == ConflictStrategy.MERGE and target.suffix == ".json":
             # Merge JSON files
-            preserve_keys = ["current_task", "status", "last_completed", "history", "context"]
+            preserve_keys = ["current_task", "status",
+                             "last_completed", "history", "context"]
             merged = merge_json_files(source, target, preserve_keys)
             if merged:
                 target.write_text(json.dumps(merged, indent=2))

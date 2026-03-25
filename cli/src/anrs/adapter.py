@@ -96,12 +96,15 @@ def install_adapter(adapter_name: str, force: bool, skip: bool, dry_run: bool, p
         }
 
     if dry_run:
-        console.print("[bold yellow]Dry run mode - no changes made[/bold yellow]")
+        console.print(
+            "[bold yellow]Dry run mode - no changes made[/bold yellow]")
         console.print(f"Would copy: [cyan]{source_path}[/cyan]")
         console.print(f"       to: [cyan]{target_path}[/cyan]")
         if conflict:
-            console.print(f"\n[yellow]Conflict:[/yellow] {config_file} already exists ({conflict['status']})")
-            console.print("[dim]Use --force to backup and overwrite, or --skip to skip[/dim]")
+            console.print(
+                f"\n[yellow]Conflict:[/yellow] {config_file} already exists ({conflict['status']})")
+            console.print(
+                "[dim]Use --force to backup and overwrite, or --skip to skip[/dim]")
         return
 
     # Handle conflict
@@ -113,7 +116,8 @@ def install_adapter(adapter_name: str, force: bool, skip: bool, dry_run: bool, p
         elif force:
             strategy = ConflictStrategy.BACKUP_AND_OVERWRITE
         else:
-            show_conflict_summary([conflict], f"Adapter Config Conflict: {config_file}")
+            show_conflict_summary(
+                [conflict], f"Adapter Config Conflict: {config_file}")
             strategy = prompt_conflict_resolution()
 
         if strategy == ConflictStrategy.ABORT:

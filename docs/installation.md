@@ -8,9 +8,9 @@ ANRS supports three installation levels:
 
 | Level | Command | Includes |
 |-------|---------|----------|
-| Minimal | `anrs init --level minimal` | `.anrs/` only |
-| Standard | `anrs init` | + plans/, scratchpad |
-| Full | `anrs init --level full` | + harness/, skills/ |
+| Minimal | `anrs init --level minimal` | `.anrs/` (ENTRY, state, config) |
+| Standard | `anrs init` | + scratchpad, plans/ |
+| Full | `anrs init --level full` | + skills/, failure-cases/, harness/ |
 
 ## CLI Installation
 
@@ -66,20 +66,33 @@ anrs status
 
 ## Directory Structure
 
-After `anrs init`:
+After `anrs init` (standard):
 
 ```
 your-project/
 ├── .anrs/
-│   ├── ENTRY.md        # AI entry point
-│   ├── state.json      # Current state (SSOT)
-│   ├── config.json     # Project configuration
-│   └── scratchpad.md   # Temporary notes
-├── plans/
-│   ├── active/         # Current tasks
-│   ├── backlog/        # Future tasks
-│   └── templates/
-├── .cursorrules        # Adapter (if installed)
+│   ├── ENTRY.md          # AI entry point
+│   ├── state.json        # Current state (SSOT)
+│   ├── config.json       # Project configuration
+│   ├── scratchpad.md     # Temporary notes
+│   └── plans/
+│       ├── active/       # Current tasks
+│       ├── backlog/      # Future tasks
+│       ├── completed/    # Archived tasks
+│       └── templates/    # Task templates
+├── .cursorrules          # Adapter (if installed)
+└── ... (your code)
+```
+
+After `anrs init --level full`:
+
+```
+your-project/
+├── .anrs/
+│   ├── ...               # (all standard files)
+│   ├── skills/           # Custom skill definitions
+│   └── failure-cases/    # Failed attempt archive
+├── harness/              # Quality gate (at root for CI/CD)
 └── ... (your code)
 ```
 
@@ -99,6 +112,6 @@ To remove ANRS from a project:
 
 ```bash
 rm -rf .anrs/
-rm -rf plans/
-rm .cursorrules  # or other adapter files
+rm -rf harness/          # if full level
+rm .cursorrules          # or other adapter files
 ```

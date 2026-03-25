@@ -18,7 +18,7 @@ When AI agents operate in traditional codebases, they often lose track of their 
 - **Defined Skills (`skills/`)** — Replaces open-ended guessing. The AI is restricted to documented checklists, preventing undefined behaviors.
 - **Mandatory Harness (`harness/`)** — Replaces blind commits. AI-generated code must pass checks and tests before task completion.
 
-> **Note**: ANRS is a **specification**, not a runtime tool. It's a standardized folder structure (`spec/`, `harness/`, `plans/`) plus execution protocols that any AI tool can follow.
+> **Note**: ANRS is a **specification**, not a runtime tool. It's a standardized folder structure (`.anrs/`, `harness/`, `plans/`) plus execution protocols that any AI tool can follow.
 
 ---
 
@@ -54,9 +54,9 @@ When AI agents operate in traditional codebases, they often lose track of their 
 ## Execution Workflow
 
 ```
-1. READ STATE    → spec/state/state.json
+1. READ STATE    → .anrs/state.json
 2. LOAD PLAN     → plans/active/{task_id}.md
-3. SELECT SKILL  → spec/skills/index.json
+3. SELECT SKILL  → .anrs/skills/index.json
 4. EXECUTE       → Follow SKILL.md checklist
 5. RUN HARNESS   → L1 (Static) → L2 (Tests) → L3 (Stability)
 
@@ -68,54 +68,59 @@ FAIL → Reflect → Retry (max 3) → Escalate to human
 
 ## Quick Start
 
-### Option 1: Try the Example
+### Option 1: Use CLI (Recommended)
+
+```bash
+pip install anrs
+cd your-project
+anrs init                    # Standard setup
+anrs adapter install cursor  # Add AI adapter
+```
+
+This creates:
+```
+your-project/
+├── .anrs/
+│   ├── ENTRY.md      # AI reads this first
+│   ├── state.json    # Current state (SSOT)
+│   └── config.json   # Configuration
+├── plans/
+│   ├── active/
+│   └── backlog/
+└── .cursorrules      # AI adapter
+```
+
+### Option 2: Explore the Source
 
 ```bash
 git clone https://github.com/artsyne/anrs.git
-cd anrs/examples/hello-world
-cat README.md
+cd anrs
+ls -la spec/      # Protocol specification templates
+ls -la cli/       # CLI tool source code
 ```
-
-### Option 2: Apply to Your Project
-
-```bash
-git clone https://github.com/artsyne/anrs.git
-cp -r anrs/spec your-project/
-cp -r anrs/harness your-project/
-```
-
-Point your AI tool to `spec/ENTRY.md` as the entry point.
 
 ### Option 3: Configure Your AI Platform
 
 ANRS provides ready-to-use adapters with **multi-mode support** (build/plan/review):
 
 | Platform | Modes | Quick Start |
-|----------|-------|-------------|
-| **Claude Code** | build, plan, review | `cp adapters/claude-code/CLAUDE.md .` |
-| **Cursor** | build, plan | `cp adapters/cursor/.cursorrules .` |
-| **Codex** | build, plan, review | `cp adapters/codex/AGENTS.md .` |
-| **OpenCode** | build, plan, review | Copy `adapters/opencode/` to `.opencode/` |
+|----------|-------|--------------|
+| **Cursor** | build, plan | `anrs adapter install cursor` |
+| **Claude Code** | build, plan, review | `anrs adapter install claude-code` |
+| **Codex** | build, plan, review | `anrs adapter install codex` |
+| **OpenCode** | build, plan, review | `anrs adapter install opencode` |
 
-```bash
-# Cursor (build mode)
-cp adapters/cursor/.cursorrules your-project/.cursorrules
-
-# Cursor (plan mode - read only)
-cp adapters/cursor/modes/cursorrules-plan your-project/.cursorrules
-```
-
-See [adapters/README.md](adapters/README.md) for all platforms and modes.
+See [adapters/README.md](adapters/README.md) for manual setup and mode switching.
 
 ---
 
 ## Core Concepts
 
-**State (SSOT)** — `spec/state/state.json` — Single Source of Truth for task state. AI reads this before any action.
+**State (SSOT)** — `.anrs/state.json` — Single Source of Truth for task state. AI reads this before any action.
 
-**Orchestrator** — `spec/orchestrator/ORCHESTRATOR.md` — Defines the execution protocol (Read → Plan → Execute → Verify loop). Supports sequential and parallel (subagent) execution modes.
+**Entry Point** — `.anrs/ENTRY.md` — AI agent entry point. Defines rules, constraints, and available skills.
 
-**Skills** — `spec/skills/index.json` — 15 registered action templates with input/output schemas and constraints.
+**Skills** — `.anrs/skills/` — Registered action templates with input/output schemas and constraints.
 
 **Harness** — `harness/quality_gate.py` — Multi-layer evaluation gate (Security → L1: static → L2: tests → L3: stability).
 
@@ -123,22 +128,22 @@ See [adapters/README.md](adapters/README.md) for all platforms and modes.
 
 ## Key Files Reference
 
-- `spec/ENTRY.md` — AI agent entry point
-- `spec/rules/global.md` — Global constraints (must follow)
-- `spec/rules/constraints.json` — Machine-readable rules
-- `spec/skills/index.json` — Skill registry
-- `harness/error_codes.json` — Error code definitions for reflection
+| File | Description |
+|------|-------------|
+| `.anrs/ENTRY.md` | AI agent entry point |
+| `.anrs/state.json` | Current execution state |
+| `.anrs/config.json` | Project configuration |
+| `plans/active/` | Active task plans |
+| `harness/` | Quality gate evaluators |
 
 ---
 
 ## Documentation
 
-- [Hello World Example](examples/hello-world/) — 5-minute quick start
-- [Todo App Example](examples/todo-app/) — Complete workflow demo
+- [Getting Started](docs/getting-started.md) — 5-minute quick start
+- [Installation Guide](docs/installation.md) — Setup options (minimal/standard/full)
+- [Core Concepts](docs/concepts/overview.md) — Architecture and data flow
 - [Core Beliefs](spec/core-beliefs.md) — Design principles
-- [System Architecture](docs/architecture/system.md) — Technical design
-- [Architecture Graph](docs/references/architecture-graph.md) — Component relationships
-- [API Contracts](docs/references/api-contracts.md) — Endpoint definitions
 - [Contributing Guide](CONTRIBUTING.md) — How to contribute
 
 ---

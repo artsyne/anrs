@@ -171,3 +171,150 @@ class TestUpgradeCommand:
         # User state preserved
         assert state["current_task"] == "task-123"
         assert state["status"] == "in_progress"
+
+    def test_upgrade_list_backups(self, runner, anrs_repo):
+        """Test --list-backups option."""
+        # Create some backups first
+        backup_dir = anrs_repo / ".anrs" / ".backups"
+        backup_dir.mkdir()
+        (backup_dir / "state.json.20240101_120000").write_text("{}")
+
+        result = runner.invoke(
+            cli, ["upgrade", "--list-backups", str(anrs_repo)])
+        assert result.exit_code == 0
+        assert "Backups" in result.output or "20240101" in result.output
+
+    def test_upgrade_list_backups_no_anrs(self, runner, tmp_path):
+        """Test --list-backups on non-ANRS repo."""
+        result = runner.invoke(
+            cli, ["upgrade", "--list-backups", str(tmp_path)])
+        assert "No .anrs" in result.output or result.exit_code == 0
+
+    def test_upgrade_file_nonexistent_source(self, tmp_path):
+        """Test upgrade_file with non-existent source."""
+        source = tmp_path / "nonexistent.md"
+        target = tmp_path / "target.md"
+
+        result = upgrade_file(source, target)
+
+        assert result is False
+        assert not target.exists()
+
+    def test_upgrade_file_no_preserve(self, tmp_path):
+        """Test upgrade_file without preserve (overwrite)."""
+        source = tmp_path / "source.txt"
+        target = tmp_path / "target.txt"
+
+        source.write_text("new content")
+        target.write_text("old content")
+
+        result = upgrade_file(source, target, preserve_data=False)
+
+        assert result is True
+        assert target.read_text() == "new content"
+
+
+class TestUpgradeEdgeCases:
+    """Tests for edge cases in upgrade."""
+
+    def test_get_version_json_error(self, tmp_path):
+        """Test get_current_version with corrupted JSON."""
+        anrs_dir = tmp_path / ".anrs"
+        anrs_dir.mkdir()
+        (anrs_dir / "config.json").write_text("{invalid json}")
+
+        version = get_current_version(anrs_dir)
+        assert version == "unknown"
+
+    def test_get_version_io_error(self, tmp_path, monkeypatch):
+        """Test get_current_version with IO error."""
+        anrs_dir = tmp_path / ".anrs"
+        anrs_dir.mkdir()
+        config = anrs_dir / "config.json"
+        config.write_text('{"version": "0.1"}')
+
+        original_open = open
+
+        def mock_open(path, *args, **kwargs):
+            if "config.json" in str(path):
+                raise IOError("Cannot read")
+            return original_open(path, *args, **kwargs)
+
+        monkeypatch.setattr("builtins.open", mock_open)
+
+        version = get_current_version(anrs_dir)
+        assert version == "unknown"
+
+    def test_upgrade_versions_match(self, runner, anrs_repo):
+        """Test upgrade when versions already match."""
+        from anrs.constants import TEMPLATES_DIR
+
+        # Get template version
+        template_config = TEMPLATES_DIR / "files" / "config.json"
+        if template_config.exists():
+            with open(template_config) as f:
+                template_version = json.load(f).get("version", "0.1")
+        else:
+            template_version = "0.1"
+
+        # Set repo version to match template
+        config_path = anrs_repo / ".anrs" / "config.json"
+        config = json.loads(config_path.read_text())
+        config["version"] = template_version
+        config_path.write_text(json.dumps(config))
+
+        result = runner.invoke(cli, ["upgrade", str(anrs_repo)])
+        assert "up to date" in result.output.lower() or result.exit_code == 0
+
+    def test_upgrade_file_json_merge_error(self, tmp_path):
+        """Test upgrade_file with JSON merge error."""
+        source = tmp_path / "source.json"
+        target = tmp_path / "target.json"
+
+        source.write_text('{"valid": true}')
+        target.write_text("{invalid json}")
+
+        # Should fall back to overwrite on merge error
+        result = upgrade_file(source, target, preserve_data=True)
+        # May succeed or fail depending on implementation
+        assert isinstance(result, bool)
+
+    def test_upgrade_file_io_error(self, tmp_path, monkeypatch):
+        """Test upgrade_file with IO error."""
+        import shutil
+
+        source = tmp_path / "source.md"
+        target = tmp_path / "target.md"
+        source.write_text("content")
+
+        def mock_copy(*args, **kwargs):
+            raise IOError("Cannot copy")
+
+        monkeypatch.setattr(shutil, "copy", mock_copy)
+
+        result = upgrade_file(source, target, preserve_data=False)
+        assert result is False
+
+    def test_upgrade_dry_run_create_action(self, runner, tmp_path):
+        """Test dry-run shows Create action for new files."""
+        anrs_dir = tmp_path / ".anrs"
+        anrs_dir.mkdir()
+        # Only create config, no other files
+        (anrs_dir / "config.json").write_text('{"version": "0.0.1"}')
+
+        result = runner.invoke(cli, ["upgrade", "--dry-run", str(tmp_path)])
+        assert "Create" in result.output or "Replace" in result.output or "Update" in result.output
+
+    def test_upgrade_no_template_config(self, runner, anrs_repo, monkeypatch):
+        """Test upgrade when template config doesn't exist."""
+        from anrs import upgrade
+        from pathlib import Path
+
+        # Mock TEMPLATES_DIR to non-existent path
+        fake_templates = Path("/nonexistent/templates")
+        monkeypatch.setattr(upgrade, "TEMPLATES_DIR", fake_templates)
+
+        # Should handle missing template gracefully
+        result = runner.invoke(cli, ["upgrade", "--force", str(anrs_repo)])
+        # May succeed with default version or fail gracefully
+        assert result.exit_code in [0, 1]

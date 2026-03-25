@@ -44,7 +44,7 @@ Location: `.anrs/state.json`
 
 ```
 1. READ .anrs/state.json
-2. IF current_task: Load task from plans/active/
+2. IF current_task: Load task from .anrs/plans/active/
 3. EXECUTE task
 4. UPDATE state on completion
 ```

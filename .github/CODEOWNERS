@@ -1,0 +1,25 @@
+# ANRS Code Owners
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything
+* @artsyne
+
+# Specification (requires careful review)
+/spec/ @artsyne
+/spec/ENTRY.md @artsyne
+/spec/contracts/ @artsyne
+
+# CLI Tool
+/cli/ @artsyne
+/cli/src/anrs/ @artsyne
+
+# Documentation
+/docs/ @artsyne
+
+# Configuration and CI
+/.github/ @artsyne
+/Makefile @artsyne
+/mkdocs.yml @artsyne
+
+# RFCs (specification changes require RFC process)
+/rfcs/ @artsyne

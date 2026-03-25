@@ -38,6 +38,7 @@ anrs harness --strict
 ### Via Python
 
 ```bash
+# If harness/quality_gate.py exists
 python harness/quality_gate.py --level L1
 ```
 
@@ -66,14 +67,13 @@ If tools are missing, harness returns `SKIP` instead of `FAIL`:
 
 ## Custom Harness
 
-For project-specific checks, add scripts to `harness/`:
+For project-specific checks (requires `anrs init --level full`):
 
 ```
-harness/
-├── quality_gate.py      # Main entry
-├── evaluators/
-│   ├── l1_static_checks.py
-│   ├── l2_dynamic_tests.py
-│   └── custom_check.py  # Your custom check
-└── error_codes.json
+your-project/
+└── harness/               # At root for CI/CD accessibility
+    ├── config.json        # Harness configuration
+    └── ... (custom scripts)
 ```
+
+Add custom evaluators and configure in `harness/config.json`.
