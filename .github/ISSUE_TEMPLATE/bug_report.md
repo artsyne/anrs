@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report an issue with AHES specification or examples
+about: Report an issue with ANRS specification or examples
 title: '[BUG] '
 labels: bug
 assignees: ''

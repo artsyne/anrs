@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest an enhancement to AHES
+about: Suggest an enhancement to ANRS
 title: '[FEATURE] '
 labels: enhancement
 assignees: ''
