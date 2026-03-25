@@ -1,5 +1,6 @@
 """ANRS adapter command - Manage AI tool adapters."""
 
+import logging
 import shutil
 from pathlib import Path
 
@@ -7,12 +8,10 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-console = Console()
+from anrs.constants import ADAPTERS_DIR, ADAPTERS, get_adapter_config_file
 
-# Adapter templates directory
-# cli/src/anrs/adapter.py -> cli/src/anrs -> cli/src -> cli
-CLI_DIR = Path(__file__).parent.parent.parent
-ADAPTERS_DIR = CLI_DIR / "data" / "adapters"
+logger = logging.getLogger(__name__)
+console = Console()
 
 
 @click.group()
@@ -32,21 +31,14 @@ def list_adapters():
     table.add_column("Description")
     table.add_column("Config File")
 
-    adapters = [
-        ("cursor", "Cursor AI editor", ".cursorrules"),
-        ("claude-code", "Claude Code (Anthropic)", "CLAUDE.md"),
-        ("codex", "OpenAI Codex CLI", "AGENTS.md"),
-        ("opencode", "OpenCode AI", "opencode.json"),
-    ]
-
-    for name, desc, config in adapters:
-        table.add_row(name, desc, config)
+    for name, info in ADAPTERS.items():
+        table.add_row(name, info["description"], info["config_file"])
 
     console.print(table)
 
 
 @adapter.command("install")
-@click.argument("adapter_name")
+@click.argument("adapter_name", type=click.Choice(list(ADAPTERS.keys())))
 @click.option(
     "--force", "-f",
     is_flag=True,
@@ -62,21 +54,9 @@ def install_adapter(adapter_name: str, force: bool, path: str):
     adapter_source = ADAPTERS_DIR / adapter_name
 
     if not adapter_source.exists():
-        raise click.ClickException(f"Unknown adapter: {adapter_name}")
+        raise click.ClickException(f"Adapter not found: {adapter_name}")
 
-    # Adapter config file mappings
-    config_files = {
-        "cursor": ".cursorrules",
-        "claude-code": "CLAUDE.md",
-        "codex": "AGENTS.md",
-        "opencode": "opencode.json",
-    }
-
-    config_file = config_files.get(adapter_name)
-    if not config_file:
-        raise click.ClickException(
-            f"No config file mapping for: {adapter_name}")
-
+    config_file = get_adapter_config_file(adapter_name)
     source_path = adapter_source / config_file
     target_path = target_dir / config_file
 
@@ -85,8 +65,11 @@ def install_adapter(adapter_name: str, force: bool, path: str):
             f"{config_file} already exists. Use --force to overwrite."
         )
 
-    # Copy the trampoline config
-    shutil.copy(source_path, target_path)
+    try:
+        shutil.copy(source_path, target_path)
+    except IOError as e:
+        logger.error(f"Failed to install adapter: {e}")
+        raise click.ClickException(f"Cannot install adapter: {e}")
 
     console.print(f"[green]Installed {adapter_name} adapter[/green]")
     console.print(f"Config: [cyan]{target_path}[/cyan]")

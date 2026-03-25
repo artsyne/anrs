@@ -1,50 +1,47 @@
 """ANRS init command - Initialize ANRS in a repository."""
 
 import json
+import logging
 import shutil
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict, Any
 
 import click
 from rich.console import Console
 from rich.panel import Panel
+from rich.progress import Progress, SpinnerColumn, TextColumn
 
+from anrs.constants import (
+    TEMPLATES_DIR,
+    ADAPTERS_DIR,
+    ADAPTERS,
+    LEVELS,
+    DEFAULT_LEVEL,
+    get_adapter_files,
+)
+
+logger = logging.getLogger(__name__)
 console = Console()
 
-# Template and adapter directories relative to this file
-# cli/src/anrs/init_cmd.py -> cli/src/anrs -> cli/src -> cli
-CLI_DIR = Path(__file__).parent.parent.parent
-TEMPLATES_DIR = CLI_DIR / "data" / "templates"
-ADAPTERS_DIR = CLI_DIR / "data" / "adapters"
 
-# Available adapters and their files
-ADAPTER_FILES = {
-    "cursor": [
-        (".cursorrules", ".cursorrules"),
-    ],
-    "claude-code": [
-        ("CLAUDE.md", "CLAUDE.md"),
-    ],
-    "codex": [
-        ("AGENTS.md", "AGENTS.md"),
-    ],
-    "opencode": [
-        ("opencode.json", "opencode.json"),
-    ],
-}
-
-
-def get_manifest(level: str) -> dict:
+def get_manifest(level: str) -> Dict[str, Any]:
     """Load manifest for given level."""
     manifest_path = TEMPLATES_DIR / "manifests" / f"{level}.json"
     if not manifest_path.exists():
         raise click.ClickException(f"Unknown level: {level}")
-    with open(manifest_path) as f:
-        return json.load(f)
+    try:
+        with open(manifest_path) as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        logger.error(f"Invalid manifest JSON: {e}")
+        raise click.ClickException(f"Corrupted manifest file: {manifest_path}")
+    except IOError as e:
+        logger.error(f"Failed to read manifest: {e}")
+        raise click.ClickException(f"Cannot read manifest: {e}")
 
 
-def resolve_manifest(level: str) -> dict:
+def resolve_manifest(level: str) -> Dict[str, Any]:
     """Resolve manifest with inheritance."""
     manifest = get_manifest(level)
 
@@ -78,17 +75,17 @@ def init_config_transform(content: str, project_name: str) -> str:
 
 def install_adapter(adapter: str, target_dir: Path, dry_run: bool = False) -> None:
     """Install adapter files to target directory."""
-    if adapter not in ADAPTER_FILES:
+    if adapter not in ADAPTERS:
         raise click.ClickException(
             f"Unknown adapter: {adapter}. "
-            f"Available: {', '.join(ADAPTER_FILES.keys())}"
+            f"Available: {', '.join(ADAPTERS.keys())}"
         )
 
     adapter_dir = ADAPTERS_DIR / adapter
     if not adapter_dir.exists():
         raise click.ClickException(f"Adapter directory not found: {adapter}")
 
-    for source_name, target_name in ADAPTER_FILES[adapter]:
+    for source_name, target_name in get_adapter_files(adapter):
         source_path = adapter_dir / source_name
         if not source_path.exists():
             console.print(f"[yellow]Warning: {source_name} not found[/yellow]")
@@ -99,8 +96,12 @@ def install_adapter(adapter: str, target_dir: Path, dry_run: bool = False) -> No
             console.print(
                 f"  [green]+ {target_name}[/green] (adapter: {adapter})")
         else:
-            shutil.copy2(source_path, target_path)
-            console.print(f"[green]Installed:[/green] {target_name}")
+            try:
+                shutil.copy2(source_path, target_path)
+                console.print(f"[green]Installed:[/green] {target_name}")
+            except IOError as e:
+                logger.error(f"Failed to install adapter file: {e}")
+                raise click.ClickException(f"Cannot install {target_name}: {e}")
 
 
 def copy_template_file(
@@ -117,30 +118,37 @@ def copy_template_file(
             f"[yellow]Warning: Template not found: {source}[/yellow]")
         return
 
-    # Read source content
-    content = source_path.read_text()
+    try:
+        # Read source content
+        content = source_path.read_text()
 
-    # Apply transform if specified
-    if transform == "init_state":
-        content = init_state_transform(content, project_name)
-    elif transform == "init_config":
-        content = init_config_transform(content, project_name)
+        # Apply transform if specified
+        if transform == "init_state":
+            content = init_state_transform(content, project_name)
+        elif transform == "init_config":
+            content = init_config_transform(content, project_name)
 
-    # Write to target
-    target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(content)
+        # Write to target
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(content)
+    except json.JSONDecodeError as e:
+        logger.error(f"Invalid JSON in template {source}: {e}")
+        raise click.ClickException(f"Corrupted template: {source}")
+    except IOError as e:
+        logger.error(f"Failed to copy template: {e}")
+        raise click.ClickException(f"Cannot create {target}: {e}")
 
 
 @click.command()
 @click.option(
     "--level", "-l",
-    type=click.Choice(["minimal", "standard", "full"]),
-    default="standard",
-    help="Installation level (default: standard)"
+    type=click.Choice(LEVELS),
+    default=DEFAULT_LEVEL,
+    help=f"Installation level (default: {DEFAULT_LEVEL})"
 )
 @click.option(
     "--adapter", "-a",
-    type=click.Choice(["cursor", "claude-code", "codex", "opencode"]),
+    type=click.Choice(list(ADAPTERS.keys())),
     help="Install adapter for specific AI tool"
 )
 @click.option(
@@ -200,20 +208,34 @@ def init(level: str, adapter: Optional[str], force: bool, dry_run: bool, path: s
 
     # Remove existing .anrs if force
     if force and anrs_dir.exists():
-        shutil.rmtree(anrs_dir)
-        console.print("[yellow]Removed existing .anrs directory[/yellow]")
+        if not click.confirm(
+            f"This will delete {anrs_dir}. Continue?", default=False
+        ):
+            raise click.Abort()
+        try:
+            shutil.rmtree(anrs_dir)
+            console.print("[yellow]Removed existing .anrs directory[/yellow]")
+        except IOError as e:
+            logger.error(f"Failed to remove .anrs: {e}")
+            raise click.ClickException(f"Cannot remove .anrs: {e}")
 
-    # Create directories
-    for d in manifest.get("directories", []):
-        dir_path = target_dir / d
-        dir_path.mkdir(parents=True, exist_ok=True)
+    # Create directories and files with progress
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        console=console,
+    ) as progress:
+        task = progress.add_task("Creating directories...", total=None)
+        for d in manifest.get("directories", []):
+            dir_path = target_dir / d
+            dir_path.mkdir(parents=True, exist_ok=True)
 
-    # Copy files
-    for file_spec in manifest.get("files", []):
-        source = file_spec["source"]
-        target = target_dir / file_spec["target"]
-        transform = file_spec.get("transform")
-        copy_template_file(source, target, project_name, transform)
+        progress.update(task, description="Copying files...")
+        for file_spec in manifest.get("files", []):
+            source = file_spec["source"]
+            target = target_dir / file_spec["target"]
+            transform = file_spec.get("transform")
+            copy_template_file(source, target, project_name, transform)
 
     # Run post_init commands
     for cmd in manifest.get("post_init", []):

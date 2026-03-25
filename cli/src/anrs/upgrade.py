@@ -1,31 +1,35 @@
 """ANRS upgrade command - Upgrade .anrs/ to latest version."""
 
 import json
+import logging
 import shutil
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict, Any, List
 
 import click
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+from rich.progress import Progress, SpinnerColumn, TextColumn
 
+from anrs.constants import TEMPLATES_DIR, PRESERVE_FIELDS
+
+logger = logging.getLogger(__name__)
 console = Console()
-
-# Template directory relative to this file
-# cli/src/anrs/upgrade.py -> cli/src/anrs -> cli/src -> cli
-CLI_DIR = Path(__file__).parent.parent.parent
-TEMPLATES_DIR = CLI_DIR / "data" / "templates"
 
 
 def get_current_version(anrs_dir: Path) -> Optional[str]:
     """Get current ANRS version from config."""
     config_path = anrs_dir / "config.json"
     if config_path.exists():
-        with open(config_path) as f:
-            config = json.load(f)
-        return config.get("version", "unknown")
+        try:
+            with open(config_path) as f:
+                config = json.load(f)
+            return config.get("version", "unknown")
+        except (json.JSONDecodeError, IOError) as e:
+            logger.warning(f"Failed to read config: {e}")
+            return "unknown"
     return None
 
 
@@ -33,11 +37,15 @@ def backup_state(anrs_dir: Path, backup_dir: Path) -> None:
     """Backup state files before upgrade."""
     state_file = anrs_dir / "state.json"
     if state_file.exists():
-        backup_dir.mkdir(parents=True, exist_ok=True)
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        backup_path = backup_dir / f"state_{timestamp}.json"
-        shutil.copy(state_file, backup_path)
-        console.print(f"[dim]Backed up state to {backup_path}[/dim]")
+        try:
+            backup_dir.mkdir(parents=True, exist_ok=True)
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            backup_path = backup_dir / f"state_{timestamp}.json"
+            shutil.copy(state_file, backup_path)
+            console.print(f"[dim]Backed up state to {backup_path}[/dim]")
+        except IOError as e:
+            logger.warning(f"Failed to backup state: {e}")
+            console.print(f"[yellow]Warning: Could not backup state: {e}[/yellow]")
 
 
 def upgrade_file(source: Path, target: Path, preserve_data: bool = False) -> bool:
@@ -55,26 +63,30 @@ def upgrade_file(source: Path, target: Path, preserve_data: bool = False) -> boo
                     template_data = json.load(f)
 
                 # Preserve user-specific fields
-                preserve_fields = ["current_task", "status", "last_completed",
-                                   "history", "context", "project"]
-                for field in preserve_fields:
+                for field in PRESERVE_FIELDS:
                     if field in user_data:
                         template_data[field] = user_data[field]
 
                 # Update metadata
                 if "metadata" in template_data:
-                    template_data["metadata"]["updated_at"] = datetime.now(
-                    ).isoformat()
+                    template_data["metadata"]["updated_at"] = datetime.now().isoformat()
 
                 with open(target, "w") as f:
                     json.dump(template_data, f, indent=2)
                 return True
-            except (json.JSONDecodeError, KeyError):
-                pass
+            except (json.JSONDecodeError, KeyError) as e:
+                logger.warning(f"Failed to merge JSON, overwriting: {e}")
+            except IOError as e:
+                logger.error(f"Failed to upgrade file: {e}")
+                return False
 
     # Default: overwrite
-    shutil.copy(source, target)
-    return True
+    try:
+        shutil.copy(source, target)
+        return True
+    except IOError as e:
+        logger.error(f"Failed to copy file: {e}")
+        return False
 
 
 @click.command()

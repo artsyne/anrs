@@ -73,14 +73,14 @@ class TestResolveManifest:
         # Should have minimal files + standard files
         assert len(manifest["files"]) > 3
         # Should have minimal dirs + standard dirs
-        assert "plans/active" in manifest["directories"]
+        assert ".anrs/plans/active" in manifest["directories"]
 
     def test_resolve_full(self):
         """Test resolving full manifest (extends standard)."""
         manifest = resolve_manifest("full")
         # Should have all files from minimal + standard + full
         assert len(manifest["files"]) >= 6
-        # Should have harness directory
+        # Should have harness directory (at root level for CI/CD)
         assert "harness" in manifest["directories"]
 
 
@@ -121,16 +121,16 @@ class TestInitCommand:
         result = runner.invoke(cli, ["init", str(temp_dir)])
         assert result.exit_code == 0
         assert (temp_dir / ".anrs").exists()
-        assert (temp_dir / "plans" / "active").exists()
-        assert (temp_dir / "plans" / "backlog").exists()
+        assert (temp_dir / ".anrs" / "plans" / "active").exists()
+        assert (temp_dir / ".anrs" / "plans" / "backlog").exists()
 
     def test_init_full(self, runner, temp_dir):
         """Test initializing with full level."""
         result = runner.invoke(cli, ["init", "--level", "full", str(temp_dir)])
         assert result.exit_code == 0
         assert (temp_dir / ".anrs" / "skills").exists()
-        assert (temp_dir / "harness").exists()
-        assert (temp_dir / "failure-cases").exists()
+        assert (temp_dir / ".anrs" / "failure-cases").exists()
+        assert (temp_dir / "harness").exists()  # harness at root for CI/CD
 
     def test_init_already_exists(self, runner, temp_dir):
         """Test error when .anrs already exists."""
