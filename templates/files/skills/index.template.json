@@ -1,0 +1,6 @@
+{
+  "$schema": "https://anrs.dev/schemas/skill_registry.json",
+  "version": "0.1",
+  "skills": [],
+  "extends": "anrs:core"
+}

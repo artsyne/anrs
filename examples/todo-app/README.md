@@ -19,7 +19,7 @@ A complete ANRS example demonstrating the full workflow including L1/L2/L3 evalu
 ```
 todo-app/
 ├── README.md
-├── spec/
+├── .anrs/
 │   ├── ENTRY.md
 │   ├── state/
 │   │   └── state.json
@@ -62,12 +62,12 @@ cat plans/active/todo-001.md
 ### Step 2: Check Current State
 
 ```bash
-cat spec/state/state.json
+cat .anrs/state/state.json
 ```
 
 ### Step 3: Point AI to Entry
 
-Open your AI tool and set `spec/ENTRY.md` as the entry point.
+Open your AI tool and set `.anrs/ENTRY.md` as the entry point.
 
 The AI will:
 1. Read state.json
@@ -127,7 +127,7 @@ END
 
 ## Key Files
 
-- `spec/ENTRY.md` - AI reads this first
-- `spec/state/state.json` - Current task state
+- `.anrs/ENTRY.md` - AI reads this first
+- `.anrs/state/state.json` - Current task state
 - `plans/active/todo-001.md` - Task specification
 - `harness/run.sh` - Evaluation pipeline

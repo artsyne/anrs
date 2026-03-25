@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anrs.dev/schemas/state.json",
+  "current_task": null,
+  "status": "idle",
+  "last_completed": null,
+  "context": {
+    "project_type": "",
+    "language": "",
+    "framework": ""
+  },
+  "metadata": {
+    "created_at": "",
+    "updated_at": ""
+  }
+}

@@ -1,74 +1,33 @@
 # ANRS Rules for Cursor IDE
 
 # ===========================================
-# AI-NATIVE REPO SPEC (ANRS)
-# Vendor: Cursor
-# Version: 0.1
+# TRAMPOLINE ADAPTER - DO NOT MODIFY
+# This file redirects to .anrs/ENTRY.md
 # ===========================================
 
-## Core Protocol
+You are operating in an ANRS-governed repository.
 
-You are an AI assistant operating under the ANRS framework.
-You MUST follow the execution protocol defined in `spec/ENTRY.md`.
+## CRITICAL: Read Entry Point First
 
-## Mandatory Rules
+Before taking ANY action, you MUST read and strictly follow:
 
-1. ALWAYS read `spec/state/state.json` before any action
-2. ALWAYS follow plans in `plans/active/`
-3. ALWAYS use skills from `spec/skills/index.json`
-4. ALWAYS run harness after code changes
-5. NEVER commit without passing harness
-6. NEVER modify state.json directly (use update-state skill)
+→ `.anrs/ENTRY.md`
 
-## Execution Loop
+This file contains the complete execution protocol, rules, and constraints.
 
-```
-READ state → LOCATE task → SELECT skill → EXECUTE → RUN harness
-IF PASS: atomic commit → update state
-IF FAIL: reflect → scratchpad → retry
-```
+## Quick Reference
 
-## Before Any Task
+| Resource | Location |
+|----------|----------|
+| Entry Point | `.anrs/ENTRY.md` |
+| State | `.anrs/state.json` |
+| Plans | `plans/active/` |
+| Harness | `harness/` |
 
-1. Read spec/state/state.json to understand current context
-2. Check if there's an active task in plans/active/
-3. Review relevant skills in spec/skills/
+## Why This File?
 
-## Decision Priorities
+This is a "trampoline" adapter that bridges Cursor's configuration format
+to the ANRS specification. The actual rules are maintained in `.anrs/`
+for easier updates across all AI tools.
 
-1. Correctness (highest)
-2. Simplicity
-3. Stability
-4. Performance (lowest)
-
-## Prohibited Actions
-
-- Skipping harness evaluation
-- Direct state.json modification
-- Using unregistered skills
-- Force pushing
-- Exposing secrets
-
-## File References
-
-- Entry Point: `spec/ENTRY.md`
-- Global Rules: `spec/rules/global.md`
-- Skill Registry: `spec/skills/index.json`
-- State: `spec/state/state.json`
-- Harness: `harness/quality_gate.py` or `./scripts/run_harness.sh`
-
-## On Failure
-
-1. Parse error from harness output
-2. Check harness/error_codes.json for error details
-3. Call reflection skill
-4. Update scratchpad with analysis
-5. Create fix plan
-6. Retry (max 3 times)
-7. Escalate to human if still failing
-
-## Quick Start
-
-When you start, say:
-"I've read the ANRS protocol. Let me check the current state..."
-Then read spec/state/state.json.
+To update ANRS: run `anrs upgrade` - this file remains unchanged.

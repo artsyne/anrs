@@ -1,0 +1,25 @@
+{
+  "$schema": "https://anrs.dev/schemas/manifest.json",
+  "name": "full",
+  "description": "Level 2: Full ANRS setup with skills, harness, and failure tracking",
+  "level": 2,
+  "extends": "standard",
+  "files": [
+    {
+      "source": "skills/index.template.json",
+      "target": ".anrs/skills/index.json"
+    },
+    {
+      "source": "failure-cases/README.md",
+      "target": "failure-cases/README.md"
+    }
+  ],
+  "directories": [
+    ".anrs/skills",
+    "harness",
+    "failure-cases"
+  ],
+  "post_init": [
+    "echo 'Full ANRS setup complete. Run anrs harness to verify.'"
+  ]
+}

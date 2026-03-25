@@ -6,7 +6,7 @@ A minimal ANRS example demonstrating the core workflow in 5 minutes.
 
 ## What This Example Shows
 
-1. State management via `ai/state/state.json`
+1. State management via `.anrs/state/state.json`
 2. Task execution following the ANRS protocol
 3. Harness evaluation (simplified L1 check)
 
@@ -17,7 +17,7 @@ A minimal ANRS example demonstrating the core workflow in 5 minutes.
 ```
 hello-world/
 ├── README.md           # This file
-├── ai/
+├── .anrs/
 │   ├── ENTRY.md        # AI entry point
 │   └── state/
 │       └── state.json  # Task state
@@ -34,7 +34,7 @@ hello-world/
 ### Step 1: View the Current State
 
 ```bash
-cat ai/state/state.json
+cat .anrs/state/state.json
 ```
 
 You'll see:
@@ -49,7 +49,7 @@ You'll see:
 
 The task is to add a `greet(name)` function to `src/hello.py`.
 
-Open your AI tool and point it to `ai/ENTRY.md`. Ask it to:
+Open your AI tool and point it to `.anrs/ENTRY.md`. Ask it to:
 
 > "Complete task hello-001: add a greet function"
 

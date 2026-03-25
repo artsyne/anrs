@@ -11,9 +11,9 @@ description: |
 ## Execution Protocol
 
 ```
-1. READ state     → ai/state/state.json
+1. READ state     → .anrs/state/state.json
 2. LOCATE task    → plans/active/{task_id}.md
-3. SELECT skill   → ai/skills/index.json
+3. SELECT skill   → .anrs/skills/index.json
 4. EXECUTE        → Modify src/
 5. RUN harness    → ./harness/run.sh
 
@@ -30,7 +30,7 @@ FAIL → Analyze → Reflect → Retry (max 3) → Escalate
 
 ## File Locations
 
-- State: `ai/state/state.json`
-- Skills: `ai/skills/index.json`
+- State: `.anrs/state/state.json`
+- Skills: `.anrs/skills/index.json`
 - Plans: `plans/active/`
 - Harness: `harness/run.sh`

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anrs.dev/schemas/config.json",
+  "version": "0.1",
+  "project": {
+    "name": "",
+    "description": ""
+  },
+  "harness": {
+    "enabled": true,
+    "strict": false,
+    "levels": ["L1", "L2"]
+  },
+  "skills": {
+    "registry": "local",
+    "index": ".anrs/skills/index.json"
+  },
+  "adapter": {
+    "type": "",
+    "config_file": ""
+  }
+}

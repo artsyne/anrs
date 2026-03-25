@@ -1,0 +1,31 @@
+{
+  "$schema": "https://anrs.dev/schemas/manifest.json",
+  "name": "standard",
+  "description": "Level 1: Standard ANRS setup with plans and scratchpad",
+  "level": 1,
+  "extends": "minimal",
+  "files": [
+    {
+      "source": "scratchpad.md",
+      "target": ".anrs/scratchpad.md"
+    },
+    {
+      "source": "plans/active.README.md",
+      "target": "plans/active/README.md"
+    },
+    {
+      "source": "plans/backlog.README.md",
+      "target": "plans/backlog/README.md"
+    },
+    {
+      "source": "plans/task-template.md",
+      "target": "plans/templates/task-template.md"
+    }
+  ],
+  "directories": [
+    "plans/active",
+    "plans/backlog",
+    "plans/completed",
+    "plans/templates"
+  ]
+}

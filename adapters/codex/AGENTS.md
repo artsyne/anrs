@@ -1,80 +1,33 @@
----
-name: codex-cli-anrs-instructions
-description: |
-  ANRS execution instructions for OpenAI Codex CLI. Read when:
-  (1) Codex CLI starts working in ANRS repository
-  (2) Need to understand ANRS constraints
-  (3) Reference execution loop protocol
----
+# ANRS Rules for OpenAI Codex CLI
 
-# ANRS Instructions for Codex CLI
+# ===========================================
+# TRAMPOLINE ADAPTER - DO NOT MODIFY
+# This file redirects to .anrs/ENTRY.md
+# ===========================================
 
-You are an AI assistant operating under the ANRS (AI-Native Repo Spec) framework.
+You are operating in an ANRS-governed repository.
 
-## Your Role
+## CRITICAL: Read Entry Point First
 
-You are a **constrained executor**, not an autonomous agent. You follow protocols exactly.
+Before taking ANY action, you MUST read and strictly follow:
 
-## MANDATORY: Before ANY Action
+→ `.anrs/ENTRY.md`
 
-1. **READ** `spec/state/state.json` — understand current context
-2. **LOCATE** task in `plans/active/` — find what to do
-3. **SELECT** skill from `spec/skills/index.json` — choose the right tool
-4. **EXECUTE** the skill's checklist exactly
-5. **VERIFY** with harness before any commit
+This file contains the complete execution protocol, rules, and constraints.
 
-## Execution Loop
+## Quick Reference
 
-```
-READ state → LOCATE task → SELECT skill → EXECUTE → RUN harness
-    ↓
-PASS? → atomic commit → update state → cleanup scratchpad
-FAIL? → reflect → write to scratchpad → retry (max 3)
-```
+| Resource | Location |
+|----------|----------|
+| Entry Point | `.anrs/ENTRY.md` |
+| State | `.anrs/state.json` |
+| Plans | `plans/active/` |
+| Harness | `harness/` |
 
-## Decision Priority
+## Why This File?
 
-When conflicts arise, prioritize:
-1. **Correctness** (highest)
-2. **Simplicity**
-3. **Stability**
-4. **Performance** (lowest)
+This is a "trampoline" adapter that bridges Codex CLI's AGENTS.md format
+to the ANRS specification. The actual rules are maintained in `.anrs/`
+for easier updates across all AI tools.
 
-## Absolute Prohibitions
-
-You MUST NOT:
-- ❌ Skip harness evaluation
-- ❌ Modify `spec/state/state.json` directly (use `update-state` skill)
-- ❌ Use skills not in `spec/skills/index.json`
-- ❌ Commit without passing harness
-- ❌ Force push
-- ❌ Expose secrets or credentials
-- ❌ Execute destructive commands (rm -rf, drop database, etc.)
-
-## On Harness Failure
-
-1. Parse error message from harness output
-2. Check `harness/error_codes.json` for error details
-3. Write root cause analysis to `spec/state/scratchpad/current.md`
-4. Create fix plan
-5. Retry (max 3 attempts)
-6. Escalate to human if still failing
-
-## Key Files
-
-| File | Purpose |
-|------|---------|
-| `spec/ENTRY.md` | Entry point (read if confused) |
-| `spec/state/state.json` | Current state (SSOT) |
-| `spec/skills/index.json` | Skill registry (15 skills) |
-| `spec/rules/global.md` | Global constraints |
-| `harness/quality_gate.py` | Evaluation entry |
-
-## Quick Start
-
-When starting a session:
-1. Read `spec/state/state.json`
-2. Check `plans/active/` for current task
-3. Follow the ANRS execution loop
-
-Always refer to `spec/ENTRY.md` when uncertain.
+To update ANRS: run `anrs upgrade` - this file remains unchanged.

@@ -10,7 +10,7 @@ description: |
 
 ## Protocol
 
-1. READ `ai/state/state.json`
+1. READ `.anrs/state/state.json`
 2. IF current_task: Implement in src/ → Run harness/check.sh → Update state
 3. IF no task: Wait for instructions
 

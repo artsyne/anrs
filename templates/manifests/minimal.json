@@ -1,0 +1,25 @@
+{
+  "$schema": "https://anrs.dev/schemas/manifest.json",
+  "name": "minimal",
+  "description": "Level 0: Minimal ANRS setup with state management only",
+  "level": 0,
+  "files": [
+    {
+      "source": "ENTRY.md",
+      "target": ".anrs/ENTRY.md"
+    },
+    {
+      "source": "state.template.json",
+      "target": ".anrs/state.json",
+      "transform": "init_state"
+    },
+    {
+      "source": "config.json",
+      "target": ".anrs/config.json",
+      "transform": "init_config"
+    }
+  ],
+  "directories": [
+    ".anrs"
+  ]
+}
