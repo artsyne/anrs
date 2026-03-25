@@ -6,6 +6,8 @@
 [![Version](https://img.shields.io/badge/version-0.1-blue.svg)]()
 [![Standard](https://img.shields.io/badge/AI%20Native-Repo%20Spec-green.svg)]()
 
+[English](README.md) | [中文](README.zh.md)
+
 ---
 
 ## What is ANRS?
