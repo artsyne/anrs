@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "anrs"
 version = "0.1.0"
-description = "CLI tool for ANRS (AI-Native Repo Spec)"
-readme = "README.md"
+description = "ANRS (AI-Native Repo Spec) - A vendor-neutral specification for AI-friendly code repositories"
+readme = "ANRS_README.md"
 license = {text = "MIT"}
 requires-python = ">=3.9"
 authors = [
@@ -59,6 +59,10 @@ Documentation = "https://artsyne.github.io/anrs"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+include = ["anrs*"]
+
+[tool.setuptools.package-data]
+anrs = ["data/**/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

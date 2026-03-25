@@ -7,8 +7,8 @@ from typing import Dict, List, Tuple
 # CLI directory (cli/src/anrs/constants.py -> cli/src/anrs -> cli/src -> cli)
 CLI_DIR = Path(__file__).parent.parent.parent
 
-# Data directories
-DATA_DIR = CLI_DIR / "data"
+# Data directories (now inside package)
+DATA_DIR = Path(__file__).parent / "data"
 TEMPLATES_DIR = DATA_DIR / "templates"
 ADAPTERS_DIR = DATA_DIR / "adapters"
 
