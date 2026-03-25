@@ -17,10 +17,10 @@ description: |
 
 ```
 1. READ   → spec/state/state.json
-2. LOCATE → plans/active/{task_id}.md
+2. LOCATE → .anrs/plans/active/{task_id}.md
 3. SELECT → spec/skills/index.json
 4. EXECUTE→ spec/skills/{category}/{skill}/SKILL.md
-5. HARNESS→ ./scripts/run_harness.sh
+5. HARNESS→ anrs harness
 
 IF PASS: atomic-commit → update-state → cleanup
 IF FAIL: reflection → SCRATCHPAD → new plan → RETRY
@@ -28,7 +28,7 @@ IF FAIL: reflection → SCRATCHPAD → new plan → RETRY
 
 ## Prohibited Actions (MUST NOT)
 
-- Modify code without plan in `plans/active/`
+- Modify code without plan in `.anrs/plans/active/`
 - Skip harness evaluation
 - Directly modify `state.json` (use `update-state` skill)
 - Commit without passing harness
@@ -42,14 +42,14 @@ IF FAIL: reflection → SCRATCHPAD → new plan → RETRY
 | `spec/orchestrator/ORCHESTRATOR.md` | Detailed protocol (sequential + parallel modes) |
 | `spec/rules/global.md` | Global constraints |
 | `spec/skills/index.json` | Skill registry (15 skills) |
-| `plans/README.md` | Plan lifecycle (backlog → active → completed) |
-| `harness/quality_gate.py` | Evaluation entry (Security → L1 → L2 → L3) |
-| `docs/references/` | Architecture graph, dependency map, API contracts |
+| `.anrs/plans/active/` | Plan lifecycle (backlog → active → completed) |
+| `cli/src/anrs/harness/quality_gate.py` | Evaluation entry (Security → L1 → L2 → L3) |
+| `docs/` | Documentation (getting-started, concepts, api-reference) |
 
 ## Decision Tree
 
 ```
-Starting new task?     → Read state.json → plans/active/ → Execute
+Starting new task?     → Read state.json → .anrs/plans/active/ → Execute
 Task in progress?      → Read state.json → Continue
 Harness failed?        → Reflect → SCRATCHPAD → Retry
 Task completed?        → Atomic commit → Update state
