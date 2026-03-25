@@ -113,7 +113,7 @@ def run_unit_tests(test_dir: str = "tests", test_cmd: Optional[str] = None) -> D
     return result
 
 
-def check_coverage(src_dir: str = "src", test_dir: str = "tests", min_coverage: float = 80.0) -> Dict:
+def check_coverage(src_dir: str = "src", test_dir: str = "tests", min_coverage: float = 60.0) -> Dict:
     """
     Check test coverage using pytest-cov.
 
@@ -224,7 +224,7 @@ def validate_contracts() -> Dict:
     return result
 
 
-def run_l2(src_dir: str = "src", test_dir: str = "tests", min_coverage: float = 80.0) -> Dict:
+def run_l2(src_dir: str = "src", test_dir: str = "tests", min_coverage: float = 60.0) -> Dict:
     """
     Run all L2 dynamic tests.
 

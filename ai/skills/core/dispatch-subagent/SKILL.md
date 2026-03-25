@@ -284,3 +284,52 @@ result:
 - `ai/skills/core/execute-plan/` — Sequential execution
 - `ai/skills/core/write-plan/` — Create dispatchable plans
 - `ai/orchestrator/ORCHESTRATOR.md` — Execution protocol
+
+## Advanced: Physical Isolation with Git Worktree
+
+> **Note**: This is an optional advanced implementation for environments requiring 
+> stronger isolation guarantees than Prompt-level constraints.
+
+### When to Use
+
+- High-risk concurrent modifications
+- Untrusted or experimental subagent implementations
+- Compliance requirements for audit trails
+
+### Implementation Pattern
+
+```bash
+# Orchestrator creates isolated worktrees for each subagent
+git worktree add ../worktree-sub-a -b task-001-sub-a
+git worktree add ../worktree-sub-b -b task-001-sub-b
+
+# Each subagent works in its own worktree (physical isolation)
+Subagent-A → ../worktree-sub-a/
+Subagent-B → ../worktree-sub-b/
+
+# After completion, Orchestrator merges results
+git checkout main
+git merge task-001-sub-a --no-ff
+git merge task-001-sub-b --no-ff
+
+# Cleanup
+git worktree remove ../worktree-sub-a
+git worktree remove ../worktree-sub-b
+```
+
+### Benefits
+
+| Aspect | Prompt Isolation | Git Worktree |
+|--------|------------------|---------------|
+| Enforcement | Soft (AI honor system) | Hard (OS-level) |
+| Complexity | Low | Medium |
+| Conflict Detection | At merge time | Git handles automatically |
+| Audit Trail | Requires logging | Built into Git history |
+
+### Trade-offs
+
+- Requires Orchestrator to have Git CLI access
+- Adds latency for worktree creation/cleanup
+- More complex error handling (merge conflicts)
+
+For most use cases, the default **Shared-Nothing Prompt Isolation** is sufficient.

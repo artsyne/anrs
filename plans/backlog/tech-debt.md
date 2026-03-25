@@ -23,11 +23,11 @@ Known technical debt items awaiting resolution.
 
 ## Current Items
 
-### [Low] Add more evaluator implementations
-- **Description**: Current harness evaluators are protocol skeletons
-- **Impact**: Full evaluation requires real implementations
-- **Effort**: 2-3 days per evaluator
-- **Location**: `harness/evaluators/`
+### [Low] Failure Case Machine-Readable Index
+- **Description**: Failure cases are archived as Markdown files. Adding a `failure_index.json` would enable AI to perform pattern analysis and RAG retrieval.
+- **Impact**: AI cannot efficiently analyze failure patterns across cases
+- **Effort**: 1 day
+- **Location**: `evals/failure-cases/`
 
 ### [Medium] Add adapter auto-generation
 - **Description**: `generate_adapters.sh` needs full implementation
@@ -45,4 +45,4 @@ Known technical debt items awaiting resolution.
 
 | Item | Resolution Date | Notes |
 |------|-----------------|-------|
-| *No resolved items yet* | - | - |
+| Add real evaluator implementations | 2026-03-25 | Integrated ruff, pytest, bandit, gitleaks |

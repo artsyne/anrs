@@ -9,8 +9,8 @@ description: |
 
 # Harness Evaluation System
 
-> **Implementation Status**: Protocol skeleton. Evaluators return placeholder results.
-> Projects adopting ANRS should implement actual evaluation logic.
+> **Implementation Status**: Reference implementation with real tool integration.
+> Evaluators use ruff, pytest, bandit, gitleaks, etc. with graceful fallback when tools are unavailable.
 
 Multi-level quality gate for AI-assisted development.
 
@@ -54,9 +54,22 @@ python quality_gate.py --level L2 -v
 # Skip security checks
 python quality_gate.py --skip-security -v
 
+# Non-strict mode (coverage warnings instead of failures)
+python quality_gate.py --no-strict -v
+
+# Specify source/test directories
+python quality_gate.py --src-dir src --test-dir tests -v
+
 # JSON output
 python quality_gate.py --json
 ```
+
+## Strict vs Non-Strict Mode
+
+| Mode | Coverage < 60% | Other Failures |
+|------|----------------|----------------|
+| `--strict` (default) | FAIL | FAIL |
+| `--no-strict` | WARNING | FAIL |
 
 ## Components
 
