@@ -1,6 +1,6 @@
 # ANRS: AI-Native Repo Spec
 
-> A deterministic, transactional framework for AI-friendly repository governance.
+> A practical specification for structuring AI-friendly code repositories.
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1-blue.svg)]()
@@ -10,29 +10,25 @@
 
 ## What is ANRS?
 
-ANRS (AI-Native Repo Spec) is a vendor-neutral specification framework that defines how to structure a repository to be AI-friendly and AI-safe. It provides a rigorous execution protocol and multi-layer evaluation harness for AI-driven software engineering.
+ANRS (AI-Native Repo Spec) is a vendor-neutral specification that defines how to structure a repository so that AI agents can work within it safely and effectively.
 
-Traditional AI coding often suffers from "Context Drift" and "Instruction Decay." ANRS addresses this by introducing a System of Record (SSOT) for AI agents:
+When AI agents operate in traditional codebases, they often lose track of their current task, hallucinate commands, or modify unrelated files. ANRS solves this by providing a standard set of boundaries and context:
 
-- **State-Aware** — AI always knows "where it is" via a machine-readable `state.json`
-- **Skill-Bound** — AI is restricted to a whitelist of registered Skills, preventing undefined operations
-- **Harness-Governed** — No code is considered complete until it passes the mandatory multi-stage evaluation
+- **Explicit State (`state.json`)** — Replaces fragile chat history. The AI always reads this file first to know "what task I am doing" and "what step I am on."
+- **Defined Skills (`skills/`)** — Replaces open-ended guessing. The AI is restricted to documented checklists, preventing undefined behaviors.
+- **Mandatory Harness (`harness/`)** — Replaces blind commits. AI-generated code must pass checks and tests before task completion.
 
-> **Note**: ANRS is a **specification framework**, not a production-ready tool. The harness evaluators are protocol skeletons demonstrating the expected interfaces. The example code is intentionally incomplete — it serves as a scenario for AI agents to practice following the ANRS protocol.
+> **Note**: ANRS is a **specification**, not a runtime tool. It's a standardized folder structure (`ai/`, `harness/`, `plans/`) plus execution protocols that any AI tool can follow.
 
 ---
 
-## Core
+## Design Principles
 
-**Deterministic Orchestration** — Every AI action follows a defined execution loop (Read → Plan → Execute → Verify), ensuring consistent results regardless of the underlying model.
-
-**Transactional Integrity** — Code changes and state updates are treated as a single atomic unit. The codebase remains in a valid, reversible state at all times.
-
-**Vendor Agnostic** — Through its adapter layer, ANRS bridges different AI ecosystems (Cursor, Claude, OpenAI, open-source models) without vendor lock-in.
-
-**Multi-Layer Verification** — A quadruple-layer gate—security checks, static checks (L1), functional tests (L2), and stability audits (L3)—ensures production-grade reliability.
-
-**Closed-Loop Evolution** — Systematic capture and analysis of failure cases creates a feedback loop for self-correction.
+- **Deterministic Execution** — AI follows a fixed loop: Read → Plan → Execute → Verify.
+- **Atomic Changes** — Code and state update together. Always rollback-safe.
+- **Vendor Neutral** — Works with Cursor, Claude, Codex, and others.
+- **Layered Verification** — Security → Lint → Test → Risk. Gate before commit.
+- **Learn from Failures** — Failed attempts are archived for future reference.
 
 ---
 

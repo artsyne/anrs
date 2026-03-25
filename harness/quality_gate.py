@@ -89,7 +89,7 @@ def run_level(level: str, verbose: bool = False, strict: bool = True, src_dir: s
             result["status"] = l1_result.get("status", "PASS")
         else:
             result["checks"] = [
-                {"name": "l1_checks", "status": "SKIP", 
+                {"name": "l1_checks", "status": "SKIP",
                  "message": "L1 evaluator not available (run from harness/ directory)"}
             ]
 
@@ -97,10 +97,11 @@ def run_level(level: str, verbose: bool = False, strict: bool = True, src_dir: s
         if L2_AVAILABLE:
             # Call real L2 evaluator with configurable coverage threshold
             min_coverage = 60.0  # Default threshold
-            l2_result = run_l2(src_dir=src_dir, test_dir=test_dir, min_coverage=min_coverage)
+            l2_result = run_l2(
+                src_dir=src_dir, test_dir=test_dir, min_coverage=min_coverage)
             result["checks"] = l2_result.get("checks", [])
             result["status"] = l2_result.get("status", "PASS")
-            
+
             # Non-strict mode: downgrade coverage FAIL to WARNING
             if not strict:
                 for check in result["checks"]:
@@ -142,7 +143,8 @@ def run_level(level: str, verbose: bool = False, strict: bool = True, src_dir: s
     if verbose:
         print(f"  {level}: {result['status']} ({result['duration_ms']}ms)")
         for check in result["checks"]:
-            icon = {"PASS": "[PASS]", "FAIL": "[FAIL]", "SKIP": "[SKIP]", "WARNING": "[WARN]"}.get(check["status"], "[????]")
+            icon = {"PASS": "[PASS]", "FAIL": "[FAIL]", "SKIP": "[SKIP]",
+                    "WARNING": "[WARN]"}.get(check["status"], "[????]")
             print(f"    {icon} {check['name']}: {check.get('message', '')}")
 
     return result
@@ -176,13 +178,14 @@ def run_security(verbose: bool = False, scan_path: str = ".") -> dict:
     if verbose:
         print("  Security:")
         for check in result.get("checks", []):
-            icon = {"PASS": "[PASS]", "FAIL": "[FAIL]", "SKIP": "[SKIP]", "WARNING": "[WARN]"}.get(check["status"], "[????]")
+            icon = {"PASS": "[PASS]", "FAIL": "[FAIL]", "SKIP": "[SKIP]",
+                    "WARNING": "[WARN]"}.get(check["status"], "[????]")
             print(f"    {icon} {check['name']}: {check.get('message', '')}")
 
     return result
 
 
-def run_quality_gate(max_level: str = "L3", verbose: bool = False, skip_security: bool = False, 
+def run_quality_gate(max_level: str = "L3", verbose: bool = False, skip_security: bool = False,
                      strict: bool = True, src_dir: str = "src", test_dir: str = "tests") -> dict:
     """
     Run the full quality gate evaluation.
