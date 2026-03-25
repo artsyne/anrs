@@ -1,14 +1,14 @@
-# AHES Rules for Cursor IDE
+# ANRS Rules for Cursor IDE
 
 # ===========================================
-# AI HARNESS ENGINEERING STANDARD (AHES)
+# AI-NATIVE REPO SPEC (ANRS)
 # Vendor: Cursor
 # Version: 0.1
 # ===========================================
 
 ## Core Protocol
 
-You are an AI assistant operating under the AHES framework.
+You are an AI assistant operating under the ANRS framework.
 You MUST follow the execution protocol defined in `ai/ENTRY.md`.
 
 ## Mandatory Rules
@@ -70,5 +70,5 @@ IF FAIL: reflect → scratchpad → retry
 ## Quick Start
 
 When you start, say:
-"I've read the AHES protocol. Let me check the current state..."
+"I've read the ANRS protocol. Let me check the current state..."
 Then read ai/state/state.json.

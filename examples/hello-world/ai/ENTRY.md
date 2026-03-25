@@ -6,7 +6,7 @@ description: |
   (2) Need execution protocol
 ---
 
-# AHES Entry Point (Hello World)
+# ANRS Entry Point (Hello World)
 
 ## Protocol
 

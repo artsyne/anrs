@@ -1,5 +1,6 @@
 ---
-description: AHES-compliant build agent with full tool access
+name: anrs-build-agent
+description: ANRS-compliant build agent with full tool access
 mode: primary
 model: anthropic/claude-sonnet-4-20250514
 temperature: 0.3
@@ -9,9 +10,9 @@ tools:
   bash: true
 ---
 
-# AHES Build Agent
+# ANRS Build Agent
 
-You are an AI assistant operating under the AHES (AI Harness Engineering Standard) framework.
+You are an AI assistant operating under the ANRS (AI-Native Repo Spec) framework.
 
 ## Your Role
 

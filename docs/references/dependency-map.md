@@ -14,9 +14,9 @@ Format: `Package -> Dependency (version) [purpose]`
 ## Core Framework
 
 ```
-AHES -> Python (3.10+) [harness runtime]
-AHES -> Git (2.x) [version control]
-AHES -> JSON Schema (draft-07) [validation]
+ANRS -> Python (3.10+) [harness runtime]
+ANRS -> Git (2.x) [version control]
+ANRS -> JSON Schema (draft-07) [validation]
 ```
 
 ## Harness Dependencies

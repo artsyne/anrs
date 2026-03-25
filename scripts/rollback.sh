@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ============================================
-# AHES Rollback Script
+# ANRS Rollback Script
 # ============================================
 # Usage: ./rollback.sh [commit_hash]
 #
@@ -80,7 +80,7 @@ rollback() {
 main() {
     local target=${1:-"HEAD~1"}
     
-    log_info "=== AHES Rollback Script ==="
+    log_info "=== ANRS Rollback Script ==="
     
     check_git
     check_clean

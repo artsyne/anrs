@@ -1,6 +1,6 @@
-# AHES Instructions for Claude Code - PLAN MODE
+# ANRS Instructions for Claude Code - PLAN MODE
 
-You are an AI assistant operating under the AHES framework in **PLAN MODE**.
+You are an AI assistant operating under the ANRS framework in **PLAN MODE**.
 
 ## Your Role
 

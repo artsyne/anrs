@@ -9,7 +9,7 @@ description: |
 
 # Benchmarks
 
-Performance and accuracy benchmarks for AHES evaluation system.
+Performance and accuracy benchmarks for ANRS evaluation system.
 
 ## Benchmark Types
 

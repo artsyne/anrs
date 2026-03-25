@@ -2,21 +2,21 @@
 name: claude-code-adapter
 description: |
   Claude Code adapter configuration. Read when:
-  (1) Setting up AHES with Claude Code CLI
-  (2) Configuring CLAUDE.md for AHES protocol
+  (1) Setting up ANRS with Claude Code CLI
+  (2) Configuring CLAUDE.md for ANRS protocol
   (3) Understanding Claude Code-specific integration
 ---
 
 # Claude Code Adapter
 
-Configuration files for integrating AHES with [Claude Code](https://code.claude.com/).
+Configuration files for integrating ANRS with [Claude Code](https://code.claude.com/).
 
 ## Files
 
 ```
 claude-code/
 ├── README.md              # This file
-├── CLAUDE.md              # Default AHES instructions (build mode)
+├── CLAUDE.md              # Default ANRS instructions (build mode)
 └── modes/
     ├── CLAUDE-build.md    # Execution mode (full capability)
     ├── CLAUDE-plan.md     # Planning mode (read-only)
@@ -75,7 +75,7 @@ Read-only mode for planning and analysis.
 
 ### CLAUDE-review.md
 
-Code review mode following AHES two-phase review.
+Code review mode following ANRS two-phase review.
 
 - **Capability**: Read only
 - **Use when**: Reviewing PRs, code quality checks
@@ -135,6 +135,6 @@ Claude Code has a layered permission system:
 
 ### Claude Not Following Protocol?
 
-1. Explicitly reference: "Follow the AHES protocol in CLAUDE.md"
+1. Explicitly reference: "Follow the ANRS protocol in CLAUDE.md"
 2. Start with: "Read ai/state/state.json and tell me the current status"
 3. Use `--model opus` for better instruction following

@@ -1,6 +1,6 @@
-# AHES Development Dependencies
+# ANRS Development Dependencies
 #
-# Note: AHES is a specification framework, not a production application.
+# Note: ANRS is a specification framework, not a production application.
 # These dependencies are for running examples and development tooling only.
 
 # For running harness examples

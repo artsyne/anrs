@@ -1,8 +1,8 @@
 ---
 name: core-beliefs
 description: |
-  AHES foundational principles. Read when:
-  (1) Understanding AHES philosophy
+  ANRS foundational principles. Read when:
+  (1) Understanding ANRS philosophy
   (2) Making architectural decisions
   (3) Evaluating trade-offs
 ---
@@ -50,7 +50,7 @@ reliability:
   error_rate: < 0.1%
 ```
 
-## Why AHES
+## Why ANRS
 
 Traditional AI assistants: unpredictable, unverified, no rollback.
-AHES: AI as **constrained executor**, not autonomous agent.
+ANRS: AI as **constrained executor**, not autonomous agent.

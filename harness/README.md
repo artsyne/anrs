@@ -9,6 +9,9 @@ description: |
 
 # Harness Evaluation System
 
+> **Implementation Status**: Protocol skeleton. Evaluators return placeholder results.
+> Projects adopting ANRS should implement actual evaluation logic.
+
 Multi-level quality gate for AI-assisted development.
 
 ## Execution Flow

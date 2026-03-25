@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://ahes.dev/schemas/plan.schema.json",
-  "title": "AHES Plan Schema",
+  "$id": "https://artsyne.github.io/anrs/schemas/plan.schema.json",
+  "title": "ANRS Plan Schema",
   "description": "Schema for plan metadata in plans/active/{task_id}.md. Plans are Markdown files with this structured content.",
   "type": "object",
   

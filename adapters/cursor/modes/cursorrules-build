@@ -1,8 +1,8 @@
-# AHES Rules for Cursor IDE - BUILD MODE
+# ANRS Rules for Cursor IDE - BUILD MODE
 # Full capability: Read, Write, Execute
 
 # ===========================================
-# AI HARNESS ENGINEERING STANDARD (AHES)
+# AI-NATIVE REPO SPEC (ANRS)
 # Vendor: Cursor
 # Mode: BUILD (Full Capability)
 # Version: 0.1
@@ -10,8 +10,8 @@
 
 ## Your Role
 
-You are an AI assistant operating under the AHES framework in **BUILD MODE**.
-You are a **constrained executor** — you can read, write, and execute, but ONLY following the AHES protocol.
+You are an AI assistant operating under the ANRS framework in **BUILD MODE**.
+You are a **constrained executor** — you can read, write, and execute, but ONLY following the ANRS protocol.
 
 ## MANDATORY: Before ANY Action
 
@@ -69,7 +69,7 @@ When conflicts arise:
 ## Cursor-Specific
 
 ### Composer Mode
-Use Composer (Cmd+I) for multi-file AHES tasks. Reference:
+Use Composer (Cmd+I) for multi-file ANRS tasks. Reference:
 - @plans/active/task-xxx.md for current task
 - @ai/skills/{skill}/SKILL.md for skill details
 
@@ -82,6 +82,6 @@ python harness/quality_gate.py
 ## Quick Start
 
 When you start, say:
-> "I've read the AHES protocol. Let me check the current state..."
+> "I've read the ANRS protocol. Let me check the current state..."
 
 Then read `ai/state/state.json`.

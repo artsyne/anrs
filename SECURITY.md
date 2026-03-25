@@ -8,7 +8,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within AHES, please report it responsibly:
+If you discover a security vulnerability within ANRS, please report it responsibly:
 
 1. **Do not** open a public issue
 2. Email the maintainers directly (or use GitHub's private vulnerability reporting if available)
@@ -26,7 +26,7 @@ If you discover a security vulnerability within AHES, please report it responsib
 
 ## Scope
 
-Since AHES is a specification framework (not a production application), security concerns typically relate to:
+Since ANRS is a specification framework (not a production application), security concerns typically relate to:
 
 - Specification design flaws that could lead to insecure implementations
 - Example code that demonstrates insecure patterns

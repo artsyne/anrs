@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://ahes.dev/schemas/skill_registry.schema.json",
-  "title": "AHES Skill Registry Schema",
+  "$id": "https://artsyne.github.io/anrs/schemas/skill_registry.schema.json",
+  "title": "ANRS Skill Registry Schema",
   "description": "Schema for the skill registry file (ai/skills/index.json)",
   "type": "object",
   

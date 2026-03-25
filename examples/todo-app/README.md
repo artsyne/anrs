@@ -1,12 +1,12 @@
 # Todo App Example
 
-A complete AHES example demonstrating the full workflow including L1/L2/L3 evaluation.
+A complete ANRS example demonstrating the full workflow including L1/L2/L3 evaluation.
 
 ---
 
 ## What This Example Shows
 
-1. Complete AHES directory structure
+1. Complete ANRS directory structure
 2. Multi-level harness evaluation (L1 → L2 → L3)
 3. State transitions through a task lifecycle
 4. Skill-based execution

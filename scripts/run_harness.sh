@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ============================================
-# AHES Harness Runner
+# ANRS Harness Runner
 # ============================================
 # Usage: ./run_harness.sh [--level L1|L2|L3] [--verbose]
 #
@@ -40,7 +40,7 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-echo "AHES Harness Runner"
+echo "ANRS Harness Runner"
 echo "======================"
 echo "Level: $LEVEL"
 echo ""

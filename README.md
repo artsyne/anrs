@@ -1,6 +1,6 @@
-# AHES: AI Harness Engineering Standard
+# ANRS: AI-Native Repo Spec
 
-> A deterministic, transactional framework for AI-driven development.
+> A deterministic, transactional framework for AI-friendly repository governance.
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1-blue.svg)]()
@@ -8,17 +8,17 @@
 
 ---
 
-## What is AHES?
+## What is ANRS?
 
-AHES (AI Harness Engineering Standard) is a vendor-neutral, transactional framework that defines a rigorous execution protocol and multi-layer evaluation harness for AI-driven software engineering.
+ANRS (AI-Native Repo Spec) is a vendor-neutral specification framework that defines how to structure a repository to be AI-friendly and AI-safe. It provides a rigorous execution protocol and multi-layer evaluation harness for AI-driven software engineering.
 
-Traditional AI coding often suffers from "Context Drift" and "Instruction Decay." AHES addresses this by introducing a System of Record (SSOT) for AI agents:
+Traditional AI coding often suffers from "Context Drift" and "Instruction Decay." ANRS addresses this by introducing a System of Record (SSOT) for AI agents:
 
 - **State-Aware** — AI always knows "where it is" via a machine-readable `state.json`
 - **Skill-Bound** — AI is restricted to a whitelist of registered Skills, preventing undefined operations
 - **Harness-Governed** — No code is considered complete until it passes the mandatory multi-stage evaluation
 
-> **Note**: AHES is a **specification framework**, not a production-ready tool. The harness evaluators are protocol skeletons demonstrating the expected interfaces. The example code is intentionally incomplete — it serves as a scenario for AI agents to practice following the AHES protocol.
+> **Note**: ANRS is a **specification framework**, not a production-ready tool. The harness evaluators are protocol skeletons demonstrating the expected interfaces. The example code is intentionally incomplete — it serves as a scenario for AI agents to practice following the ANRS protocol.
 
 ---
 
@@ -28,7 +28,7 @@ Traditional AI coding often suffers from "Context Drift" and "Instruction Decay.
 
 **Transactional Integrity** — Code changes and state updates are treated as a single atomic unit. The codebase remains in a valid, reversible state at all times.
 
-**Vendor Agnostic** — Through its adapter layer, AHES bridges different AI ecosystems (Cursor, Claude, OpenAI, open-source models) without vendor lock-in.
+**Vendor Agnostic** — Through its adapter layer, ANRS bridges different AI ecosystems (Cursor, Claude, OpenAI, open-source models) without vendor lock-in.
 
 **Multi-Layer Verification** — A quadruple-layer gate—security checks, static checks (L1), functional tests (L2), and stability audits (L3)—ensures production-grade reliability.
 
@@ -39,7 +39,7 @@ Traditional AI coding often suffers from "Context Drift" and "Instruction Decay.
 ## Architecture Overview
 
 ```
-                    AHES Framework
+                    ANRS Framework
 
     State (SSOT)  →  Orchestrator  →  Skills
          ↑              |              |
@@ -75,24 +75,24 @@ FAIL → Reflect → Retry (max 3) → Escalate to human
 ### Option 1: Try the Example
 
 ```bash
-git clone https://github.com/artsyne/AHES.git
-cd AHES/examples/hello-world
+git clone https://github.com/artsyne/anrs.git
+cd anrs/examples/hello-world
 cat README.md
 ```
 
 ### Option 2: Apply to Your Project
 
 ```bash
-git clone https://github.com/artsyne/AHES.git
-cp -r AHES/ai your-project/
-cp -r AHES/harness your-project/
+git clone https://github.com/artsyne/anrs.git
+cp -r anrs/ai your-project/
+cp -r anrs/harness your-project/
 ```
 
 Point your AI tool to `ai/ENTRY.md` as the entry point.
 
 ### Option 3: Configure Your AI Platform
 
-AHES provides ready-to-use adapters with **multi-mode support** (build/plan/review):
+ANRS provides ready-to-use adapters with **multi-mode support** (build/plan/review):
 
 | Platform | Modes | Quick Start |
 |----------|-------|-------------|

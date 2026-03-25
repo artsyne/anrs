@@ -1,13 +1,13 @@
 # Hello World Example
 
-A minimal AHES example demonstrating the core workflow in 5 minutes.
+A minimal ANRS example demonstrating the core workflow in 5 minutes.
 
 ---
 
 ## What This Example Shows
 
 1. State management via `ai/state/state.json`
-2. Task execution following the AHES protocol
+2. Task execution following the ANRS protocol
 3. Harness evaluation (simplified L1 check)
 
 ---
@@ -84,4 +84,4 @@ After success, state.json should update to:
 - Changes are verified before completion
 - State is updated after success
 
-This is the AHES workflow at its simplest.
+This is the ANRS workflow at its simplest.

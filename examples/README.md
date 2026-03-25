@@ -1,22 +1,22 @@
 ---
 name: examples-index
 description: |
-  AHES protocol implementation examples. Read when:
-  (1) Learning how to apply AHES in a real project
+  ANRS protocol implementation examples. Read when:
+  (1) Learning how to apply ANRS in a real project
   (2) Understanding state.json, ENTRY.md, harness usage
-  (3) Quick start with AHES protocol
+  (3) Quick start with ANRS protocol
 ---
 
 # Examples
 
-Example projects demonstrating AHES protocol implementation.
+Example projects demonstrating ANRS protocol implementation.
 
 ## Purpose
 
 | Audience | Value |
 |----------|-------|
-| **AI** | Reference for applying AHES protocol in other projects |
-| **Human** | Quick start guide to understand AHES workflow |
+| **AI** | Reference for applying ANRS protocol in other projects |
+| **Human** | Quick start guide to understand ANRS workflow |
 
 ## Examples
 
@@ -27,7 +27,7 @@ Example projects demonstrating AHES protocol implementation.
 
 ## Structure Pattern
 
-Each example follows the AHES directory structure:
+Each example follows the ANRS directory structure:
 
 ```
 example/

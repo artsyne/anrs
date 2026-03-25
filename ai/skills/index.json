@@ -11,49 +11,65 @@
           "name": "write-plan",
           "path": "core/write-plan",
           "triggers": ["new task", "plan required", "create plan"],
-          "description": "Create execution plan for a task"
+          "description": "Create execution plan for a task",
+          "version": "0.1.0",
+          "stability": "stable"
         },
         {
           "name": "execute-plan",
           "path": "core/execute-plan",
           "triggers": ["implement", "execute", "code change"],
-          "description": "Execute steps in an existing plan"
+          "description": "Execute steps in an existing plan",
+          "version": "0.1.0",
+          "stability": "stable"
         },
         {
           "name": "update-state",
           "path": "core/update-state",
           "triggers": ["state change", "task progress"],
-          "description": "Update the state.json file"
+          "description": "Update the state.json file",
+          "version": "0.1.0",
+          "stability": "stable"
         },
         {
           "name": "atomic-commit",
           "path": "core/atomic-commit",
           "triggers": ["commit", "save changes"],
-          "description": "Commit code and state atomically"
+          "description": "Commit code and state atomically",
+          "version": "0.1.0",
+          "stability": "stable"
         },
         {
           "name": "reflection",
           "path": "core/reflection",
           "triggers": ["failure", "error", "debug"],
-          "description": "Analyze failure and plan recovery"
+          "description": "Analyze failure and plan recovery",
+          "version": "0.1.0",
+          "stability": "stable"
         },
         {
           "name": "cleanup-scratchpad",
           "path": "core/cleanup-scratchpad",
           "triggers": ["task complete", "cleanup"],
-          "description": "Clear scratchpad after success"
+          "description": "Clear scratchpad after success",
+          "version": "0.1.0",
+          "stability": "stable"
         },
         {
           "name": "task-completion",
           "path": "core/task-completion",
           "triggers": ["done", "finished", "complete task"],
-          "description": "Finalize and archive completed task"
+          "description": "Finalize and archive completed task",
+          "version": "0.1.0",
+          "stability": "stable"
         },
         {
           "name": "dispatch-subagent",
           "path": "core/dispatch-subagent",
           "triggers": ["parallel", "subagent", "concurrent tasks", "independent tasks"],
-          "description": "Dispatch independent tasks to subagents for parallel execution"
+          "description": "Dispatch independent tasks to subagents for parallel execution",
+          "version": "0.1.0",
+          "stability": "experimental"
         }
       ]
     },
@@ -65,25 +81,33 @@
           "name": "test-driven-dev",
           "path": "engineering/test-driven-dev",
           "triggers": ["new feature", "TDD", "add tests"],
-          "description": "Implement feature using TDD"
+          "description": "Implement feature using TDD",
+          "version": "0.1.0",
+          "stability": "stable"
         },
         {
           "name": "code-review",
           "path": "engineering/code-review",
           "triggers": ["review", "check code", "quality"],
-          "description": "Review code for quality issues"
+          "description": "Review code for quality issues",
+          "version": "0.1.0",
+          "stability": "stable"
         },
         {
           "name": "refactor-go-interface",
           "path": "engineering/refactor-go-interface",
           "triggers": ["go interface", "refactor go"],
-          "description": "Refactor Go interfaces safely"
+          "description": "Refactor Go interfaces safely",
+          "version": "0.1.0",
+          "stability": "stable"
         },
         {
           "name": "performance-optimize",
           "path": "engineering/performance-optimize",
           "triggers": ["optimize", "performance", "slow"],
-          "description": "Optimize code performance"
+          "description": "Optimize code performance",
+          "version": "0.1.0",
+          "stability": "experimental"
         }
       ]
     },
@@ -95,13 +119,17 @@
           "name": "risk-analysis",
           "path": "sre/risk-analysis",
           "triggers": ["risk", "analyze changes", "pre-commit check"],
-          "description": "AI-driven risk analysis for code changes"
+          "description": "AI-driven risk analysis for code changes",
+          "version": "0.1.0",
+          "stability": "stable"
         },
         {
           "name": "incident-analysis",
           "path": "sre/incident-analysis",
           "triggers": ["incident", "postmortem", "outage"],
-          "description": "Analyze production incidents"
+          "description": "Analyze production incidents",
+          "version": "0.1.0",
+          "stability": "stable"
         }
       ]
     },
@@ -113,7 +141,9 @@
           "name": "setup-docker-env",
           "path": "env/setup-docker-env",
           "triggers": ["docker", "container", "environment"],
-          "description": "Setup Docker development environment"
+          "description": "Setup Docker development environment",
+          "version": "0.1.0",
+          "stability": "stable"
         }
       ]
     }

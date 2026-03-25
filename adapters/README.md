@@ -2,14 +2,14 @@
 name: adapters-index
 description: |
   Vendor adapter configurations. Read when:
-  (1) Setting up AHES with a specific AI platform
+  (1) Setting up ANRS with a specific AI platform
   (2) Configuring system prompts for different vendors
   (3) Understanding vendor-specific integration
 ---
 
 # Adapters
 
-Vendor-specific configurations for integrating AHES with different AI platforms.
+Vendor-specific configurations for integrating ANRS with different AI platforms.
 
 ## Available Adapters
 
@@ -89,14 +89,14 @@ See [opencode/README.md](opencode/README.md) for detailed setup.
 1. Create a directory: `adapters/{vendor}/`
 2. Add configuration files following the vendor's format
 3. Ensure the system prompt includes:
-   - AHES protocol reference
+   - ANRS protocol reference
    - Execution loop
    - Key file locations
    - Prohibited actions
 
 ## Core Protocol (All Adapters)
 
-All adapters enforce the same AHES protocol:
+All adapters enforce the same ANRS protocol:
 
 ```
 1. READ state    → ai/state/state.json

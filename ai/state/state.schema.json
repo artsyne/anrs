@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://ahes.dev/schemas/state.schema.json",
-  "title": "AHES State Schema",
-  "description": "Schema for the AHES state file. This is the Single Source of Truth (SSOT) for task execution.",
+  "$id": "https://artsyne.github.io/anrs/schemas/state.schema.json",
+  "title": "ANRS State Schema",
+  "description": "Schema for the ANRS state file. This is the Single Source of Truth (SSOT) for task execution.",
   "type": "object",
   
   "required": ["version", "last_updated", "status"],
@@ -32,7 +32,8 @@
     
     "current_task": {
       "type": ["string", "null"],
-      "description": "ID of the currently active task (e.g., task-001, todo-001). Null if idle."
+      "pattern": "^[a-z]+-\\d{3,}$",
+      "description": "ID of the currently active task (format: prefix-NNN, e.g., task-001). Null if idle."
     },
     
     "status": {

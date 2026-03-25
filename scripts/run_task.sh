@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # ============================================
-# AHES Task Runner
+# ANRS Task Runner
 # ============================================
 # Usage: ./run_task.sh [task_id]
 # 
-# Executes a task following the AHES protocol.
+# Executes a task following the ANRS protocol.
 # ============================================
 
 set -e
@@ -58,7 +58,7 @@ check_task() {
 main() {
     local task_id=${1:-"task-001"}
     
-    log_info "=== AHES Task Runner ==="
+    log_info "=== ANRS Task Runner ==="
     log_info "Task ID: $task_id"
     
     # Step 1: Read state

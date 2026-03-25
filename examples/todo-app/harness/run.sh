@@ -1,12 +1,12 @@
 #!/bin/bash
-# AHES Harness Runner - Todo App Example
+# ANRS Harness Runner - Todo App Example
 # Runs L1 → L2 → L3 cascade evaluation
 
 set -e
 cd "$(dirname "$0")/.."
 
 echo "========================================="
-echo "AHES Harness - Todo App"
+echo "ANRS Harness - Todo App"
 echo "========================================="
 echo ""
 

@@ -84,11 +84,47 @@ jobs:
 
           if errors:
               for e in errors:
-                  print(f'✗ {e}')
+                  print(f'\u2717 {e}')
               exit(1)
           else:
-              print(f'✓ All {registry["metadata"]["total_skills"]} skill directories verified')
+              print(f'\u2713 All {registry["metadata"]["total_skills"]} skill directories verified')
           "
+
+      - name: Validate YAML frontmatter in AI docs
+        run: |
+          echo "Checking YAML frontmatter in AI-facing documents..."
+          errors=0
+          for f in $(find ai adapters -name "*.md" -type f 2>/dev/null); do
+            if ! head -1 "$f" | grep -q "^---"; then
+              echo "Missing frontmatter: $f"
+              errors=$((errors + 1))
+            fi
+          done
+          if [ $errors -gt 0 ]; then
+            echo "Found $errors files missing YAML frontmatter"
+            exit 1
+          fi
+          echo "All AI-facing documents have YAML frontmatter"
+
+      - name: Validate harness report against schema
+        run: |
+          if [ -f harness/reports/latest.json ]; then
+            python -c "
+          import json
+          from jsonschema import validate
+
+          with open('ai/contracts/harness_result.schema.json') as f:
+              schema = json.load(f)
+
+          with open('harness/reports/latest.json') as f:
+              report = json.load(f)
+
+          validate(instance=report, schema=schema)
+          print('Harness report validates against schema')
+          "
+          else
+            echo "No harness report found, skipping validation"
+          fi
 
       - name: Check Markdown links
         uses: gaurav-nelson/github-action-markdown-link-check@v1

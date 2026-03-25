@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 """
-AHES Quality Gate
+ANRS Quality Gate - Protocol Skeleton
 
-Main entry point for the harness evaluation system.
-Runs L1 -> L2 -> L3 cascade evaluation with security checks.
+This is a reference implementation demonstrating the harness interface.
+All evaluators return placeholder PASS results.
+
+For production use, implement actual checks:
+- L1: Integrate pylint, mypy, eslint, etc.
+- L2: Run pytest, jest, etc.
+- L3: Connect to monitoring/observability systems
+- Security: Integrate bandit, trivy, gitleaks, etc.
 
 Usage:
     python quality_gate.py [--level L1|L2|L3] [--verbose] [--skip-security]
@@ -144,7 +150,7 @@ def run_quality_gate(max_level: str = "L3", verbose: bool = False, skip_security
     start_time = time.time()
 
     if verbose:
-        print("AHES Quality Gate")
+        print("ANRS Quality Gate")
         print("=" * 40)
 
     result = {
@@ -215,7 +221,7 @@ def main():
     """Main entry point."""
     import argparse
 
-    parser = argparse.ArgumentParser(description="AHES Quality Gate")
+    parser = argparse.ArgumentParser(description="ANRS Quality Gate")
     parser.add_argument("--level", choices=["L1", "L2", "L3"], default="L3",
                         help="Maximum level to run")
     parser.add_argument("--verbose", "-v", action="store_true",

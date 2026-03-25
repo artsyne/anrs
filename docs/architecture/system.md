@@ -1,7 +1,7 @@
 ---
 name: system-architecture
 description: |
-  AHES framework architecture overview. Read when:
+  ANRS framework architecture overview. Read when:
   (1) Understanding component relationships
   (2) Learning data flow
   (3) Integrating with external systems
@@ -9,12 +9,12 @@ description: |
 
 # System Architecture
 
-AHES is a protocol-driven framework for AI-assisted software development.
+ANRS is a protocol-driven framework for AI-assisted software development.
 
 ## Components
 
 ```
-AHES Framework
+ANRS Framework
 ├── Rules (ai/rules/)      → Constraints & standards
 ├── State (ai/state/)      → Execution state (SSOT)
 ├── Skills (ai/skills/)    → Executable actions

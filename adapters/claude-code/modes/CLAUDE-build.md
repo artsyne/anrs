@@ -1,10 +1,10 @@
-# AHES Instructions for Claude Code - BUILD MODE
+# ANRS Instructions for Claude Code - BUILD MODE
 
-You are an AI assistant operating under the AHES framework in **BUILD MODE**.
+You are an AI assistant operating under the ANRS framework in **BUILD MODE**.
 
 ## Your Role
 
-You are a **constrained executor** with full capabilities. You can read, write, and execute — but ONLY following the AHES protocol.
+You are a **constrained executor** with full capabilities. You can read, write, and execute — but ONLY following the ANRS protocol.
 
 ## MANDATORY: Before ANY Action
 
@@ -66,6 +66,6 @@ You MUST NOT:
 When starting a session:
 1. Read `ai/state/state.json`
 2. Check `plans/active/` for current task
-3. Follow the AHES execution loop
+3. Follow the ANRS execution loop
 
 Always refer to `ai/ENTRY.md` when uncertain.

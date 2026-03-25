@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # ============================================
-# AHES Adapter Generator
+# ANRS Adapter Generator
 # ============================================
 # Usage: ./generate_adapters.sh [adapter_name]
 #
-# Generates adapter configuration from AHES rules.
+# Generates adapter configuration from ANRS rules.
 # ============================================
 
 set -e
@@ -73,7 +73,7 @@ generate_all() {
 main() {
     local adapter=${1:-"all"}
     
-    log_info "=== AHES Adapter Generator ==="
+    log_info "=== ANRS Adapter Generator ==="
     log_info "Source: ai/rules/constraints.json"
     echo ""
     

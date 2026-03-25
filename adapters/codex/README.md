@@ -2,21 +2,21 @@
 name: codex-adapter
 description: |
   OpenAI Codex CLI adapter configuration. Read when:
-  (1) Setting up AHES with Codex CLI
-  (2) Configuring AGENTS.md for AHES protocol
+  (1) Setting up ANRS with Codex CLI
+  (2) Configuring AGENTS.md for ANRS protocol
   (3) Understanding Codex-specific integration
 ---
 
 # Codex Adapter
 
-Configuration files for integrating AHES with [OpenAI Codex CLI](https://github.com/openai/codex).
+Configuration files for integrating ANRS with [OpenAI Codex CLI](https://github.com/openai/codex).
 
 ## Files
 
 ```
 codex/
 ├── README.md              # This file
-├── AGENTS.md              # Default AHES instructions (build mode)
+├── AGENTS.md              # Default ANRS instructions (build mode)
 └── modes/
     ├── AGENTS-build.md    # Execution mode (full capability)
     ├── AGENTS-plan.md     # Planning mode (read-only)
@@ -75,7 +75,7 @@ Read-only mode for planning and analysis.
 
 ### AGENTS-review.md
 
-Code review mode following AHES two-phase review.
+Code review mode following ANRS two-phase review.
 
 - **Capability**: Read only
 - **Use when**: Reviewing PRs, code quality checks
@@ -106,7 +106,7 @@ codex --approval-mode suggest
 codex --approval-mode auto-edit
 ```
 
-For AHES workflow, recommend `auto-edit` to auto-approve reads.
+For ANRS workflow, recommend `auto-edit` to auto-approve reads.
 
 ### Model Selection
 
@@ -135,6 +135,6 @@ codex --model gpt-4.1-mini
 
 ### Codex Not Following Protocol?
 
-1. Explicitly reference: "Follow the AHES protocol in AGENTS.md"
+1. Explicitly reference: "Follow the ANRS protocol in AGENTS.md"
 2. Start with: "Read ai/state/state.json and tell me the current status"
 3. Use `--model o3` for better instruction following

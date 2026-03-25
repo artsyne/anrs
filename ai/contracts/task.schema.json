@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://ahes.dev/schemas/task.schema.json",
-  "title": "AHES Task Schema",
+  "$id": "https://artsyne.github.io/anrs/schemas/task.schema.json",
+  "title": "ANRS Task Schema",
   "description": "Schema for task definition in plans/active/",
   "type": "object",
   

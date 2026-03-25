@@ -1,5 +1,5 @@
 {
-  "$comment": "AHES Error Codes - Reference for AI agents during reflection",
+  "$comment": "ANRS Error Codes - Reference for AI agents during reflection",
   
   "categories": {
     "E1xx": "Static Analysis Errors",

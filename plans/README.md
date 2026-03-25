@@ -9,7 +9,7 @@ description: |
 
 # Plans
 
-Task planning and tracking for AHES-governed development.
+Task planning and tracking for ANRS-governed development.
 
 ## Directory Structure
 
@@ -28,7 +28,7 @@ backlog/          →    active/           →    completed/
 (future work)          (in progress)          (archived)
      ↓                      ↓                      ↓
   Prioritize           Execute via            Reference for
-  & refine             AHES protocol          future work
+  & refine             ANRS protocol          future work
 ```
 
 ## Quick Reference
@@ -44,7 +44,7 @@ backlog/          →    active/           →    completed/
 
 1. Copy template: `cp templates/task-template.md active/task-{id}.md`
 2. Fill in objective, requirements, and steps
-3. Update `ai/state/state.json` with new task reference
+3. Use `update-state` skill to set new task reference
 
 ## Plan Format
 
@@ -82,5 +82,5 @@ What this task achieves.
 | File | Purpose |
 |------|---------|
 | `ai/ENTRY.md` | Execution loop references `plans/active/` |
-| `ai/state/state.json` | Contains `current_task_id` |
-| `ai/skills/workflow/task-completion/` | Moves plans to `completed/` |
+| `ai/state/state.json` | Contains `current_task` field |
+| `ai/skills/core/task-completion/` | Moves plans to `completed/` |

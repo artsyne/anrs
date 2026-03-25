@@ -2,7 +2,7 @@
 name: architecture-graph
 description: |
   High-density component dependency graph. Read when:
-  (1) Understanding how AHES components connect
+  (1) Understanding how ANRS components connect
   (2) Tracing execution flow
   (3) Debugging component interactions
 ---

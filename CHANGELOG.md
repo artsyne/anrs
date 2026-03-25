@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to AHES will be documented in this file.
+All notable changes to ANRS will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial AHES framework structure
+- Initial ANRS framework structure
 - Core specification layer (`ai/`)
   - Entry point (`ai/ENTRY.md`)
   - Rules and constraints (`ai/rules/`)
@@ -41,6 +41,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
-- This is the initial release of AHES as a specification framework
+- This is the initial release of ANRS as a specification framework
 - Harness evaluators are protocol skeletons, not production implementations
 - Example code is intentionally incomplete for AI practice scenarios

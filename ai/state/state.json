@@ -1,9 +1,9 @@
 {
-  "$comment": "AHES State - Single Source of Truth (SSOT)",
+  "$comment": "ANRS State - Single Source of Truth (SSOT)",
   "$schema": "./state.schema.json",
   
   "version": "0.1.0",
-  "last_updated": "2024-01-01T00:00:00Z",
+  "last_updated": "2026-03-25T00:00:00Z",
   
   "current_task": null,
   "status": "idle",

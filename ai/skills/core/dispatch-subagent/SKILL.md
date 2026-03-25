@@ -171,7 +171,7 @@ Report:
 - Subagents cannot spawn other subagents
 - All results must be reviewed before merge
 
-## Integration with AHES
+## Integration with ANRS
 
 ```
 1. READ state.json

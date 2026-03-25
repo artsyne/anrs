@@ -9,7 +9,7 @@ description: |
 
 # Agent Definitions
 
-Agents are the actors in AHES. Each agent has:
+Agents are the actors in ANRS. Each agent has:
 - Defined capabilities (skills whitelist)
 - Prohibited actions (red lines)
 - Decision priorities

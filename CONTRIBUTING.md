@@ -1,6 +1,6 @@
-# Contributing to AHES
+# Contributing to ANRS
 
-Thank you for your interest in contributing to AHES (AI Harness Engineering Standard)!
+Thank you for your interest in contributing to ANRS (AI-Native Repo Spec)!
 
 ---
 
@@ -26,8 +26,8 @@ Please be respectful and constructive in all interactions. We are building an op
 ### 1. Fork the Repository
 
 ```bash
-git clone https://github.com/artsyne/AHES.git
-cd AHES
+git clone https://github.com/artsyne/anrs.git
+cd anrs
 ```
 
 ### 2. Create a Branch

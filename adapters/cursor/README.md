@@ -2,14 +2,14 @@
 name: cursor-adapter
 description: |
   Cursor adapter configuration. Read when:
-  (1) Setting up AHES with Cursor IDE
-  (2) Configuring .cursorrules for AHES
+  (1) Setting up ANRS with Cursor IDE
+  (2) Configuring .cursorrules for ANRS
   (3) Understanding Cursor-specific integration
 ---
 
 # Cursor Adapter
 
-Configuration files for integrating AHES with [Cursor IDE](https://cursor.com/).
+Configuration files for integrating ANRS with [Cursor IDE](https://cursor.com/).
 
 ## Files
 
@@ -66,15 +66,15 @@ Read-only mode for planning and analysis.
 
 ### Composer Mode
 
-Cursor's Composer is ideal for AHES multi-file changes:
+Cursor's Composer is ideal for ANRS multi-file changes:
 
 1. Open Composer (Cmd/Ctrl + I)
 2. Reference the task: `@plans/active/task-001.md`
-3. Cursor will follow AHES protocol from `.cursorrules`
+3. Cursor will follow ANRS protocol from `.cursorrules`
 
 ### Inline References
 
-Use `@` to reference AHES files in chat:
+Use `@` to reference ANRS files in chat:
 - `@ai/ENTRY.md` - Entry point
 - `@ai/state/state.json` - Current state
 - `@ai/skills/index.json` - Available skills
@@ -96,7 +96,7 @@ Read ai/state/state.json and tell me the current status
 
 ### 2. Use Composer for Multi-File Changes
 
-For tasks touching multiple files, use Composer mode with AHES context.
+For tasks touching multiple files, use Composer mode with ANRS context.
 
 ### 3. Verify with Terminal
 
@@ -119,6 +119,6 @@ Use Cursor's Git integration for atomic commits after harness passes.
 
 ### AI Not Following Protocol?
 
-1. Explicitly reference: "Follow the AHES protocol in .cursorrules"
+1. Explicitly reference: "Follow the ANRS protocol in .cursorrules"
 2. Use `@.cursorrules` to include rules in context
 3. Switch to a more detailed mode file

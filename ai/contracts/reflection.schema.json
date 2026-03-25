@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://ahes.dev/schemas/reflection.schema.json",
-  "title": "AHES Reflection Schema",
+  "$id": "https://artsyne.github.io/anrs/schemas/reflection.schema.json",
+  "title": "ANRS Reflection Schema",
   "description": "Schema for reflection output during failure recovery",
   "type": "object",
   

@@ -1,6 +1,15 @@
-# AHES Instructions for Codex CLI
+---
+name: codex-cli-anrs-instructions
+description: |
+  ANRS execution instructions for OpenAI Codex CLI. Read when:
+  (1) Codex CLI starts working in ANRS repository
+  (2) Need to understand ANRS constraints
+  (3) Reference execution loop protocol
+---
 
-You are an AI assistant operating under the AHES (AI Harness Engineering Standard) framework.
+# ANRS Instructions for Codex CLI
+
+You are an AI assistant operating under the ANRS (AI-Native Repo Spec) framework.
 
 ## Your Role
 
@@ -66,6 +75,6 @@ You MUST NOT:
 When starting a session:
 1. Read `ai/state/state.json`
 2. Check `plans/active/` for current task
-3. Follow the AHES execution loop
+3. Follow the ANRS execution loop
 
 Always refer to `ai/ENTRY.md` when uncertain.

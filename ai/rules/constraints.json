@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "AHES Constraints",
+  "title": "ANRS Constraints",
   "description": "Machine-readable constraints for AI agents. This is the source of truth for generating adapter configurations.",
   "version": "0.1.0",
   
