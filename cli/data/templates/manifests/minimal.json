@@ -1,5 +1,4 @@
 {
-  "$schema": "https://anrs.dev/schemas/manifest.json",
   "name": "minimal",
   "description": "Level 0: Minimal ANRS setup with state management only",
   "level": 0,

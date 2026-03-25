@@ -1,5 +1,4 @@
 {
-  "$schema": "https://anrs.dev/schemas/harness-config.json",
   "version": "0.1.0",
   "description": "Project-specific harness configuration",
   "levels": {

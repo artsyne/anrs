@@ -1,5 +1,4 @@
 {
-  "$schema": "https://anrs.dev/schemas/config.json",
   "version": "0.1",
   "project": {
     "name": "",

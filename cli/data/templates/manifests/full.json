@@ -1,5 +1,4 @@
 {
-  "$schema": "https://anrs.dev/schemas/manifest.json",
   "name": "full",
   "description": "Level 2: Full ANRS setup with skills, harness, and failure tracking",
   "level": 2,

@@ -120,8 +120,8 @@ Claude Code has a layered permission system:
 
 ## Best Practices
 
-1. **Start with State**: Always check `spec/state/state.json` first
-2. **Follow Skills**: Use only registered skills from `spec/skills/index.json`
+1. **Start with State**: Always check `.anrs/state.json` first
+2. **Follow Skills**: Use only registered skills from `.anrs/skills/index.json`
 3. **Run Harness**: Verify with `python harness/quality_gate.py` before commit
 4. **Use Subagents**: Delegate exploration to keep main context clean
 
@@ -136,5 +136,5 @@ Claude Code has a layered permission system:
 ### Claude Not Following Protocol?
 
 1. Explicitly reference: "Follow the ANRS protocol in CLAUDE.md"
-2. Start with: "Read spec/state/state.json and tell me the current status"
+2. Start with: "Read .anrs/state.json and tell me the current status"
 3. Use `--model opus` for better instruction following

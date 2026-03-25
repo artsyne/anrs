@@ -64,7 +64,8 @@ def harness(level: str, strict: bool, path: str):
             quality_gate.resolve().relative_to(harness_dir.resolve())
         except ValueError:
             logger.error("quality_gate.py points outside harness directory")
-            raise click.ClickException("Security: quality_gate.py location invalid")
+            raise click.ClickException(
+                "Security: quality_gate.py location invalid")
 
         console.print(f"[bold]Running quality gate ({level})...[/bold]\n")
 

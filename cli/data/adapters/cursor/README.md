@@ -69,21 +69,21 @@ Read-only mode for planning and analysis.
 Cursor's Composer is ideal for ANRS multi-file changes:
 
 1. Open Composer (Cmd/Ctrl + I)
-2. Reference the task: `@plans/active/task-001.md`
+2. Reference the task: `@.anrs/plans/active/task-001.md`
 3. Cursor will follow ANRS protocol from `.cursorrules`
 
 ### Inline References
 
 Use `@` to reference ANRS files in chat:
-- `@spec/ENTRY.md` - Entry point
-- `@spec/state/state.json` - Current state
-- `@spec/skills/index.json` - Available skills
+- `@.anrs/ENTRY.md` - Entry point
+- `@.anrs/state.json` - Current state
+- `@.anrs/skills/index.json` - Available skills
 
 ### Codebase Context
 
 Cursor indexes your codebase. Leverage this:
-- Ask "What skills are available?" → Cursor reads `spec/skills/`
-- Ask "What's the current state?" → Cursor reads `spec/state/state.json`
+- Ask "What skills are available?" → Cursor reads `.anrs/skills/`
+- Ask "What's the current state?" → Cursor reads `.anrs/state.json`
 
 ## Best Practices
 
@@ -91,7 +91,7 @@ Cursor indexes your codebase. Leverage this:
 
 Always begin by checking state:
 ```
-Read spec/state/state.json and tell me the current status
+Read .anrs/state.json and tell me the current status
 ```
 
 ### 2. Use Composer for Multi-File Changes

@@ -1,5 +1,4 @@
 {
-  "$schema": "https://anrs.dev/schemas/manifest.json",
   "name": "standard",
   "description": "Level 1: Standard ANRS setup with plans and scratchpad",
   "level": 1,

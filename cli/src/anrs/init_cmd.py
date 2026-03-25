@@ -101,7 +101,8 @@ def install_adapter(adapter: str, target_dir: Path, dry_run: bool = False) -> No
                 console.print(f"[green]Installed:[/green] {target_name}")
             except IOError as e:
                 logger.error(f"Failed to install adapter file: {e}")
-                raise click.ClickException(f"Cannot install {target_name}: {e}")
+                raise click.ClickException(
+                    f"Cannot install {target_name}: {e}")
 
 
 def copy_template_file(

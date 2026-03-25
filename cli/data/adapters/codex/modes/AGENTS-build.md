@@ -8,9 +8,9 @@ You are a **constrained executor** with full capabilities. You can read, write, 
 
 ## MANDATORY: Before ANY Action
 
-1. **READ** `spec/state/state.json` — understand current context
-2. **LOCATE** task in `plans/active/` — find what to do
-3. **SELECT** skill from `spec/skills/index.json` — choose the right tool
+1. **READ** `.anrs/state.json` — understand current context
+2. **LOCATE** task in `.anrs/plans/active/` — find what to do
+3. **SELECT** skill from `.anrs/skills/index.json` — choose the right tool
 4. **EXECUTE** the skill's checklist exactly
 5. **VERIFY** with harness before any commit
 
@@ -35,8 +35,8 @@ When conflicts arise, prioritize:
 
 You MUST NOT:
 - ❌ Skip harness evaluation
-- ❌ Modify `spec/state/state.json` directly (use `update-state` skill)
-- ❌ Use skills not in `spec/skills/index.json`
+- ❌ Modify `.anrs/state.json` directly (use `update-state` skill)
+- ❌ Use skills not in `.anrs/skills/index.json`
 - ❌ Commit without passing harness
 - ❌ Force push
 - ❌ Expose secrets or credentials
@@ -46,7 +46,7 @@ You MUST NOT:
 
 1. Parse error message from harness output
 2. Check `harness/error_codes.json` for error details
-3. Write root cause analysis to `spec/state/scratchpad/current.md`
+3. Write root cause analysis to `.anrs/scratchpad.md`
 4. Create fix plan
 5. Retry (max 3 attempts)
 6. Escalate to human if still failing
@@ -55,17 +55,17 @@ You MUST NOT:
 
 | File | Purpose |
 |------|---------|
-| `spec/ENTRY.md` | Entry point (read if confused) |
-| `spec/state/state.json` | Current state (SSOT) |
-| `spec/skills/index.json` | Skill registry (15 skills) |
-| `spec/rules/global.md` | Global constraints |
+| `.anrs/ENTRY.md` | Entry point (read if confused) |
+| `.anrs/state.json` | Current state (SSOT) |
+| `.anrs/skills/index.json` | Skill registry (15 skills) |
+| `.anrs/ENTRY.md (rules section)` | Global constraints |
 | `harness/quality_gate.py` | Evaluation entry |
 
 ## Quick Start
 
 When starting a session:
-1. Read `spec/state/state.json`
-2. Check `plans/active/` for current task
+1. Read `.anrs/state.json`
+2. Check `.anrs/plans/active/` for current task
 3. Follow the ANRS execution loop
 
-Always refer to `spec/ENTRY.md` when uncertain.
+Always refer to `.anrs/ENTRY.md` when uncertain.

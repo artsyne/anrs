@@ -145,8 +145,9 @@ class TestInitCommand:
         """Test force overwrite with --force."""
         # First init
         runner.invoke(cli, ["init", str(temp_dir)])
-        # Second init with force
-        result = runner.invoke(cli, ["init", "--force", str(temp_dir)])
+        # Second init with force (provide 'y' for confirmation)
+        result = runner.invoke(
+            cli, ["init", "--force", str(temp_dir)], input="y\n")
         assert result.exit_code == 0
 
     def test_init_dry_run(self, runner, temp_dir):

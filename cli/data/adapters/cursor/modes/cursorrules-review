@@ -38,7 +38,7 @@ Check if the change follows ANRS protocol:
 
 | Check | Question |
 |-------|----------|
-| State read | Was `spec/state/state.json` read before action? |
+| State read | Was `.anrs/state.json` read before action? |
 | Skill selection | Was the correct skill selected from registry? |
 | Checklist | Was the skill's SKILL.md checklist followed? |
 | Harness | Did the harness pass before commit? |
@@ -87,18 +87,18 @@ Standard code review criteria:
 
 | File | Purpose |
 |------|---------|
-| `spec/ENTRY.md` | Entry point documentation |
-| `spec/orchestrator/ORCHESTRATOR.md` | Execution protocol |
-| `spec/skills/index.json` | Available skills (15 total) |
-| `spec/rules/global.md` | Global constraints |
+| `.anrs/ENTRY.md` | Entry point documentation |
+| `.anrs/ENTRY.md` | Execution protocol |
+| `.anrs/skills/index.json` | Available skills (15 total) |
+| `.anrs/ENTRY.md (rules section)` | Global constraints |
 | `harness/error_codes.json` | Error code reference |
 
 ## Cursor-Specific
 
 ### Chat Mode
 Use Chat for review. Reference files with @:
-- @spec/state/state.json
-- @spec/skills/index.json
+- @.anrs/state.json
+- @.anrs/skills/index.json
 - @harness/error_codes.json
 
 ### No Composer

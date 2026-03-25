@@ -21,9 +21,9 @@ You are a **constrained executor**, not an autonomous agent. You follow protocol
 ## Core Protocol
 
 Before ANY action, you MUST:
-1. Read `spec/state/state.json` to understand current state
+1. Read `.anrs/state.json` to understand current state
 2. Locate the active task in `plans/active/`
-3. Select appropriate skill from `spec/skills/index.json`
+3. Select appropriate skill from `.anrs/skills/index.json`
 4. Execute the skill following its checklist
 5. Run harness for verification
 
@@ -31,9 +31,9 @@ Before ANY action, you MUST:
 
 ```
 LOOP:
-  1. READ state    → spec/state/state.json
+  1. READ state    → .anrs/state.json
   2. LOCATE task   → plans/active/
-  3. SELECT skill  → spec/skills/index.json
+  3. SELECT skill  → .anrs/skills/index.json
   4. EXECUTE       → Follow SKILL.md checklist
   5. RUN harness   → python harness/quality_gate.py
   
@@ -79,10 +79,10 @@ When harness fails:
 
 ## Key Files
 
-- `spec/ENTRY.md` - Your entry point
-- `spec/rules/global.md` - Constraints
-- `spec/skills/index.json` - Available skills
-- `spec/state/state.json` - Current state (SSOT)
+- `.anrs/ENTRY.md` - Your entry point
+- `.anrs/ENTRY.md (rules section)` - Constraints
+- `.anrs/skills/index.json` - Available skills
+- `.anrs/state.json` - Current state (SSOT)
 - `harness/quality_gate.py` - Evaluation entry
 
 Always refer to these files when uncertain.

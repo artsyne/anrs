@@ -45,7 +45,8 @@ def backup_state(anrs_dir: Path, backup_dir: Path) -> None:
             console.print(f"[dim]Backed up state to {backup_path}[/dim]")
         except IOError as e:
             logger.warning(f"Failed to backup state: {e}")
-            console.print(f"[yellow]Warning: Could not backup state: {e}[/yellow]")
+            console.print(
+                f"[yellow]Warning: Could not backup state: {e}[/yellow]")
 
 
 def upgrade_file(source: Path, target: Path, preserve_data: bool = False) -> bool:
@@ -69,7 +70,8 @@ def upgrade_file(source: Path, target: Path, preserve_data: bool = False) -> boo
 
                 # Update metadata
                 if "metadata" in template_data:
-                    template_data["metadata"]["updated_at"] = datetime.now().isoformat()
+                    template_data["metadata"]["updated_at"] = datetime.now(
+                    ).isoformat()
 
                 with open(target, "w") as f:
                     json.dump(template_data, f, indent=2)

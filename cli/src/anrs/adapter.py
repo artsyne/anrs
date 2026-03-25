@@ -44,8 +44,13 @@ def list_adapters():
     is_flag=True,
     help="Overwrite existing adapter config"
 )
+@click.option(
+    "--dry-run",
+    is_flag=True,
+    help="Show what would be done without making changes"
+)
 @click.argument("path", default=".", type=click.Path(exists=True))
-def install_adapter(adapter_name: str, force: bool, path: str):
+def install_adapter(adapter_name: str, force: bool, dry_run: bool, path: str):
     """Install an adapter for an AI tool.
 
     Creates a trampoline config file that points to .anrs/ENTRY.md
@@ -64,6 +69,13 @@ def install_adapter(adapter_name: str, force: bool, path: str):
         raise click.ClickException(
             f"{config_file} already exists. Use --force to overwrite."
         )
+
+    if dry_run:
+        console.print(
+            "[bold yellow]Dry run mode - no changes made[/bold yellow]")
+        console.print(f"Would copy: [cyan]{source_path}[/cyan]")
+        console.print(f"       to: [cyan]{target_path}[/cyan]")
+        return
 
     try:
         shutil.copy(source_path, target_path)

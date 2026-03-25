@@ -99,9 +99,9 @@ See [opencode/README.md](opencode/README.md) for detailed setup.
 All adapters enforce the same ANRS protocol:
 
 ```
-1. READ state    → spec/state/state.json
-2. LOCATE task   → plans/active/
-3. SELECT skill  → spec/skills/index.json
+1. READ state    → .anrs/state.json
+2. LOCATE task   → .anrs/plans/active/
+3. SELECT skill  → .anrs/skills/index.json
 4. EXECUTE       → Follow SKILL.md
 5. RUN harness   → Pass before commit
 ```

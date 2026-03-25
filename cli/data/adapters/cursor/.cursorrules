@@ -21,7 +21,7 @@ This file contains the complete execution protocol, rules, and constraints.
 |----------|----------|
 | Entry Point | `.anrs/ENTRY.md` |
 | State | `.anrs/state.json` |
-| Plans | `plans/active/` |
+| Plans | `.anrs/plans/active/` |
 | Harness | `harness/` |
 
 ## Why This File?

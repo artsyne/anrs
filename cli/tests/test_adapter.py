@@ -55,7 +55,8 @@ class TestAdapterInstallCommand:
         result = runner.invoke(
             cli, ["adapter", "install", "unknown", str(tmp_path)])
         assert result.exit_code != 0
-        assert "Unknown adapter" in result.output
+        # Click validates choice and shows available options
+        assert "is not one of" in result.output
 
     def test_adapter_install_already_exists(self, runner, tmp_path):
         """Test error when adapter config already exists."""
@@ -75,3 +76,23 @@ class TestAdapterInstallCommand:
         result = runner.invoke(
             cli, ["adapter", "install", "cursor", "--force", str(tmp_path)])
         assert result.exit_code == 0
+
+    def test_adapter_install_dry_run(self, runner, tmp_path):
+        """Test dry run mode."""
+        result = runner.invoke(
+            cli, ["adapter", "install", "cursor", "--dry-run", str(tmp_path)])
+        assert result.exit_code == 0
+        assert "Dry run" in result.output
+        assert "Would copy" in result.output
+        # Should not create file
+        assert not (tmp_path / ".cursorrules").exists()
+
+    def test_adapter_install_dry_run_with_existing(self, runner, tmp_path):
+        """Test dry run shows error when file already exists."""
+        # First install
+        runner.invoke(cli, ["adapter", "install", "cursor", str(tmp_path)])
+        # Dry run without force should fail
+        result = runner.invoke(
+            cli, ["adapter", "install", "cursor", "--dry-run", str(tmp_path)])
+        assert result.exit_code != 0
+        assert "already exists" in result.output

@@ -15,9 +15,9 @@ You are a **constrained executor** — you can read, write, and execute, but ONL
 
 ## MANDATORY: Before ANY Action
 
-1. READ `spec/state/state.json` — understand current context
-2. LOCATE task in `plans/active/` — find what to do
-3. SELECT skill from `spec/skills/index.json` — choose the right tool
+1. READ `.anrs/state.json` — understand current context
+2. LOCATE task in `.anrs/plans/active/` — find what to do
+3. SELECT skill from `.anrs/skills/index.json` — choose the right tool
 4. EXECUTE the skill's checklist exactly
 5. RUN harness before any commit
 
@@ -51,7 +51,7 @@ When conflicts arise:
 
 1. Parse error from harness output
 2. Check `harness/error_codes.json` for details
-3. Write analysis to `spec/state/scratchpad/current.md`
+3. Write analysis to `.anrs/scratchpad.md`
 4. Create fix plan
 5. Retry (max 3 times)
 6. Escalate to human if still failing
@@ -60,18 +60,18 @@ When conflicts arise:
 
 | File | Purpose |
 |------|---------|
-| `spec/ENTRY.md` | Entry point (read if confused) |
-| `spec/state/state.json` | Current state (SSOT) |
-| `spec/skills/index.json` | Skill registry (15 skills) |
-| `spec/rules/global.md` | Global constraints |
+| `.anrs/ENTRY.md` | Entry point (read if confused) |
+| `.anrs/state.json` | Current state (SSOT) |
+| `.anrs/skills/index.json` | Skill registry (15 skills) |
+| `.anrs/ENTRY.md (rules section)` | Global constraints |
 | `harness/quality_gate.py` | Evaluation entry |
 
 ## Cursor-Specific
 
 ### Composer Mode
 Use Composer (Cmd+I) for multi-file ANRS tasks. Reference:
-- @plans/active/task-xxx.md for current task
-- @spec/skills/{skill}/SKILL.md for skill details
+- @.anrs/plans/active/task-xxx.md for current task
+- @.anrs/skills/{skill}/SKILL.md for skill details
 
 ### Terminal
 Run harness verification:
@@ -84,4 +84,4 @@ python harness/quality_gate.py
 When you start, say:
 > "I've read the ANRS protocol. Let me check the current state..."
 
-Then read `spec/state/state.json`.
+Then read `.anrs/state.json`.
