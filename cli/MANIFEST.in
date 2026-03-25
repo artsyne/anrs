@@ -1,1 +1,3 @@
 include ANRS_README.md
+global-include .cursorrules
+recursive-include src/anrs/data *
