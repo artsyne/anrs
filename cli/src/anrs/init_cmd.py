@@ -96,7 +96,8 @@ def install_adapter(adapter: str, target_dir: Path, dry_run: bool = False) -> No
 
         target_path = target_dir / target_name
         if dry_run:
-            console.print(f"  [green]+ {target_name}[/green] (adapter: {adapter})")
+            console.print(
+                f"  [green]+ {target_name}[/green] (adapter: {adapter})")
         else:
             shutil.copy2(source_path, target_path)
             console.print(f"[green]Installed:[/green] {target_name}")
