@@ -16,8 +16,8 @@ ANRS (AI-Native Repo Spec) is a vendor-neutral specification that defines how to
 
 When AI agents operate in traditional codebases, they often lose track of their current task, hallucinate commands, or modify unrelated files. ANRS solves this by providing a standard set of boundaries and context:
 
-- **Explicit State (`state.json`)** — Replaces fragile chat history. The AI always reads this file first to know "what task I am doing" and "what step I am on."
-- **Defined Skills (`skills/`)** — Replaces open-ended guessing. The AI is restricted to documented checklists, preventing undefined behaviors.
+- **Explicit State (`.anrs/state.json`)** — Replaces fragile chat history. The AI always reads this file first to know "what task I am doing" and "what step I am on."
+- **Defined Skills (`.anrs/skills/`)** — Replaces open-ended guessing. The AI is restricted to documented checklists, preventing undefined behaviors.
 - **Mandatory Harness (`.anrs/harness/`)** — Replaces blind commits. AI-generated code must pass checks and tests before task completion.
 
 > **Note**: ANRS is a **specification**, not a runtime tool. It's a standardized folder structure (`.anrs/`) plus execution protocols that any AI tool can follow.
@@ -114,7 +114,7 @@ ANRS provides ready-to-use adapters with **multi-mode support** (build/plan/revi
 | **Codex** | build, plan, review | `anrs adapter install codex` |
 | **OpenCode** | build, plan, review | `anrs adapter install opencode` |
 
-See [adapters documentation](cli/data/adapters/README.md) for manual setup and mode switching.
+See [adapters documentation](cli/src/anrs/data/adapters/README.md) for manual setup and mode switching.
 
 ---
 
