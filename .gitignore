@@ -52,4 +52,7 @@ temp/
 
 # IDE specific
 *.iml
+
+# Review files (not part of the spec)
 REVIEW_PROMPT.md
+gemini_review.md

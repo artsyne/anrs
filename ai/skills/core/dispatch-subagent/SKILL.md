@@ -171,6 +171,98 @@ Report:
 - Subagents cannot spawn other subagents
 - All results must be reviewed before merge
 
+## Isolation Policy (Shared-Nothing Architecture)
+
+> **Critical**: This policy prevents state conflicts and ensures deterministic execution.
+
+### Golden Rules
+
+| Rule | Description |
+|------|-------------|
+| **No Global State Writes** | Subagents **MUST NOT** modify `ai/state/state.json` |
+| **Exclusive File Scope** | Each subagent owns a disjoint set of files |
+| **Orchestrator Merges** | Only Main Agent updates global state after all subagents complete |
+
+### Isolation Boundaries
+
+```
+┌─────────────────────────────────────────────────┐
+│                 Main Agent                       │
+│  ┌─────────────────────────────────────────┐    │
+│  │         ai/state/state.json             │    │
+│  │         (ONLY Main Agent writes)        │    │
+│  └─────────────────────────────────────────┘    │
+└─────────────────────┬───────────────────────────┘
+                      │ dispatch (read-only snapshot)
+         ┌────────────┼────────────┐
+         ▼            ▼            ▼
+    ┌─────────┐  ┌─────────┐  ┌─────────┐
+    │Subagent │  │Subagent │  │Subagent │
+    │   A     │  │   B     │  │   C     │
+    │         │  │         │  │         │
+    │ scope:  │  │ scope:  │  │ scope:  │
+    │ src/a/* │  │ src/b/* │  │ src/c/* │
+    └────┬────┘  └────┬────┘  └────┬────┘
+         │            │            │
+         ▼            ▼            ▼
+    ┌─────────┐  ┌─────────┐  ┌─────────┐
+    │ Result  │  │ Result  │  │ Result  │
+    │ + Diff  │  │ + Diff  │  │ + Diff  │
+    └────┬────┘  └────┬────┘  └────┬────┘
+         │            │            │
+         └────────────┼────────────┘
+                      ▼
+              ┌───────────────┐
+              │  Main Agent   │
+              │  Merge +      │
+              │  State Update │
+              └───────────────┘
+```
+
+### What Subagents Receive
+
+```yaml
+# Read-only snapshot (immutable during execution)
+state_snapshot:
+  current_task: "task-001"
+  subtask_id: "task-001-sub-a"
+  
+# Exclusive write scope
+file_scope:
+  writable: ["src/module_a/**", "tests/test_module_a.py"]
+  readable: ["src/shared/**", "docs/**"]  # read-only
+```
+
+### What Subagents Return
+
+```yaml
+result:
+  status: "success" | "failure"
+  files_modified: ["src/module_a/handler.py"]
+  files_created: ["tests/test_handler.py"]
+  test_results:
+    passed: 5
+    failed: 0
+  errors: []  # Empty if success
+```
+
+### Conflict Prevention
+
+1. **Pre-dispatch Validation**
+   - Orchestrator verifies file scopes are disjoint
+   - If overlap detected → fall back to sequential execution
+
+2. **Post-completion Merge**
+   - Orchestrator collects all results
+   - Applies changes in deterministic order (by subtask_id)
+   - Updates `state.json` once, atomically
+
+3. **Failure Handling**
+   - If any subagent fails → Orchestrator decides:
+     - Retry failed task only (no global state corruption)
+     - Rollback successful tasks (all or nothing)
+     - Accept partial (mark failed tasks for retry)
+
 ## Integration with ANRS
 
 ```

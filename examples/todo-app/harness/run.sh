@@ -1,6 +1,10 @@
 #!/bin/bash
 # ANRS Harness Runner - Todo App Example
-# Runs L1 → L2 → L3 cascade evaluation
+# Runs Security → L1 → L2 → L3 cascade evaluation
+#
+# Requirements:
+#   pip install ruff radon pytest pytest-cov bandit
+#   brew install gitleaks  # optional
 
 set -e
 cd "$(dirname "$0")/.."
@@ -8,6 +12,43 @@ cd "$(dirname "$0")/.."
 echo "========================================="
 echo "ANRS Harness - Todo App"
 echo "========================================="
+echo ""
+
+# Security: Run security checks first (cross-level)
+echo "[Security] Running security scans..."
+SEC_FAIL=0
+
+# Secret detection (if gitleaks available)
+if command -v gitleaks &> /dev/null; then
+    echo "  Checking for secrets..."
+    if gitleaks detect --source . --no-git -q 2>/dev/null; then
+        echo "  ✓ No secrets detected"
+    else
+        echo "  ✗ Secrets detected!"
+        SEC_FAIL=1
+    fi
+else
+    echo "  ⚠ gitleaks not installed, skipping secret detection"
+fi
+
+# SAST with bandit (if available)
+if command -v bandit &> /dev/null; then
+    echo "  Running SAST scan..."
+    if bandit -r src/ -ll -q 2>/dev/null; then
+        echo "  ✓ No high-severity issues"
+    else
+        echo "  ✗ Security issues found!"
+        SEC_FAIL=1
+    fi
+else
+    echo "  ⚠ bandit not installed, skipping SAST"
+fi
+
+if [ $SEC_FAIL -ne 0 ]; then
+    echo "✗ Security checks FAILED"
+    exit 1
+fi
+echo "✓ Security Passed"
 echo ""
 
 # L1: Static Checks
