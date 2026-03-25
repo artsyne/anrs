@@ -14,8 +14,9 @@ from rich.table import Table
 console = Console()
 
 # Template directory relative to this file
-# cli/src/anrs/upgrade.py -> cli/src/anrs -> cli/src -> cli -> anrs (root)
-TEMPLATES_DIR = Path(__file__).parent.parent.parent.parent / "templates"
+# cli/src/anrs/upgrade.py -> cli/src/anrs -> cli/src -> cli
+CLI_DIR = Path(__file__).parent.parent.parent
+TEMPLATES_DIR = CLI_DIR / "data" / "templates"
 
 
 def get_current_version(anrs_dir: Path) -> Optional[str]:

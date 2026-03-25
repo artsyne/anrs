@@ -10,8 +10,9 @@ from rich.table import Table
 console = Console()
 
 # Adapter templates directory
-# cli/src/anrs/adapter.py -> cli/src/anrs -> cli/src -> cli -> anrs (root)
-ADAPTERS_DIR = Path(__file__).parent.parent.parent.parent / "adapters"
+# cli/src/anrs/adapter.py -> cli/src/anrs -> cli/src -> cli
+CLI_DIR = Path(__file__).parent.parent.parent
+ADAPTERS_DIR = CLI_DIR / "data" / "adapters"
 
 
 @click.group()

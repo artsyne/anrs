@@ -12,11 +12,11 @@ from rich.panel import Panel
 
 console = Console()
 
-# Template directory relative to this file
-# cli/src/anrs/init_cmd.py -> cli/src/anrs -> cli/src -> cli -> anrs (root)
-ROOT_DIR = Path(__file__).parent.parent.parent.parent
-TEMPLATES_DIR = ROOT_DIR / "templates"
-ADAPTERS_DIR = ROOT_DIR / "adapters"
+# Template and adapter directories relative to this file
+# cli/src/anrs/init_cmd.py -> cli/src/anrs -> cli/src -> cli
+CLI_DIR = Path(__file__).parent.parent.parent
+TEMPLATES_DIR = CLI_DIR / "data" / "templates"
+ADAPTERS_DIR = CLI_DIR / "data" / "adapters"
 
 # Available adapters and their files
 ADAPTER_FILES = {
