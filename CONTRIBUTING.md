@@ -43,7 +43,9 @@ Follow the [Style Guidelines](#style-guidelines) below.
 ### 4. Test Your Changes
 
 ```bash
-./scripts/run_harness.sh
+cd cli && python3 -m pytest
+# or run quality checks
+anrs harness
 ```
 
 ### 5. Submit a Pull Request
@@ -62,9 +64,9 @@ Follow the [Style Guidelines](#style-guidelines) below.
 
 ### Adding a New Adapter
 
-1. Create a new directory under `adapters/{tool-name}/`
+1. Create a new directory under `cli/data/adapters/{tool-name}/`
 2. Include the tool-specific configuration
-3. Update `scripts/generate_adapters.sh`
+3. Update the adapter index in `cli/src/anrs/constants.py`
 
 ### Improving Documentation
 

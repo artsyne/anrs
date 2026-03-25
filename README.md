@@ -18,7 +18,7 @@ When AI agents operate in traditional codebases, they often lose track of their 
 - **Defined Skills (`skills/`)** — Replaces open-ended guessing. The AI is restricted to documented checklists, preventing undefined behaviors.
 - **Mandatory Harness (`harness/`)** — Replaces blind commits. AI-generated code must pass checks and tests before task completion.
 
-> **Note**: ANRS is a **specification**, not a runtime tool. It's a standardized folder structure (`.anrs/`, `harness/`, `plans/`) plus execution protocols that any AI tool can follow.
+> **Note**: ANRS is a **specification**, not a runtime tool. It's a standardized folder structure (`.anrs/`) plus execution protocols that any AI tool can follow.
 
 ---
 
@@ -55,7 +55,7 @@ When AI agents operate in traditional codebases, they often lose track of their 
 
 ```
 1. READ STATE    → .anrs/state.json
-2. LOAD PLAN     → plans/active/{task_id}.md
+2. LOAD PLAN     → .anrs/plans/active/{task_id}.md
 3. SELECT SKILL  → .anrs/skills/index.json
 4. EXECUTE       → Follow SKILL.md checklist
 5. RUN HARNESS   → L1 (Static) → L2 (Tests) → L3 (Stability)
@@ -83,10 +83,12 @@ your-project/
 ├── .anrs/
 │   ├── ENTRY.md      # AI reads this first
 │   ├── state.json    # Current state (SSOT)
-│   └── config.json   # Configuration
-├── plans/
-│   ├── active/
-│   └── backlog/
+│   ├── config.json   # Configuration
+│   ├── scratchpad.md # Temporary notes
+│   └── plans/        # Task plans
+│       ├── active/   # Current tasks
+│       ├── backlog/  # Future tasks
+│       └── templates/
 └── .cursorrules      # AI adapter
 ```
 
@@ -110,7 +112,7 @@ ANRS provides ready-to-use adapters with **multi-mode support** (build/plan/revi
 | **Codex** | build, plan, review | `anrs adapter install codex` |
 | **OpenCode** | build, plan, review | `anrs adapter install opencode` |
 
-See [adapters/README.md](adapters/README.md) for manual setup and mode switching.
+See [adapters documentation](cli/data/adapters/README.md) for manual setup and mode switching.
 
 ---
 
@@ -133,8 +135,8 @@ See [adapters/README.md](adapters/README.md) for manual setup and mode switching
 | `.anrs/ENTRY.md` | AI agent entry point |
 | `.anrs/state.json` | Current execution state |
 | `.anrs/config.json` | Project configuration |
-| `plans/active/` | Active task plans |
-| `harness/` | Quality gate evaluators |
+| `.anrs/plans/active/` | Active task plans |
+| `.anrs/harness/` | Quality gate evaluators (full level) |
 
 ---
 

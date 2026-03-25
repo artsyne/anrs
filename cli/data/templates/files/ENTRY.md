@@ -5,7 +5,7 @@
 ## Protocol
 
 1. **READ** state → `.anrs/state.json`
-2. **LOCATE** task → `plans/active/{task_id}.md`
+2. **LOCATE** task → `.anrs/plans/active/{task_id}.md`
 3. **EXECUTE** → Follow plan steps, modify only allowed files
 4. **VERIFY** → Run harness before completion
 5. **COMPLETE** → Update state, commit changes
@@ -23,8 +23,8 @@
 |------|---------|
 | `.anrs/state.json` | Current task state (SSOT) |
 | `.anrs/config.json` | Project configuration |
-| `plans/active/` | Current task plans |
-| `harness/` | Quality verification scripts |
+| `.anrs/plans/active/` | Current task plans |
+| `.anrs/harness/` | Quality verification scripts (full level) |
 
 ## On Failure
 
