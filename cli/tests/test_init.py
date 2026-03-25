@@ -150,7 +150,8 @@ class TestInitCommand:
         assert result.exit_code == 0
         assert (temp_dir / ".anrs" / "skills").exists()
         assert (temp_dir / ".anrs" / "failure-cases").exists()
-        assert (temp_dir / ".anrs" / "harness").exists()  # harness inside .anrs/
+        # harness inside .anrs/
+        assert (temp_dir / ".anrs" / "harness").exists()
 
     def test_init_already_exists(self, runner, temp_dir):
         """Test error when .anrs already exists without --force or --merge."""

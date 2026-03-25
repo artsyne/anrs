@@ -55,7 +55,8 @@ def harness(level: str, strict: bool, path: str):
     # Validate harness directory is safe (no symlinks to outside)
     if harness_dir.is_symlink():
         logger.error("Harness directory is a symlink - security risk")
-        raise click.ClickException("Security: .anrs/harness/ cannot be a symlink")
+        raise click.ClickException(
+            "Security: .anrs/harness/ cannot be a symlink")
 
     # Check for quality_gate.py
     quality_gate = harness_dir / "quality_gate.py"
