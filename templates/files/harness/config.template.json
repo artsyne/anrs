@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anrs.dev/schemas/harness-config.json",
+  "version": "0.1.0",
+  "description": "Project-specific harness configuration",
+  "levels": {
+    "l1": {
+      "enabled": true,
+      "checks": ["lint", "format"]
+    },
+    "l2": {
+      "enabled": true,
+      "checks": ["test"]
+    },
+    "l3": {
+      "enabled": false,
+      "checks": ["security", "stability"]
+    }
+  },
+  "thresholds": {
+    "coverage": 60,
+    "complexity": 15
+  }
+}

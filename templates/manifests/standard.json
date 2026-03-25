@@ -11,21 +11,21 @@
     },
     {
       "source": "plans/active.README.md",
-      "target": "plans/active/README.md"
+      "target": ".anrs/plans/active/README.md"
     },
     {
       "source": "plans/backlog.README.md",
-      "target": "plans/backlog/README.md"
+      "target": ".anrs/plans/backlog/README.md"
     },
     {
       "source": "plans/task-template.md",
-      "target": "plans/templates/task-template.md"
+      "target": ".anrs/plans/templates/task-template.md"
     }
   ],
   "directories": [
-    "plans/active",
-    "plans/backlog",
-    "plans/completed",
-    "plans/templates"
+    ".anrs/plans/active",
+    ".anrs/plans/backlog",
+    ".anrs/plans/completed",
+    ".anrs/plans/templates"
   ]
 }

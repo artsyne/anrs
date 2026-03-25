@@ -43,7 +43,7 @@ def upgrade_file(source: Path, target: Path, preserve_data: bool = False) -> boo
     """Upgrade a single file, optionally preserving user data."""
     if not source.exists():
         return False
-    
+
     if preserve_data and target.exists():
         # For JSON files, merge preserving user data
         if target.suffix == ".json":
@@ -52,24 +52,25 @@ def upgrade_file(source: Path, target: Path, preserve_data: bool = False) -> boo
                     user_data = json.load(f)
                 with open(source) as f:
                     template_data = json.load(f)
-                
+
                 # Preserve user-specific fields
-                preserve_fields = ["current_task", "status", "last_completed", 
+                preserve_fields = ["current_task", "status", "last_completed",
                                    "history", "context", "project"]
                 for field in preserve_fields:
                     if field in user_data:
                         template_data[field] = user_data[field]
-                
+
                 # Update metadata
                 if "metadata" in template_data:
-                    template_data["metadata"]["updated_at"] = datetime.now().isoformat()
-                
+                    template_data["metadata"]["updated_at"] = datetime.now(
+                    ).isoformat()
+
                 with open(target, "w") as f:
                     json.dump(template_data, f, indent=2)
                 return True
             except (json.JSONDecodeError, KeyError):
                 pass
-    
+
     # Default: overwrite
     shutil.copy(source, target)
     return True
@@ -94,26 +95,26 @@ def upgrade_file(source: Path, target: Path, preserve_data: bool = False) -> boo
 @click.argument("path", default=".", type=click.Path(exists=True))
 def upgrade(dry_run: bool, force: bool, no_backup: bool, path: str):
     """Upgrade .anrs/ directory to latest ANRS version.
-    
+
     This command updates the ANRS protocol files while preserving:
     - Current state (task, status)
     - Project configuration
     - Custom skills (if any)
-    
+
     State files are backed up before upgrade.
     """
     target_dir = Path(path).resolve()
     anrs_dir = target_dir / ".anrs"
-    
+
     if not anrs_dir.exists():
         raise click.ClickException(
             f"Not an ANRS repository: {target_dir}\n"
             f"Run 'anrs init' first."
         )
-    
+
     # Get current version
     current_version = get_current_version(anrs_dir)
-    
+
     # Get template version
     template_config = TEMPLATES_DIR / "files" / "config.json"
     if template_config.exists():
@@ -121,7 +122,7 @@ def upgrade(dry_run: bool, force: bool, no_backup: bool, path: str):
             new_version = json.load(f).get("version", "0.1")
     else:
         new_version = "0.1"
-    
+
     if current_version == new_version and not force:
         console.print(Panel(
             f"[green]Already up to date[/green]\n\n"
@@ -129,14 +130,14 @@ def upgrade(dry_run: bool, force: bool, no_backup: bool, path: str):
             title="ANRS Upgrade"
         ))
         return
-    
+
     # Files to upgrade
     upgrade_files = [
         ("ENTRY.md", False),           # Protocol file, always update
         ("config.json", True),         # Preserve project settings
         ("state.json", True),          # Preserve state data (with backup)
     ]
-    
+
     if dry_run:
         console.print(Panel(
             f"[bold]Dry run[/bold] - would upgrade:\n"
@@ -145,11 +146,11 @@ def upgrade(dry_run: bool, force: bool, no_backup: bool, path: str):
             f"To:   [green]{new_version}[/green]",
             title="ANRS Upgrade"
         ))
-        
+
         table = Table(title="Files to Upgrade")
         table.add_column("File", style="cyan")
         table.add_column("Action")
-        
+
         for filename, preserve in upgrade_files:
             source = TEMPLATES_DIR / "files" / filename
             target = anrs_dir / filename
@@ -158,24 +159,24 @@ def upgrade(dry_run: bool, force: bool, no_backup: bool, path: str):
                 if not target.exists():
                     action = "[green]Create[/green]"
                 table.add_row(filename, action)
-        
+
         console.print(table)
         return
-    
+
     # Backup state
     if not no_backup:
         backup_dir = anrs_dir / ".backups"
         backup_state(anrs_dir, backup_dir)
-    
+
     # Perform upgrade
     upgraded = []
     for filename, preserve in upgrade_files:
         source = TEMPLATES_DIR / "files" / filename
         target = anrs_dir / filename
-        
+
         if upgrade_file(source, target, preserve):
             upgraded.append(filename)
-    
+
     # Update version in config
     config_path = anrs_dir / "config.json"
     if config_path.exists():
@@ -184,7 +185,7 @@ def upgrade(dry_run: bool, force: bool, no_backup: bool, path: str):
         config["version"] = new_version
         with open(config_path, "w") as f:
             json.dump(config, f, indent=2)
-    
+
     console.print(Panel(
         f"[bold green]Upgrade complete![/bold green]\n\n"
         f"From: [yellow]{current_version}[/yellow]\n"

@@ -10,14 +10,18 @@
       "target": ".anrs/skills/index.json"
     },
     {
+      "source": "harness/config.template.json",
+      "target": ".anrs/harness/config.json"
+    },
+    {
       "source": "failure-cases/README.md",
-      "target": "failure-cases/README.md"
+      "target": ".anrs/failure-cases/README.md"
     }
   ],
   "directories": [
     ".anrs/skills",
-    "harness",
-    "failure-cases"
+    ".anrs/harness",
+    ".anrs/failure-cases"
   ],
   "post_init": [
     "echo 'Full ANRS setup complete. Run anrs harness to verify.'"

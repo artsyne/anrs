@@ -21,6 +21,7 @@ venv/
 # Build outputs
 dist/
 build/
+*.egg-info/
 *.exe
 *.dll
 *.so
@@ -55,4 +56,3 @@ temp/
 
 # Review files (not part of the spec)
 REVIEW_PROMPT.md
-gemini_review.md

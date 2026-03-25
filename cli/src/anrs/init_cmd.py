@@ -14,7 +14,25 @@ console = Console()
 
 # Template directory relative to this file
 # cli/src/anrs/init_cmd.py -> cli/src/anrs -> cli/src -> cli -> anrs (root)
-TEMPLATES_DIR = Path(__file__).parent.parent.parent.parent / "templates"
+ROOT_DIR = Path(__file__).parent.parent.parent.parent
+TEMPLATES_DIR = ROOT_DIR / "templates"
+ADAPTERS_DIR = ROOT_DIR / "adapters"
+
+# Available adapters and their files
+ADAPTER_FILES = {
+    "cursor": [
+        (".cursorrules", ".cursorrules"),
+    ],
+    "claude-code": [
+        ("CLAUDE.md", "CLAUDE.md"),
+    ],
+    "codex": [
+        ("AGENTS.md", "AGENTS.md"),
+    ],
+    "opencode": [
+        ("opencode.json", "opencode.json"),
+    ],
+}
 
 
 def get_manifest(level: str) -> dict:
@@ -58,6 +76,32 @@ def init_config_transform(content: str, project_name: str) -> str:
     return json.dumps(data, indent=2)
 
 
+def install_adapter(adapter: str, target_dir: Path, dry_run: bool = False) -> None:
+    """Install adapter files to target directory."""
+    if adapter not in ADAPTER_FILES:
+        raise click.ClickException(
+            f"Unknown adapter: {adapter}. "
+            f"Available: {', '.join(ADAPTER_FILES.keys())}"
+        )
+
+    adapter_dir = ADAPTERS_DIR / adapter
+    if not adapter_dir.exists():
+        raise click.ClickException(f"Adapter directory not found: {adapter}")
+
+    for source_name, target_name in ADAPTER_FILES[adapter]:
+        source_path = adapter_dir / source_name
+        if not source_path.exists():
+            console.print(f"[yellow]Warning: {source_name} not found[/yellow]")
+            continue
+
+        target_path = target_dir / target_name
+        if dry_run:
+            console.print(f"  [green]+ {target_name}[/green] (adapter: {adapter})")
+        else:
+            shutil.copy2(source_path, target_path)
+            console.print(f"[green]Installed:[/green] {target_name}")
+
+
 def copy_template_file(
     source: str,
     target: Path,
@@ -94,6 +138,11 @@ def copy_template_file(
     help="Installation level (default: standard)"
 )
 @click.option(
+    "--adapter", "-a",
+    type=click.Choice(["cursor", "claude-code", "codex", "opencode"]),
+    help="Install adapter for specific AI tool"
+)
+@click.option(
     "--force", "-f",
     is_flag=True,
     help="Overwrite existing .anrs directory"
@@ -104,7 +153,7 @@ def copy_template_file(
     help="Show what would be created without making changes"
 )
 @click.argument("path", default=".", type=click.Path())
-def init(level: str, force: bool, dry_run: bool, path: str):
+def init(level: str, adapter: Optional[str], force: bool, dry_run: bool, path: str):
     """Initialize ANRS in a repository.
 
     Creates the .anrs directory and required files based on the selected level:
@@ -113,6 +162,8 @@ def init(level: str, force: bool, dry_run: bool, path: str):
     - minimal:  .anrs/ with ENTRY + state + config
     - standard: + plans/ + scratchpad (default)
     - full:     + skills/ + harness/ + failure-cases/
+
+    Use --adapter to install AI tool integration files (e.g., .cursorrules).
     """
     target_dir = Path(path).resolve()
     anrs_dir = target_dir / ".anrs"
@@ -141,6 +192,9 @@ def init(level: str, force: bool, dry_run: bool, path: str):
         console.print("\n[bold]Files to create:[/bold]")
         for f in manifest.get("files", []):
             console.print(f"  [green]+ {f['target']}[/green]")
+        if adapter:
+            console.print(f"\n[bold]Adapter files ({adapter}):[/bold]")
+            install_adapter(adapter, target_dir, dry_run=True)
         return
 
     # Remove existing .anrs if force
@@ -164,10 +218,15 @@ def init(level: str, force: bool, dry_run: bool, path: str):
     for cmd in manifest.get("post_init", []):
         console.print(f"[dim]{cmd}[/dim]")
 
+    # Install adapter if specified
+    if adapter:
+        install_adapter(adapter, target_dir)
+
     # Success message
+    adapter_msg = f"\nAdapter: [cyan]{adapter}[/cyan]" if adapter else ""
     console.print(Panel(
         f"[bold green]ANRS initialized![/bold green]\n\n"
-        f"Level: [cyan]{level}[/cyan]\n"
+        f"Level: [cyan]{level}[/cyan]{adapter_msg}\n"
         f"Location: [cyan]{target_dir}[/cyan]\n\n"
         f"Next steps:\n"
         f"  1. Configure [cyan].anrs/config.json[/cyan]\n"
