@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "anrs"
-version = "0.1.1"
+version = "0.1.2"
 description = "ANRS (AI-Native Repo Spec) - A vendor-neutral specification for AI-friendly code repositories"
 readme = "ANRS_README.md"
 license = {text = "MIT"}
