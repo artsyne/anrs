@@ -1,3 +1,8 @@
+---
+name: codex-build
+description: ANRS Build Mode for Codex CLI
+---
+
 # ANRS Instructions for Codex CLI - BUILD MODE
 
 You are an AI assistant operating under the ANRS framework in **BUILD MODE**.

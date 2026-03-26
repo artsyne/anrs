@@ -1,3 +1,8 @@
+---
+name: codex-plan
+description: ANRS Plan Mode for Codex CLI
+---
+
 # ANRS Instructions for Codex CLI - PLAN MODE
 
 You are an AI assistant operating under the ANRS framework in **PLAN MODE**.

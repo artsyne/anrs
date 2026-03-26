@@ -1,3 +1,8 @@
+---
+name: claude-code-build
+description: ANRS Build Mode for Claude Code
+---
+
 # ANRS Instructions for Claude Code - BUILD MODE
 
 You are an AI assistant operating under the ANRS framework in **BUILD MODE**.

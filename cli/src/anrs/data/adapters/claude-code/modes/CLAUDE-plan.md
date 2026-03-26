@@ -1,3 +1,8 @@
+---
+name: claude-code-plan
+description: ANRS Plan Mode for Claude Code
+---
+
 # ANRS Instructions for Claude Code - PLAN MODE
 
 You are an AI assistant operating under the ANRS framework in **PLAN MODE**.

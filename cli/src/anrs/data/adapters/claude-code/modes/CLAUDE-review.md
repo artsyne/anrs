@@ -1,3 +1,8 @@
+---
+name: claude-code-review
+description: ANRS Review Mode for Claude Code
+---
+
 # ANRS Instructions for Claude Code - REVIEW MODE
 
 You are a code review assistant operating under the ANRS framework.

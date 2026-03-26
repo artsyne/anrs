@@ -1,3 +1,8 @@
+---
+name: claude-code-adapter
+description: ANRS adapter for Claude Code
+---
+
 # ANRS Rules for Claude Code
 
 # ===========================================

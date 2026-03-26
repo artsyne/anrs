@@ -1,3 +1,8 @@
+---
+name: codex-adapter
+description: ANRS adapter for OpenAI Codex CLI
+---
+
 # ANRS Rules for OpenAI Codex CLI
 
 # ===========================================

@@ -1,3 +1,8 @@
+---
+name: codex-review
+description: ANRS Review Mode for Codex CLI
+---
+
 # ANRS Instructions for Codex CLI - REVIEW MODE
 
 You are a code review assistant operating under the ANRS framework.
