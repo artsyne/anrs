@@ -82,19 +82,20 @@ jobs:
                   elif not os.path.isfile(skill_md):
                       errors.append(f'Missing SKILL.md: {skill_md}')
 
+          total = registry.get('metadata', {}).get('total_skills', 'all')
           if errors:
               for e in errors:
                   print(f'✗ {e}')
               exit(1)
           else:
-              print(f'✓ All {registry["metadata"]["total_skills"]} skill directories verified')
+              print(f'✓ All {total} skill directories verified')
           "
 
       - name: Validate YAML frontmatter in AI docs
         run: |
           echo "Checking YAML frontmatter in AI-facing documents..."
           errors=0
-          for f in $(find spec cli/data/adapters -name "*.md" -type f 2>/dev/null); do
+          for f in $(find spec cli/src/anrs/data/adapters -name "*.md" -type f 2>/dev/null); do
             if ! head -1 "$f" | grep -q "^---"; then
               echo "Missing frontmatter: $f"
               errors=$((errors + 1))
